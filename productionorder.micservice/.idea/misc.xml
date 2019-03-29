@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../material.micservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../issueorder.micservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../materialstock.micservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../draftorder.micservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../salesdelivery.micservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../purchasereceipt.micservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../receiptorder.micservice/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

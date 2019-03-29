@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.avatech.edi.issueorder.mapper.IssueOrderMapper">
+
+         <resultMap id="IssueOrderMap" type="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder">
+                    <result column="DocDate" property="DocDate" jdbcType="DATE"/>
+                    <result column="DocEntry" property="DocEntry" jdbcType="INTEGER"/>
+                    <result column="Comments" property="Comments" jdbcType="NVARCHAR"/>
+                    <result column="UserSign" property="UserSign" jdbcType="NVARCHAR"/>
+                    <result column="DocTime" property="DocTime" jdbcType="DATE"/>
+                    <result column="Udf1" property="Udf1" jdbcType="NVARCHAR"/>
+                    <result column="Udf2" property="Udf2" jdbcType="NVARCHAR"/>
+                    <result column="Udf3" property="Udf3" jdbcType="NVARCHAR"/>
+                    <result column="Udf4" property="Udf4" jdbcType="NVARCHAR"/>
+                    <result column="Udf5" property="Udf5" jdbcType="NVARCHAR"/>
+         </resultMap>
+         <resultMap id="IssueOrderItemMap" type="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem">
+                    <result column="DocEntry" property="DocEntry" jdbcType="INTEGER"/>
+                    <result column="LineId" property="LineId" jdbcType="INTEGER"/>
+                    <result column="ItemCode" property="ItemCode" jdbcType="NVARCHAR"/>
+                    <result column="ItemName" property="ItemName" jdbcType="NVARCHAR"/>
+                    <result column="Quantity" property="Quantity" jdbcType="DECIMAL"/>
+                    <result column="WhsCode" property="WhsCode" jdbcType="NVARCHAR"/>
+                    <result column="BaseEntry" property="BaseEntry" jdbcType="INTEGER"/>
+                    <result column="BaseLine" property="BaseLine" jdbcType="INTEGER"/>
+                    <result column="unitMsr" property="unitMsr" jdbcType="NVARCHAR"/>
+                    <result column="Udf1" property="Udf1" jdbcType="NVARCHAR"/>
+                    <result column="Udf2" property="Udf2" jdbcType="NVARCHAR"/>
+                    <result column="Udf3" property="Udf3" jdbcType="NVARCHAR"/>
+                    <result column="Udf4" property="Udf4" jdbcType="NVARCHAR"/>
+                    <result column="Udf5" property="Udf5" jdbcType="NVARCHAR"/>
+         </resultMap>
+         <resultMap id="IssueOrderBatchItemMap" type="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderBatchItem">
+                    <result column="DocEntry" property="DocEntry" jdbcType="INTEGER"/>
+                    <result column="ItemLineId" property="ItemLineId" jdbcType="INTEGER"/>
+                    <result column="LineNum" property="LineNum" jdbcType="INTEGER"/>
+                    <result column="ItemCode" property="ItemCode" jdbcType="NVARCHAR"/>
+                    <result column="Quantity" property="Quantity" jdbcType="DECIMAL"/>
+                    <result column="BatchNum" property="BatchNum" jdbcType="NVARCHAR"/>
+                    <result column="Udf1" property="Udf1" jdbcType="NVARCHAR"/>
+                    <result column="Udf2" property="Udf2" jdbcType="NVARCHAR"/>
+                    <result column="Udf3" property="Udf3" jdbcType="NVARCHAR"/>
+                    <result column="Udf4" property="Udf4" jdbcType="NVARCHAR"/>
+                    <result column="Udf5" property="Udf5" jdbcType="NVARCHAR"/>
+         </resultMap>
+
+
+
+</mapper>
