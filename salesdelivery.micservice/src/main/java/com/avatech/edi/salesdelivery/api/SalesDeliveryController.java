@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("v1/*")
+@RequestMapping("mes/v1/*")
 public class SalesDeliveryController {
 
     private final Logger logger = LoggerFactory.getLogger(SalesDeliveryController.class);
