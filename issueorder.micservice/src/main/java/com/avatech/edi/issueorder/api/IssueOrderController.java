@@ -42,7 +42,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/mes/v1/*")
+@RequestMapping("mes/v1/*")
 public class IssueOrderController {
 
     private final Logger logger = LoggerFactory.getLogger(IssueOrderController.class);
