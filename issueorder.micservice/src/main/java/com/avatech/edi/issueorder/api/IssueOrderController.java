@@ -35,6 +35,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,65 +101,49 @@ public class IssueOrderController {
         issueOrderBatchItem.setItemCode("12212");
         issueOrderBatchItem.setQuantity(new BigDecimal(232));
         issueOrderBatchItem.setItemLineId(1);
-        issueOrderItem.getissueOrderBatchItems().add(issueOrderBatchItem);
-        order.getissueOrderItems().add(issueOrderItem);
+        issueOrderItem.getIssueOrderBatchItems().add(issueOrderBatchItem);
+        order.getIssueOrderItems().add(issueOrderItem);
         return order;
     }
 
+    @PostMapping("issueorders")
+    public @ResponseBody List<Result> addIssueOrders(@RequestBody List<IssueOrder> issueOrders){
+        logger.info("接收出库信息：{}",issueOrders.toString());
+        List<Result> results = new ArrayList<>();
+        Result result;
+        for (IssueOrder issueOrder:issueOrders){
+            result = new Result();
+            try{
+                result = issueOrder.checkData();
+                if(result.getCode().equals("0")){
+                    issueOrderService.saveIssueOrder(issueOrder);
+                }
+            }catch (Exception e){
+                logger.error("保存出库信息异常：{}",e);
+                result.error(e.getMessage());
+            }
+           results.add(result);
+        }
+        logger.info("回传MES出库信息,{}",results);
+        return results;
+    }
 
     @PostMapping("issueorder")
     public @ResponseBody
     Result addIssueOrder(@RequestBody IssueOrder issueOrder){
+        Result result;
         try{
-            logger.info("接收生产发料信息：{}",issueOrder.toString());
-//            if(issueOrder.checkData()){
-//                // TODO 生成生产发货单
-//
-//
-//                return new Result().ok("1");
-//            }
-
-
-
-            TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-
-            SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
-                    .loadTrustMaterial(null, acceptingTrustStrategy)
-                    .build();
-            HostnameVerifier allowAllHosts = new NoopHostnameVerifier();
-            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext,allowAllHosts);
-
-            CloseableHttpClient httpClient = HttpClients.custom()
-                    .setSSLSocketFactory(csf)
-                    .build();
-
-            HttpComponentsClientHttpRequestFactory requestFactory =
-                    new HttpComponentsClientHttpRequestFactory();
-
-            requestFactory.setHttpClient(httpClient);
-
-
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add("Content-Type", "application/json; charset=UTF-8");
-            //设置参数
-            Map<String, String> hashMap = new LinkedHashMap<String, String>();
-            hashMap.put("CompanyDB", "TEST_HARBOUR_SH0325AM");
-            hashMap.put("Password", "Hb123456!");
-            hashMap.put("UserName","manager");
-            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<Map<String, String>>(hashMap, httpHeaders);
-
-            //执行请求
-            RestTemplate restTemplate = new RestTemplate(requestFactory);
-            ResponseEntity<String> resp = restTemplate.exchange("https://172.16.30.110:50000/b1s/v1/Login",HttpMethod.POST,requestEntity, String.class);
-            logger.info(resp.getBody());
-            //获取返回的header
-            List<String> val = resp.getHeaders().get("Set-Cookie");
-            logger.info(val.toString());
-
+            logger.info("接收出库信息：{}",issueOrder.toString());
+            result = issueOrder.checkData();
+            if(result.getCode().equals("0")){
+                issueOrderService.saveIssueOrder(issueOrder);
+                result = new Result().ok(issueOrder.getDocEntry().toString());
+            }
         }catch (Exception e){
-            return new Result().error(e.getMessage());
+            result = new Result().error(issueOrder.getDocEntry().toString(), e.getMessage());
         }
-        return null;
+        logger.info("回传MES出库信息,{}",result.toString());
+        return result;
     }
 
 }

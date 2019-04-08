@@ -13,5 +13,7 @@ import java.util.List;
 
 public interface IssueOrderRepository{
 
+    void saveIssueOrder(IssueOrder IssueOrder);
 
+    List<IssueOrder> fetchIssueOrders();
 }

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DomainModel Name="IssueOrder" ShortName="PM">
     <Table Name="OIGE" Description="生产发料" Type="bott_NoObject" State="bots_System" PropertyName="IssueOrder">
+        <Field Name="EDIDocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="EDIDocEntry" FixedDataType="Long" />
         <Field Name="DocDate" Description="过账日期(YYYY-MM-DD)" DataType="db_Date" SubType="st_None" EditSize="10" PropertyName="DocDate" FixedDataType="String" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" FixedDataType="Integer" />
         <Field Name="Comments" Description="备注" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Comments" FixedDataType="String" />
         <Field Name="UserSign" Description="创建人" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="UserSign" FixedDataType="String" />
         <Field Name="DocTime" Description="生成时间(HHmmss)" DataType="db_Date" SubType="st_Time" EditSize="8" PropertyName="DocTime" FixedDataType="Integer" />
+        <Field Name="ErrorTime" Description="失败次数" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ErrorTime" FixedDataType="Integer" />
         <Field Name="Udf1" Description="预留字段1" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Udf1" FixedDataType="String" />
         <Field Name="Udf2" Description="预留字段2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf2" FixedDataType="String" />
         <Field Name="Udf3" Description="预留字段3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf3" FixedDataType="String" />
@@ -13,6 +15,8 @@
         <Field Name="Udf5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Udf5" FixedDataType="String" />
     </Table>
     <Table Name="IGE1" Description="生产发料行" Type="bott_NoObject" State="bots_System" PropertyName="IssueOrderItem">
+        <Field Name="EDIDocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="EDIDocEntry" FixedDataType="Long" />
+        <Field Name="EDILineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="EDILineId" FixedDataType="Integer" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" FixedDataType="Integer" />
         <Field Name="LineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="LineId" FixedDataType="Integer" />
         <Field Name="ItemCode" Description="物料编号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ItemCode" FixedDataType="String" />
@@ -29,6 +33,9 @@
         <Field Name="Udf5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Udf5" FixedDataType="String" />
     </Table>
     <Table Name="OBTN" Description="生产发料行批次明细" Type="bott_NoObject" State="bots_System" PropertyName="IssueOrderBatchItem">
+        <Field Name="EDIDocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="EDIDocEntry" FixedDataType="Long" />
+        <Field Name="EDILineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="EDILineId" FixedDataType="Integer" />
+        <Field Name="EDIItemLineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="EDIItemLineId" FixedDataType="Integer" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" FixedDataType="Integer" />
         <Field Name="ItemLineId" Description="物料行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="ItemLineId" FixedDataType="Integer" />
         <Field Name="LineNum" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="LineNum" FixedDataType="Integer" />

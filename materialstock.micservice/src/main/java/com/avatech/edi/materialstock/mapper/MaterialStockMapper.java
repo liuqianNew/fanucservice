@@ -21,4 +21,8 @@ public interface MaterialStockMapper{
     void insertMaterialStockItem(MaterialStockItem MaterialStockItem);
 
     List<MaterialStockItem> searchMaterialStockItems();
+
+    void deleteAllMaterialStock();
+
+    void deleteAllMaterialStockItem();
 }

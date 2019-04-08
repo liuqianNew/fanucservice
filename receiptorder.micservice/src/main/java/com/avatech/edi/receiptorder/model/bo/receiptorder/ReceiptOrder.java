@@ -1,95 +1,141 @@
 /**
  * PLEASE KEEP THIS INFOMATION
  * CREATE BY AVATECH EDI CODE TOOL
- * AT 2019-03-29
+ * AT 2019-04-01
  */
 package com.avatech.edi.receiptorder.model.bo.receiptorder;
+import com.avatech.edi.receiptorder.model.dto.Result;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 public class ReceiptOrder{
 
+    /**
+     * 单据编号
+     */
+    private Long eDIDocEntry;
 
     /**
      * 过账日期(YYYY-MM-DD)
      */
-    private String docDate;
+    @JsonProperty("DocDate")
+    private Date docDate;
 
 
     /**
      * 单据编号
      */
+    @JsonProperty("DocEntry")
     private Integer docEntry;
 
 
     /**
      * 备注
      */
+    @JsonProperty("Comments")
     private String comments;
 
 
     /**
      * 生产订单关闭
      */
+    @JsonProperty("Status")
     private String status;
 
 
     /**
      * 创建人
      */
+    @JsonProperty("UserSign")
     private String userSign;
 
 
     /**
      * 生成时间(HHmmss)
      */
+    @JsonProperty("DocTime")
     private Integer docTime;
 
 
     /**
      * 预留字段1
      */
+    @JsonProperty("Udf1")
     private String udf1;
 
 
     /**
      * 预留字段2
      */
+    @JsonProperty("Udf2")
     private String udf2;
 
 
     /**
      * 预留字段3
      */
+    @JsonProperty("Udf3")
     private String udf3;
 
 
     /**
      * 预留字段4
      */
+    @JsonProperty("Udf4")
     private String udf4;
 
 
     /**
      * 预留字段5
      */
+    @JsonProperty("Udf5")
     private String udf5;
 
 
+    @JsonProperty("Details")
     private List<ReceiptOrderItem> receiptOrderItems;
 
 
-     /**
+    private Integer errorTime;
+
+    public Integer getErrorTime() {
+        return errorTime;
+    }
+
+    public void setErrorTime(Integer errorTime) {
+        this.errorTime = errorTime;
+    }
+
+
+    /**
+     * 获取单据编号
+     */
+    public Long getEDIDocEntry() {
+        return eDIDocEntry;
+    }
+
+    /**
+     * 设置单据编号
+     */
+    public void setEDIDocEntry(Long eDIDocEntry) {
+        this.eDIDocEntry = eDIDocEntry;
+    }
+
+
+    /**
      * 获取过账日期(YYYY-MM-DD)
      */
-    public String getDocDate() {
+    public Date getDocDate() {
         return docDate;
     }
 
     /**
      * 设置过账日期(YYYY-MM-DD)
      */
-    public void setDocDate(String docDate) {
+    public void setDocDate(Date docDate) {
         this.docDate = docDate;
     }
      /**
@@ -234,5 +280,18 @@ public class ReceiptOrder{
         this.receiptOrderItems = receiptOrderItems;
     }
 
+    public Result checkData() throws Exception {
+        Result result = new Result();
+        if(StringUtils.isEmpty(docDate)){
+            return result.error(docEntry.toString(), "docDate为空");
+        }
+        for (ReceiptOrderItem item:receiptOrderItems) {
+            result = item.checkData();
+            if(!result.getCode().equals("0")){
+                return result;
+            }
+        }
+        return result.ok(docEntry.toString());
+    }
 
 }

@@ -1,151 +1,215 @@
 /**
  * PLEASE KEEP THIS INFOMATION
  * CREATE BY AVATECH EDI CODE TOOL
- * AT 2019-03-29
+ * AT 2019-04-01
  */
 package com.avatech.edi.receiptorder.model.bo.receiptorder;
+import com.avatech.edi.receiptorder.model.dto.Result;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 public class ReceiptOrderItem{
 
+    /**
+     * 单据编号
+     */
+    private Long eDIDocEntry;
+
+
+    /**
+     * 行号
+     */
+    private Integer eDILineId;
+
 
     /**
      * 单据内部标识（单据编号）
      */
+    @JsonProperty("DocEntry")
     private Integer docEntry;
 
 
     /**
      * 行号
      */
+    @JsonProperty("LineNum")
     private Integer lineNum;
 
 
     /**
      * 物料编号
      */
+    @JsonProperty("ItemCode")
     private String itemCode;
 
 
     /**
      * 物料描述
      */
+    @JsonProperty("ItemName")
     private String itemName;
 
 
     /**
      * 数量
      */
+    @JsonProperty("Qty")
     private BigDecimal qty;
 
 
     /**
      * 仓库
      */
+    @JsonProperty("WareHouse")
     private String wareHouse;
 
 
     /**
      * 项目代码
      */
+    @JsonProperty("Project")
     private String project;
 
 
     /**
      * 基本单据参考
      */
+    @JsonProperty("BaseREF")
     private Integer baseREF;
 
 
     /**
      * 基本单据内部标识
      */
+    @JsonProperty("BaseEntry")
     private Integer baseEntry;
 
 
     /**
      * 基本行
      */
+    @JsonProperty("BaseLine")
     private Integer baseLine;
 
 
     /**
      * 分配规则
      */
+    @JsonProperty("OcrCode")
     private String ocrCode;
 
 
     /**
      * 分配规则2
      */
+    @JsonProperty("OcrCode2")
     private String ocrCode2;
 
 
     /**
      * 分配规则3
      */
+    @JsonProperty("OcrCode3")
     private String ocrCode3;
 
 
     /**
      * 分配规则4
      */
+    @JsonProperty("OcrCode4")
     private String ocrCode4;
 
 
     /**
      * 分配规则5
      */
+    @JsonProperty("OcrCode5")
     private String ocrCode5;
 
 
     /**
      * 订单工时(单位：H)
      */
+    @JsonProperty("WorkTime")
     private BigDecimal workTime;
 
 
     /**
      * 批号
      */
+    @JsonProperty("BatchNum")
     private String batchNum;
 
 
     /**
      * 预留字段1
      */
+    @JsonProperty("Udf1")
     private String udf1;
 
 
     /**
      * 预留字段2
      */
+    @JsonProperty("Udf2")
     private String udf2;
 
 
     /**
      * 预留字段3
      */
+    @JsonProperty("Udf3")
     private String udf3;
 
 
     /**
      * 预留字段4
      */
+    @JsonProperty("Udf4")
     private String udf4;
 
 
     /**
      * 预留字段5
      */
+    @JsonProperty("Udf5")
     private String udf5;
 
-
+    @JsonProperty("Batchs")
     private List<ReceiptOrderBatchItem> receiptOrderBatchItems;
 
+    /**
+     * 获取单据编号
+     */
+    public Long getEDIDocEntry() {
+        return eDIDocEntry;
+    }
 
-     /**
+    /**
+     * 设置单据编号
+     */
+    public void setEDIDocEntry(Long eDIDocEntry) {
+        this.eDIDocEntry = eDIDocEntry;
+    }
+    /**
+     * 获取行号
+     */
+    public Integer getEDILineId() {
+        return eDILineId;
+    }
+
+    /**
+     * 设置行号
+     */
+    public void setEDILineId(Integer eDILineId) {
+        this.eDILineId = eDILineId;
+    }
+
+
+    /**
      * 获取单据内部标识（单据编号）
      */
     public Integer getDocEntry() {
@@ -441,5 +505,16 @@ public class ReceiptOrderItem{
 
     public void setReceiptOrderBatchItems(List<ReceiptOrderBatchItem> receiptOrderBatchItems) {
         this.receiptOrderBatchItems = receiptOrderBatchItems;
+    }
+
+    public Result checkData() throws Exception {
+        Result result = new Result();
+        if(StringUtils.isEmpty(itemCode)){
+            return result.error(docEntry.toString(),"itemCode为空");
+        }
+        if(StringUtils.isEmpty(wareHouse)){
+            return result.error(docEntry.toString(),"wareHouse为空");
+        }
+        return result.ok(docEntry.toString());
     }
 }

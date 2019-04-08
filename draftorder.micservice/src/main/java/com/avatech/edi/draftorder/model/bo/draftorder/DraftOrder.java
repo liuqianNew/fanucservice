@@ -404,4 +404,29 @@ public class DraftOrder{
     public void setDraftOrderItems(List<DraftOrderItem> draftOrderItems) {
         this.draftOrderItems = draftOrderItems;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"DocEntry\":\"" + docEntry +
+                "\",\"CardCode\":\"" + cardCode +
+                "\",\"CardName\":\"" + cardName +
+                "\",\"Address3\":\"" + address3 +
+                "\",\"Phone1\":\"" + phone1 +
+                "\",\"CntctCode\":\"" + cntctCode +
+                "\",\"DocType\":\"" + docType +
+                "\",\"DocDate\":\"" + docDate +
+                "\",\"DocStatus\":\"" + docStatus +
+                "\",\"Comments\":\"" + comments +
+                "\",\"UserSign\":\"" + userSign +
+                "\",\"PayType\":\"" + payType +
+                "\",\"DeliveryNum\":\"" + deliveryNum +
+                "\",\"DocTime\":\"" + docTime +
+                "\",\"Udf1\":\"" + udf1 +
+                "\",\"Udf2\":\"" + udf2 +
+                "\",\"Udf3\":\"" + udf3 +
+                "\",\"Udf4\":\"" + udf4 +
+                "\",\"Udf5\":\"" + udf5 +
+                "\"}";
+    }
 }

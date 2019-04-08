@@ -19,4 +19,5 @@ public interface MaterialStockRepository{
 
     List<MaterialStock> fetchMaterialStocks();
 
+    void deleteAllMaterialStock();
 }

@@ -8,4 +8,5 @@ com/avatech/edi/issueorder/api/IssueOrderController.class
 com/avatech/edi/issueorder/model/bo/issueorder/IssueOrder.class
 com/avatech/edi/issueorder/service/IssueOrderService.class
 com/avatech/edi/issueorder/repository/imp/IssueOrderRepositoryImp.class
+com/avatech/edi/issueorder/common/SnowflakeIdWorker.class
 com/avatech/edi/issueorder/IssueorderApplication.class

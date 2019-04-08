@@ -1,7 +1,7 @@
 /**
  * PLEASE KEEP THIS INFOMATION
  * CREATE BY AVATECH EDI CODE TOOL
- * AT 2019-03-29
+ * AT 2019-04-01
  */
 package com.avatech.edi.receiptorder.mapper;
 

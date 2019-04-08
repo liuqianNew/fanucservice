@@ -62,7 +62,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.avatech.edi.receiptorder.ReceiptorderApplication</mainClass>
+                    <mainClass>com.avatech.edi.receiptorder.ReceiptOrderApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

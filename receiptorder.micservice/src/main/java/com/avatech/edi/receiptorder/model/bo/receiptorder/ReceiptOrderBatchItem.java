@@ -1,83 +1,151 @@
 /**
  * PLEASE KEEP THIS INFOMATION
  * CREATE BY AVATECH EDI CODE TOOL
- * AT 2019-03-29
+ * AT 2019-04-01
  */
 package com.avatech.edi.receiptorder.model.bo.receiptorder;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
 public class ReceiptOrderBatchItem{
 
+    /**
+     * 单据编号
+     */
+    private Long eDIDocEntry;
+
+    /**
+     * 行号
+     */
+    private Integer eDILineId;
+
+
+    /**
+     * 行号
+     */
+    private Integer eDIItemLineId;
 
     /**
      * 单据编号
      */
+    @JsonProperty("DocEntry")
     private Integer docEntry;
 
 
     /**
      * 物料行号
      */
+    @JsonProperty("ItemLineId")
     private Integer itemLineId;
 
 
     /**
      * 行号
      */
+    @JsonProperty("LineNum")
     private Integer lineNum;
 
 
     /**
      * 物料编号
      */
+    @JsonProperty("ItemCode")
     private String itemCode;
 
 
     /**
      * 数量
      */
+    @JsonProperty("Quantity")
     private BigDecimal quantity;
 
 
     /**
      * 批次号
      */
+    @JsonProperty("BatchNum")
     private String batchNum;
 
 
     /**
      * 预留字段1
      */
+    @JsonProperty("Udf1")
     private String udf1;
 
 
     /**
      * 预留字段2
      */
+    @JsonProperty("Udf2")
     private String udf2;
 
 
     /**
      * 预留字段3
      */
+    @JsonProperty("Udf3")
     private String udf3;
 
 
     /**
      * 预留字段4
      */
+    @JsonProperty("Udf4")
     private String udf4;
 
 
     /**
      * 预留字段5
      */
+    @JsonProperty("Udf5")
     private String udf5;
 
+    /**
+     * 获取单据编号
+     */
+    public Long getEDIDocEntry() {
+        return eDIDocEntry;
+    }
+
+    /**
+     * 设置单据编号
+     */
+    public void setEDIDocEntry(Long eDIDocEntry) {
+        this.eDIDocEntry = eDIDocEntry;
+    }
+    /**
+     * 获取行号
+     */
+    public Integer getEDILineId() {
+        return eDILineId;
+    }
+
+    /**
+     * 设置行号
+     */
+    public void setEDILineId(Integer eDILineId) {
+        this.eDILineId = eDILineId;
+    }
+    /**
+     * 获取行号
+     */
+    public Integer getEDIItemLineId() {
+        return eDIItemLineId;
+    }
+
+    /**
+     * 设置行号
+     */
+    public void setEDIItemLineId(Integer eDIItemLineId) {
+        this.eDIItemLineId = eDIItemLineId;
+    }
 
 
-     /**
+
+    /**
      * 获取单据编号
      */
     public Integer getDocEntry() {

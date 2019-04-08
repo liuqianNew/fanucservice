@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DomainModel Name="ReceiptOrder" ShortName="PM">
-    <Table Name="OIGN" Description="入库单" Type="bott_NoObject" State="bots_System" PropertyName="ReceiptOrder">
+    <Table Name="AVA_IM_OIGN" Description="入库单" Type="bott_NoObject" State="bots_System" PropertyName="ReceiptOrder">
+        <Field Name="EDIDocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="EDIDocEntry" FixedDataType="Long" />
         <Field Name="DocDate" Description="过账日期(YYYY-MM-DD)" DataType="db_Date" SubType="st_None" EditSize="10" PropertyName="DocDate" IsSystem="Yes" FixedDataType="Date" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="Integer" />
         <Field Name="Comments" Description="备注" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Comments" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="ErrorTime" Description="失败次数" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="ErrorTime" FixedDataType="Integer" />
         <Field Name="Status" Description="生产订单关闭" DataType="db_Alpha" SubType="st_None" EditSize="1" DefaultValue="0" PropertyName="Status" IsSystem="Yes" FixedDataType="String">
-            <ValidValue Value="0" Description="未清" />
+            <ValidValue Value="O" Description="未清" />
             <ValidValue Value="C" Description="关闭/取消" />
         </Field>
         <Field Name="UserSign" Description="创建人" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="UserSign" IsSystem="Yes" FixedDataType="String" />
@@ -16,7 +18,9 @@
         <Field Name="Udf4" Description="预留字段4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf4" FixedDataType="String" />
         <Field Name="Udf5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Udf5" FixedDataType="String" />
     </Table>
-    <Table Name="IGN1" Description="入库单明细" Type="bott_NoObject" State="bots_System" PropertyName="ReceiptOrderItem">
+    <Table Name="AVA_IM_IGN1" Description="入库单明细" Type="bott_NoObject" State="bots_System" PropertyName="ReceiptOrderItem">
+        <Field Name="EDIDocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="EDIDocEntry" FixedDataType="Long" />
+        <Field Name="EDILineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="EDILineId" FixedDataType="Integer" />
         <Field Name="DocEntry" Description="单据内部标识（单据编号）" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="Integer" />
         <Field Name="LineNum" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="LineNum" IsSystem="Yes" FixedDataType="Integer" />
         <Field Name="ItemCode" Description="物料编号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ItemCode" IsSystem="Yes" FixedDataType="String" />
@@ -40,7 +44,10 @@
         <Field Name="Udf4" Description="预留字段4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf4" FixedDataType="String" />
         <Field Name="Udf5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Udf5" FixedDataType="String" />
     </Table>
-    <Table Name="OBTN" Description="入库单批次" Type="bott_NoObject" State="bots_System" PropertyName="ReceiptOrderBatchItem">
+    <Table Name="AVA_IM_IGN2" Description="入库单批次" Type="bott_NoObject" State="bots_System" PropertyName="ReceiptOrderBatchItem">
+        <Field Name="EDIDocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="EDIDocEntry" FixedDataType="Long" />
+        <Field Name="EDILineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="EDILineId" FixedDataType="Integer" />
+        <Field Name="EDIItemLineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="EDIItemLineId" FixedDataType="Integer" />
         <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="Integer" />
         <Field Name="ItemLineId" Description="物料行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="ItemLineId" IsSystem="Yes" FixedDataType="Integer" />
         <Field Name="LineNum" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="LineNum" IsSystem="Yes" FixedDataType="Integer" />
@@ -55,14 +62,14 @@
     </Table>
     <BusinessObject Code="AVA_MES_PRODUCTIONRECEIPT" Name="入库单" TableName="OIGN" ObjectType="boud_Document" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" PropertyName="ReceiptOrder">
         <ChildTables>
-            <ChildTable TableName="IGN1"/>
+            <ChildTable TableName="AVA_IM_IGN1"/>
         </ChildTables>
         <FindColumns />
         <FormColumns />
     </BusinessObject>
      <BusinessObject Code="AVA_MES_PRODUCTIONRECEIPT" Name="生产入库" TableName="IGN1" ObjectType="boud_Document" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" PropertyName="ReceiptOrderItem">
         <ChildTables>
-            <ChildTable TableName="OBTN" />
+            <ChildTable TableName="AVA_IM_IGN2" />
         </ChildTables>
         <FindColumns />
         <FormColumns />

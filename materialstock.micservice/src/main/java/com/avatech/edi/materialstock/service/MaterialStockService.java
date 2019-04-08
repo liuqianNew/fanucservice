@@ -20,9 +20,14 @@ public class MaterialStockService{
         if(materialStocks == null || materialStocks.size() == 0){
             return;
         }
-        for (MaterialStock materialStock : materialStocks) {
+        materialStockRepository.deleteAllMaterialStock();
+        for (MaterialStock materialStock:materialStocks) {
             materialStockRepository.saveMaterialStock(materialStock);
         }
+    }
+
+    public void saveMaterialStock(MaterialStock materialStock){
+        materialStockRepository.saveMaterialStock(materialStock);
     }
 }
 

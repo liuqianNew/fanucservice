@@ -9,21 +9,19 @@ package com.avatech.edi.draftorder.mapper;
 import com.avatech.edi.draftorder.model.bo.draftorder.DraftOrder;
 import com.avatech.edi.draftorder.model.bo.draftorder.DraftOrderItem;
 import com.avatech.edi.draftorder.model.bo.draftorder.BatchItem;
+import com.avatech.edi.draftorder.model.vo.SyncResult;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface DraftOrderMapper{
 
-    void insertDraftOrder(DraftOrder DraftOrder);
-
     List<DraftOrder> searchDraftOrders();
 
-    void insertDraftOrderItem(DraftOrderItem DraftOrderItem);
+    List<DraftOrderItem> searchDraftOrderItems(String docEntry);
 
-    List<DraftOrderItem> searchDraftOrderItems();
+    List<BatchItem> searchBatchItems(Map map);
 
-    void insertBatchItem(BatchItem BatchItem);
-
-    List<BatchItem> searchBatchItems();
+    void updateDraftOrder(SyncResult result);
 }

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,17 +35,24 @@ public class MaterialStockController {
     }
 
 
-    @PostMapping("materialstock")
+    @PostMapping("materialstocks")
     public @ResponseBody
-    Result addMaterialStock(@RequestBody List<MaterialStock> materialStocks){
+    Result addMaterialStock(@RequestBody List<MaterialStock> materialStocks) {
+        logger.info("接收物料库存：{}", materialStocks.toString());
         Result result = new Result();
-        try{
+        try {
+
+            for (MaterialStock materialStock:materialStocks){
+                result = materialStock.checkData();
+                if(!result.getCode().equals("0")){
+                    return result;
+                }
+            }
             materialStockService.saveMaterialStocks(materialStocks);
-            result.ok();
-        }catch (Exception e){
-            result.error(e.getMessage());
-            logger.error("接收物料库存异常",e);
+        } catch (Exception e) {
+            logger.error("保存物料库存异常：{}", e);
         }
+        logger.info("回传MES物料库存信息,{}", result.toString());
         return result;
     }
 

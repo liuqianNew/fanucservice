@@ -6,6 +6,7 @@
 /Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/common/RestTemplate.java
 /Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/model/bo/issueorder/IssueOrderBatchItem.java
 /Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/service/IssueOrderService.java
+/Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/common/SnowflakeIdWorker.java
 /Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/api/IssueOrderController.java
 /Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/model/bo/issueorder/IssueOrderItem.java
 /Users/fanxing/Documents/ava-work/fanucservice/issueorder.micservice/src/main/java/com/avatech/edi/issueorder/model/bo/issueorder/IssueOrder.java

@@ -4,6 +4,10 @@
  * AT 2019-03-27
  */
 package com.avatech.edi.materialstock.model.bo.materialstock;
+import com.avatech.edi.materialstock.model.dto.Result;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,81 +17,95 @@ public class MaterialStock{
     /**
      * 物料编号
      */
+    @JsonProperty("ItemCode")
     private String itemCode;
 
 
     /**
      * 物料描述
      */
+    @JsonProperty("ItemName")
     private String itemName;
 
 
     /**
      * 数量
      */
+    @JsonProperty("Quantity")
     private BigDecimal quantity;
 
 
     /**
      * 仓库
      */
+    @JsonProperty("WhsCode")
     private String whsCode;
 
 
     /**
      * 批号
      */
+    @JsonProperty("BatchNum")
     private String batchNum;
 
 
     /**
      * 创建人
      */
+    @JsonProperty("UserSign")
     private String userSign;
 
 
     /**
      * 生成时间
      */
+    @JsonProperty("DocTime")
     private Integer docTime;
 
 
     /**
      * 过账日期(YY-MM-DD)
      */
+    @JsonProperty("DocDate")
     private String docDate;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf1")
     private String udf1;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf2")
     private String udf2;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf3")
     private String udf3;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf4")
     private String udf4;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf5")
     private String udf5;
 
 
+    @JsonProperty("Detail")
     private List<MaterialStockItem> materialStockItems;
 
 
@@ -291,5 +309,25 @@ public class MaterialStock{
                 "\",\"udf5\":\"" + udf5 +
                 "\",\"materialStockItems\":[" + materialStockItems +
                 "]}";
+    }
+
+    public Result checkData() throws Exception {
+        Result result = new Result();
+        if(StringUtils.isEmpty(itemCode)){
+            return result.error( "itemCode为空");
+        }
+        if(StringUtils.isEmpty(itemName)){
+            return result.error( "itemName为空");
+        }
+        if(StringUtils.isEmpty(whsCode)){
+            return result.error( "whsCode为空");
+        }
+        for (MaterialStockItem item:materialStockItems) {
+            result = item.checkData();
+            if(!result.getCode().equals("0")){
+                return result;
+            }
+        }
+        return result.ok();
     }
 }

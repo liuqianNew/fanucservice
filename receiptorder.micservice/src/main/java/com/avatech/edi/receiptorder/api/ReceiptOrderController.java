@@ -1,7 +1,7 @@
 /**
  * PLEASE KEEP THIS INFOMATION
  * CREATE BY AVATECH EDI CODE TOOL
- * AT 2019-03-29
+ * AT 2019-04-01
  */
 package com.avatech.edi.receiptorder.api;
 
@@ -16,10 +16,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("v1/*")
 public class ReceiptOrderController {
+
+    private final Logger logger = LoggerFactory.getLogger(ReceiptOrderController.class);
+
 
     @Autowired
     private ReceiptOrderService receiptOrderService;
@@ -33,11 +39,46 @@ public class ReceiptOrderController {
         return  null;
     }
 
+    @PostMapping("receiptorders")
+    public @ResponseBody
+    List<Result> addReceiptOrder(@RequestBody List<ReceiptOrder> receiptOrders){
+        logger.info("接收入库单信息：{}",receiptOrders.toString());
+        List<Result> results = new ArrayList<>();
+        Result result;
+        for (ReceiptOrder receiptOrder:receiptOrders){
+            result = new Result();
+            try{
+                result = receiptOrder.checkData();
+                if(result.getCode().equals("0")){
+                    receiptOrderService.saveReceiptOrder(receiptOrder);
+                }
+            }catch (Exception e){
+                logger.error("保存入库单异常：{}",e);
+                result.error(e.getMessage());
+            }
+            results.add(result);
+        }
+        logger.info("回传MES入库信息,{}",results);
+        return results;
+    }
+
 
     @PostMapping("receiptorder")
     public @ResponseBody
     Result addReceiptOrder(@RequestBody ReceiptOrder receiptOrder){
-        return null;
+        Result result;
+        try{
+            logger.info("接收入库信息：{}",receiptOrder.toString());
+            result = receiptOrder.checkData();
+            if(result.getCode().equals("0")){
+                receiptOrderService.saveReceiptOrder(receiptOrder);
+                result = new Result().ok(receiptOrder.getDocEntry().toString());
+            }
+        }catch (Exception e){
+            result = new Result().error(receiptOrder.getDocEntry().toString(), e.getMessage());
+        }
+        logger.info("回传MES入库信息,{}",result.toString());
+        return result;
     }
 
 

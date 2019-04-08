@@ -290,4 +290,24 @@ public class DraftOrderItem{
     public void setBatchItems(List<BatchItem> batchItems) {
         this.batchItems = batchItems;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "DocEntry\":\"" + docEntry +
+                "\",\"LineId\":\"" + lineId +
+                "\",\"ItemCode\":\"" + itemCode +
+                "\",\"ItemName\":\"" + itemName +
+                "\",\"Quantity\":\"" + quantity +
+                "\",\"WhsCode\":\"" + whsCode +
+                "\",\"BaseEntry\":\"" + baseEntry +
+                "\",\"BaseLine\":\"" + baseLine +
+                "\",\"UnitMsr\":\"" + unitMsr +
+                "\",\"Udf1\":\"" + udf1 +
+                "\",\"Udf2\":\"" + udf2 +
+                "\",\"Udf3\":\"" + udf3 +
+                "\",\"Udf4\":\"" + udf4 +
+                "\",\"Udf5\":\"" + udf5 +
+                "\"}";
+    }
 }

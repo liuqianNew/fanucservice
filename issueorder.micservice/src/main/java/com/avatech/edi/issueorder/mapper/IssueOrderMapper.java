@@ -15,5 +15,16 @@ import java.util.List;
 @Component
 public interface IssueOrderMapper{
 
+    void insertIssueOrder(IssueOrder IssueOrder);
+
+    List<IssueOrder> searchIssueOrders();
+
+    void insertIssueOrderItem(IssueOrderItem IssueOrderItem);
+
+    List<IssueOrderItem> searchIssueOrderItems();
+
+    void insertIssueOrderBatchItem(IssueOrderBatchItem IssueOrderBatchItem);
+
+    List<IssueOrderBatchItem> searchIssueOrderBatchItems();
 
 }

@@ -7,6 +7,8 @@ public class Result {
 
     private String data;
 
+    public String docEntry;
+
     public String getCode() {
         return code;
     }
@@ -31,6 +33,15 @@ public class Result {
         this.data = data;
     }
 
+
+    public String getDocEntry() {
+        return docEntry;
+    }
+
+    public void setDocEntry(String docEntry) {
+        this.docEntry = docEntry;
+    }
+
     public Result ok(){
         this.code = "0";
         this.message = "Successful";
@@ -40,13 +51,20 @@ public class Result {
     public Result ok(String value){
         this.code = "0";
         this.message = "Successful";
-        this.data = value;
+        this.docEntry = value;
         return this;
     }
 
     public Result error(String message){
         this.code = "-1";
         this.message = message;
+        return this;
+    }
+
+    public Result error(String docEntry, String message){
+        this.code = "-1";
+        this.message = message;
+        this.docEntry = docEntry.toString();
         return this;
     }
 

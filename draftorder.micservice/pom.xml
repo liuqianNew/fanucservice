@@ -62,7 +62,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.avatech.edi.draftorder.DraftorderApplication</mainClass>
+                    <mainClass>com.avatech.edi.draftorder.DraftOrderApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -220,4 +220,21 @@ public class BatchItem{
     public void setUdf5(String udf5) {
         this.udf5 = udf5;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"DocEntry\":\"" + docEntry +
+                "\",\"ItemLineId\":\"" + itemLineId +
+                "\",\"LineNum\":\"" + lineNum +
+                "\",\"ItemCode\":\"" + itemCode +
+                "\",\"Quantity\":\"" + quantity +
+                "\",\"BatchNum\":\"" + batchNum +
+                "\",\"Udf1\":\"" + udf1 +
+                "\",\"Udf2\":\"" + udf2 +
+                "\",\"Udf3\":\"" + udf3 +
+                "\",\"Udf4\":\"" + udf4 +
+                "\",\"Udf5\":\"" + udf5 +
+                '}';
+    }
 }

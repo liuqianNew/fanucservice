@@ -8,7 +8,7 @@ package com.avatech.edi.salesdelivery.mapper;
 
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryItem;
-import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesOrderBatchItem;
+import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface SalesDeliveryMapper{
 
     List<SalesDeliveryItem> searchSalesDeliveryItems();
 
-    void insertSalesOrderBatchItem(SalesOrderBatchItem SalesOrderBatchItem);
+    void insertSalesOrderBatchItem(SalesDeliveryBatchItem SalesDeliveryBatchItem);
 
-    List<SalesOrderBatchItem> searchSalesOrderBatchItems();
+    List<SalesDeliveryBatchItem> searchSalesOrderBatchItems();
 }

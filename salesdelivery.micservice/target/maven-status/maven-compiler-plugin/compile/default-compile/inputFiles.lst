@@ -1,0 +1,11 @@
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/model/dto/Result.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/mapper/SalesDeliveryMapper.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/api/SalesDeliveryController.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/repository/imp/SalesDeliveryRepositoryImp.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/service/SalesDeliveryService.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/common/SnowflakeIdWorker.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/model/bo/salesdelivery/SalesDeliveryBatchItem.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/model/bo/salesdelivery/SalesDeliveryItem.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/SalesdeliveryApplication.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/repository/SalesDeliveryRepository.java
+/Users/fanxing/Documents/ava-work/fanucservice/salesdelivery.micservice/src/main/java/com/avatech/edi/salesdelivery/model/bo/salesdelivery/SalesDelivery.java

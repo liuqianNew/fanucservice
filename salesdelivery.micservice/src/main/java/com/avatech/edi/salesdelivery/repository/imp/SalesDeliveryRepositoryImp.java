@@ -5,9 +5,10 @@
  */
 package com.avatech.edi.salesdelivery.repository.imp;
 
+import com.avatech.edi.salesdelivery.common.SnowflakeIdWorker;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryItem;
-import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesOrderBatchItem;
+import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem;
 import com.avatech.edi.salesdelivery.mapper.SalesDeliveryMapper;
 import com.avatech.edi.salesdelivery.repository.SalesDeliveryRepository;
 import org.springframework.stereotype.Component;
@@ -17,13 +18,32 @@ import java.util.List;
 
 @Component
 public class SalesDeliveryRepositoryImp implements SalesDeliveryRepository{
+
     @Autowired
     private SalesDeliveryMapper salesDeliveryMapper;
 
-
     public void saveSalesDelivery(SalesDelivery salesDelivery){
-        salesDeliveryMapper.insertSalesDelivery(salesDelivery);
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
+        Long ediId;
+        ediId = idWorker.nextId();
+        salesDelivery.setEDIDocEntry(ediId);
+        for (int index = 0;index<salesDelivery.getsalesDeliveryItems().size();index++) {
+            salesDelivery.getsalesDeliveryItems().get(index).setEDIDocEntry(ediId);
+            salesDelivery.getsalesDeliveryItems().get(index).setEDILineId(index);
+            for (int batchIndex = 0 ;batchIndex < salesDelivery.getsalesDeliveryItems().get(index).getSalesDeliveryBatchItems().size();batchIndex++){
+                salesDelivery.getsalesDeliveryItems().get(index).getSalesDeliveryBatchItems().get(batchIndex).setEDIDocEntry(ediId);
+                salesDelivery.getsalesDeliveryItems().get(index).getSalesDeliveryBatchItems().get(batchIndex).setEDILineId(batchIndex);
+                salesDelivery.getsalesDeliveryItems().get(index).getSalesDeliveryBatchItems().get(batchIndex).setEDIItemLineId(index);
+            }
+        }
 
+        salesDeliveryMapper.insertSalesDelivery(salesDelivery);
+        for (SalesDeliveryItem salesDeliveryItem:salesDelivery.getsalesDeliveryItems()) {
+            salesDeliveryMapper.insertSalesDeliveryItem(salesDeliveryItem);
+            for (SalesDeliveryBatchItem salesDeliveryBatchItem:salesDeliveryItem.getSalesDeliveryBatchItems()) {
+                salesDeliveryMapper.insertSalesOrderBatchItem(salesDeliveryBatchItem);
+            }
+        }
     }
 
     public List<SalesDelivery> fetchSalesDeliverys(){
@@ -32,25 +52,5 @@ public class SalesDeliveryRepositoryImp implements SalesDeliveryRepository{
         return salesDeliverys;
     }
 
-    public void saveSalesDeliveryItem(SalesDeliveryItem salesDeliveryItem){
-        salesDeliveryMapper.insertSalesDeliveryItem(salesDeliveryItem);
-
-    }
-
-    public List<SalesDeliveryItem> fetchSalesDeliveryItems(){
-        List<SalesDeliveryItem> salesDeliveryItems = new ArrayList();
-        salesDeliveryItems = salesDeliveryMapper.searchSalesDeliveryItems();
-        return salesDeliveryItems;
-    }
-
-    public void saveSalesOrderBatchItem(SalesOrderBatchItem salesOrderBatchItem){
-        salesDeliveryMapper.insertSalesOrderBatchItem(salesOrderBatchItem);
-
-    }
-
-    public List<SalesOrderBatchItem> fetchSalesOrderBatchItems(){
-        List<SalesOrderBatchItem> salesOrderBatchItems = new ArrayList();
-        salesOrderBatchItems = salesDeliveryMapper.searchSalesOrderBatchItems();
-        return salesOrderBatchItems;
-    }
+    
 }

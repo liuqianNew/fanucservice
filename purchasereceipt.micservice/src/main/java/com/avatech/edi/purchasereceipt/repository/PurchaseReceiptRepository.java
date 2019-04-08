@@ -16,12 +16,4 @@ public interface PurchaseReceiptRepository{
     void savePurchaseReceipt(PurchaseReceipt PurchaseReceipt);
 
     List<PurchaseReceipt> fetchPurchaseReceipts();
-
-    void savePurchaseReceiptItem(PurchaseReceiptItem PurchaseReceiptItem);
-
-    List<PurchaseReceiptItem> fetchPurchaseReceiptItems();
-
-    void savePurchaseReceiptBatchItem(PurchaseReceiptBatchItem PurchaseReceiptBatchItem);
-
-    List<PurchaseReceiptBatchItem> fetchPurchaseReceiptBatchItems();
-}
+ }

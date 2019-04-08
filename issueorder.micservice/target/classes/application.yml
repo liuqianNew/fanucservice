@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:sap://172.18.19.127:30015?currentschema=TEST_HARBOUR_SH0325AM
+    url: jdbc:sap://172.18.19.127:30015?currentschema=ERP001
     username: SYSTEM
-    password: Harbour2019
+    password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver
 server:
   port: 9102

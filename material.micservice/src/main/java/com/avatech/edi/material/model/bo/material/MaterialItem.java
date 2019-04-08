@@ -5,7 +5,7 @@
  */
 package com.avatech.edi.material.model.bo.material;
 
-import com.avatech.edi.material.commen.DataHandle;
+import com.avatech.edi.material.common.DataHandle;
 
 public class MaterialItem{
 

@@ -1,10 +1,11 @@
 com/avatech/edi/receiptorder/repository/ReceiptOrderRepository.class
 com/avatech/edi/receiptorder/model/dto/Result.class
-com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrder.class
-com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrderBatchItem.class
 com/avatech/edi/receiptorder/repository/imp/ReceiptOrderRepositoryImp.class
-com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrderItem.class
+com/avatech/edi/receiptorder/common/SnowflakeIdWorker.class
+com/avatech/edi/receiptorder/ReceiptOrderApplication.class
 com/avatech/edi/receiptorder/api/ReceiptOrderController.class
 com/avatech/edi/receiptorder/service/ReceiptOrderService.class
-com/avatech/edi/receiptorder/ReceiptorderApplication.class
 com/avatech/edi/receiptorder/mapper/ReceiptOrderMapper.class
+com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrder.class
+com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrderBatchItem.class
+com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrderItem.class

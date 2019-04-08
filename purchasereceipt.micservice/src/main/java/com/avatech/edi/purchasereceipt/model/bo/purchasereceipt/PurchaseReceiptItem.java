@@ -4,6 +4,10 @@
  * AT 2019-03-27
  */
 package com.avatech.edi.purchasereceipt.model.bo.purchasereceipt;
+import com.avatech.edi.purchasereceipt.model.dto.Result;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,91 +17,144 @@ public class PurchaseReceiptItem{
     /**
      * 单据编号
      */
+    private Long eDIDocEntry;
+
+
+    /**
+     * 行号
+     */
+    private Integer eDILineId;
+
+    /**
+     * 单据编号
+     */
+    @JsonProperty("DocEntry")
     private Integer docEntry;
 
 
     /**
      * 行号
      */
+    @JsonProperty("LineId")
     private Integer lineId;
 
 
     /**
      * 物料编号
      */
+    @JsonProperty("ItemCode")
     private String itemCode;
 
 
     /**
      * 物料描述
      */
+    @JsonProperty("ItemName")
     private String itemName;
 
 
     /**
      * 数量
      */
+    @JsonProperty("Quantity")
     private BigDecimal quantity;
 
 
     /**
      * 仓库
      */
+    @JsonProperty("WhsCode")
     private String whsCode;
 
 
     /**
      * 基本单据内部标识
      */
+    @JsonProperty("BaseEntry")
     private Integer baseEntry;
 
 
     /**
      * 基本行
      */
+    @JsonProperty("BaseLine")
     private Integer baseLine;
 
 
     /**
      * 计量单位
      */
+    @JsonProperty("UnitMsr")
     private String unitMsr;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf1")
     private String udf1;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf2")
     private String udf2;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf3")
     private String udf3;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf4")
     private String udf4;
 
 
     /**
      * 自定义字段
      */
+    @JsonProperty("Udf5")
     private String udf5;
 
-
+    @JsonProperty("Batchs")
     private List<PurchaseReceiptBatchItem> purchaseReceiptBatchItems;
 
 
-     /**
+    /**
+     * 获取单据编号
+     */
+    public Long getEDIDocEntry() {
+        return eDIDocEntry;
+    }
+
+    /**
+     * 设置单据编号
+     */
+    public void setEDIDocEntry(Long eDIDocEntry) {
+        this.eDIDocEntry = eDIDocEntry;
+    }
+    /**
+     * 获取行号
+     */
+    public Integer getEDILineId() {
+        return eDILineId;
+    }
+
+    /**
+     * 设置行号
+     */
+    public void setEDILineId(Integer eDILineId) {
+        this.eDILineId = eDILineId;
+    }
+
+
+    /**
      * 获取单据编号
      */
     public Integer getDocEntry() {
@@ -289,5 +346,16 @@ public class PurchaseReceiptItem{
 
     public void setPurchaseReceiptBatchItems(List<PurchaseReceiptBatchItem> purchaseReceiptBatchItems) {
         this.purchaseReceiptBatchItems = purchaseReceiptBatchItems;
+    }
+
+    public Result checkData() throws Exception {
+        Result result = new Result();
+        if(StringUtils.isEmpty(itemCode)){
+            return result.error(docEntry.toString(),"itemCode为空");
+        }
+        if(StringUtils.isEmpty(whsCode)){
+            return result.error(docEntry.toString(),"whsCode为空");
+        }
+        return result.ok(docEntry.toString());
     }
 }

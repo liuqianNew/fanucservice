@@ -1,10 +1,8 @@
 package com.avatech.edi.material.job;
 
-import com.avatech.edi.material.commen.MESService;
-import com.avatech.edi.material.commen.StringUtils;
+import com.avatech.edi.material.common.MESService;
 import com.avatech.edi.material.messervice.FDIService;
 import com.avatech.edi.material.model.bo.material.MaterialItem;
-import com.avatech.edi.material.model.vo.SyncResult;
 import com.avatech.edi.material.repository.MaterialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

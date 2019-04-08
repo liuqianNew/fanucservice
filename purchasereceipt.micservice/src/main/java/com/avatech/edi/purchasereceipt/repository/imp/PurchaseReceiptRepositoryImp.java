@@ -5,6 +5,7 @@
  */
 package com.avatech.edi.purchasereceipt.repository.imp;
 
+import com.avatech.edi.purchasereceipt.common.SnowflakeIdWorker;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
@@ -23,7 +24,27 @@ public class PurchaseReceiptRepositoryImp implements PurchaseReceiptRepository{
 
     public void savePurchaseReceipt(PurchaseReceipt purchaseReceipt){
         purchaseReceiptMapper.insertPurchaseReceipt(purchaseReceipt);
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
+        Long ediId;
+        ediId = idWorker.nextId();
+        purchaseReceipt.setEDIDocEntry(ediId);
+        for (int index = 0;index<purchaseReceipt.getpurchaseReceiptItems().size();index++) {
+            purchaseReceipt.getpurchaseReceiptItems().get(index).setEDIDocEntry(ediId);
+            purchaseReceipt.getpurchaseReceiptItems().get(index).setEDILineId(index);
+            for (int batchIndex = 0 ;batchIndex < purchaseReceipt.getpurchaseReceiptItems().get(index).getpurchaseReceiptBatchItems().size();batchIndex++){
+                purchaseReceipt.getpurchaseReceiptItems().get(index).getpurchaseReceiptBatchItems().get(batchIndex).setEDIDocEntry(ediId);
+                purchaseReceipt.getpurchaseReceiptItems().get(index).getpurchaseReceiptBatchItems().get(batchIndex).setEDILineId(batchIndex);
+                purchaseReceipt.getpurchaseReceiptItems().get(index).getpurchaseReceiptBatchItems().get(batchIndex).setEDIItemLineId(index);
+            }
+        }
 
+        purchaseReceiptMapper.insertPurchaseReceipt(purchaseReceipt);
+        for (PurchaseReceiptItem purchaseReceiptItem:purchaseReceipt.getpurchaseReceiptItems()) {
+            purchaseReceiptMapper.insertPurchaseReceiptItem(purchaseReceiptItem);
+            for (PurchaseReceiptBatchItem purchaseReceiptBatchItem:purchaseReceiptItem.getpurchaseReceiptBatchItems()) {
+                purchaseReceiptMapper.insertPurchaseReceiptBatchItem(purchaseReceiptBatchItem);
+            }
+        }
     }
 
     public List<PurchaseReceipt> fetchPurchaseReceipts(){
@@ -32,25 +53,5 @@ public class PurchaseReceiptRepositoryImp implements PurchaseReceiptRepository{
         return purchaseReceipts;
     }
 
-    public void savePurchaseReceiptItem(PurchaseReceiptItem purchaseReceiptItem){
-        purchaseReceiptMapper.insertPurchaseReceiptItem(purchaseReceiptItem);
 
-    }
-
-    public List<PurchaseReceiptItem> fetchPurchaseReceiptItems(){
-        List<PurchaseReceiptItem> purchaseReceiptItems = new ArrayList();
-        purchaseReceiptItems = purchaseReceiptMapper.searchPurchaseReceiptItems();
-        return purchaseReceiptItems;
-    }
-
-    public void savePurchaseReceiptBatchItem(PurchaseReceiptBatchItem purchaseReceiptBatchItem){
-        purchaseReceiptMapper.insertPurchaseReceiptBatchItem(purchaseReceiptBatchItem);
-
-    }
-
-    public List<PurchaseReceiptBatchItem> fetchPurchaseReceiptBatchItems(){
-        List<PurchaseReceiptBatchItem> purchaseReceiptBatchItems = new ArrayList();
-        purchaseReceiptBatchItems = purchaseReceiptMapper.searchPurchaseReceiptBatchItems();
-        return purchaseReceiptBatchItems;
-    }
 }

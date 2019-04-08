@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sap://172.18.19.127:30015?currentschema=SBO_BJ_SHZT
+    url: jdbc:sap://172.18.19.127:30015?currentschema=ERP001
     username: SYSTEM
     password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver

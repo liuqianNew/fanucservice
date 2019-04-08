@@ -4,6 +4,8 @@
  * AT 2019-03-26
  */
 package com.avatech.edi.issueorder.model.bo.issueorder;
+import com.avatech.edi.issueorder.model.dto.Result;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -12,67 +14,105 @@ public class IssueOrder{
 
 
     /**
+     * 单据编号
+     */
+    private Long eDIDocEntry;
+
+    /**
      * 过账日期(YYYY-MM-DD)
      */
+    @JsonProperty("DocDate")
     private String docDate;
 
 
     /**
      * 单据编号
      */
+    @JsonProperty("DocEntry")
     private Integer docEntry;
 
 
     /**
      * 备注
      */
+    @JsonProperty("Comments")
     private String comments;
 
 
     /**
      * 创建人
      */
+    @JsonProperty("UserSign")
     private String userSign;
 
 
     /**
      * 生成时间(HHmmss)
      */
+    @JsonProperty("DocTime")
     private Integer docTime;
 
 
     /**
      * 预留字段1
      */
+    @JsonProperty("Udf1")
     private String udf1;
 
 
     /**
      * 预留字段2
      */
+    @JsonProperty("Udf2")
     private String udf2;
 
 
     /**
      * 预留字段3
      */
+    @JsonProperty("Udf3")
     private String udf3;
 
 
     /**
      * 预留字段4
      */
+    @JsonProperty("Udf4")
     private String udf4;
 
 
     /**
      * 预留字段5
      */
+    @JsonProperty("Udf5")
     private String udf5;
 
+    private Integer errorTime;
 
+    public Integer getErrorTime() {
+        return errorTime;
+    }
+
+    public void setErrorTime(Integer errorTime) {
+        this.errorTime = errorTime;
+    }
+
+    @JsonProperty("Details")
     private List<IssueOrderItem> issueOrderItems;
 
+    /**
+     * 获取单据编号
+     */
+    public Long getEDIDocEntry() {
+        return eDIDocEntry;
+    }
+
+    /**
+     * 设置单据编号
+     */
+    public void setEDIDocEntry(Long eDIDocEntry) {
+        this.eDIDocEntry = eDIDocEntry;
+    }
 
      /**
      * 获取过账日期(YYYY-MM-DD)
@@ -205,7 +245,7 @@ public class IssueOrder{
         this.udf5 = udf5;
     }
 
-    public List<IssueOrderItem> getissueOrderItems() {
+    public List<IssueOrderItem> getIssueOrderItems() {
         if(issueOrderItems == null){
             issueOrderItems = new ArrayList<>();
         }
@@ -216,21 +256,25 @@ public class IssueOrder{
         this.issueOrderItems = issueOrderItems;
     }
 
-    public boolean checkData() throws Exception {
+    public Result checkData() throws Exception {
+        Result result = new Result();
         if(StringUtils.isEmpty(docDate)){
-            throw new Exception("docDate为空");
+            return result.error(docEntry.toString(), "docDate为空");
         }
         for (IssueOrderItem item:issueOrderItems) {
-            item.checkData();
+            result = item.checkData();
+            if(!result.getCode().equals("0")){
+                return result;
+            }
         }
-        return true;
+        return result.ok(docEntry.toString());
     }
 
     @Override
     public String toString() {
         return "{" +
                 "\"docDate\":\"" +  docDate +
-                "\",\"docEntry\":\"" + docEntry +
+                //"\",\"docEntry\":\"" + docEntry +
                 "\",\"comments\":\"" + comments +
                 "\",\"userSign\":\"" + userSign +
                 "\",\"docTime\":\"" + docTime +
