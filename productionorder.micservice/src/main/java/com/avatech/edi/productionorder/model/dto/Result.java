@@ -34,4 +34,11 @@ public class Result {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

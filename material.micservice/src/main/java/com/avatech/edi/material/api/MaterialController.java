@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("v1/*")
+@RequestMapping("mes/v1/*")
 public class MaterialController {
 
     @Autowired

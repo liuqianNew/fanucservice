@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("v1/*")
+@RequestMapping("mes/v1/*")
 public class ReceiptOrderController {
 
     private final Logger logger = LoggerFactory.getLogger(ReceiptOrderController.class);
