@@ -90,7 +90,7 @@ public class IssueOrderController {
         order.setDocTime(122323);
         order.setComments("this is test");
         IssueOrderItem issueOrderItem = new IssueOrderItem();
-        issueOrderItem.setBaseEntry(300003);
+        issueOrderItem.setBaseEntry("300003");
         issueOrderItem.setBaseLine(0);
         issueOrderItem.setLineId(1);
         issueOrderItem.setItemCode("12212");

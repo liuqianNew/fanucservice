@@ -1,9 +1,0 @@
-com/avatech/edi/materialstock/MaterialstockApplication.class
-com/avatech/edi/materialstock/repository/MaterialStockRepository.class
-com/avatech/edi/materialstock/mapper/MaterialStockMapper.class
-com/avatech/edi/materialstock/service/MaterialStockService.class
-com/avatech/edi/materialstock/model/bo/materialstock/MaterialStockItem.class
-com/avatech/edi/materialstock/repository/imp/MaterialStockRepositoryImp.class
-com/avatech/edi/materialstock/model/bo/materialstock/MaterialStock.class
-com/avatech/edi/materialstock/model/dto/Result.class
-com/avatech/edi/materialstock/api/MaterialStockController.class
