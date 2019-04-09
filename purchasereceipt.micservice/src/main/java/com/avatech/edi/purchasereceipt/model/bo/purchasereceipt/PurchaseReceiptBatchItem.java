@@ -31,7 +31,7 @@ public class PurchaseReceiptBatchItem{
      * 单据编号
      */
     @JsonProperty("DocEntry")
-    private Integer docEntry;
+    private String docEntry;
 
 
     /**
@@ -148,14 +148,14 @@ public class PurchaseReceiptBatchItem{
     /**
      * 获取单据编号
      */
-    public Integer getDocEntry() {
+    public String getDocEntry() {
         return docEntry;
     }
 
     /**
      * 设置单据编号
      */
-    public void setDocEntry(Integer docEntry) {
+    public void setDocEntry(String docEntry) {
         this.docEntry = docEntry;
     }
      /**

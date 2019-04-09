@@ -40,8 +40,8 @@ public class MaterialStockController {
     Result addMaterialStock(@RequestBody List<MaterialStock> materialStocks) {
         logger.info("接收物料库存：{}", materialStocks.toString());
         Result result = new Result();
-        try {
 
+        try {
             for (MaterialStock materialStock:materialStocks){
                 result = materialStock.checkData();
                 if(!result.getCode().equals("0")){

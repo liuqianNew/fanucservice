@@ -5,7 +5,7 @@
  */
 CREATE TABLE AVA_IM_ODRN(
             "EDIDocEntry" BIGINT ,
-            "DocEntry" INTEGER ,
+            "DocEntry" VARCHAR(30) ,
             "CardCode" NVARCHAR(30) ,
             "CardName" NVARCHAR(200) ,
             "ShiptoCode" NVARCHAR(30) ,
@@ -30,13 +30,13 @@ CREATE TABLE AVA_IM_ODRN(
 CREATE TABLE AVA_IM_DRN1(
             "EDIDocEntry" BIGINT,
             "EDILineId" INTEGER ,
-            "DocEntry" INTEGER ,
+            "DocEntry" VARCHAR(30) ,
             "LineId" INTEGER,
             "ItemCode" NVARCHAR(30) ,
             "ItemName" NVARCHAR(200) ,
             "Quantity" DECIMAL(11,2) ,
             "WhsCode" NVARCHAR(8) ,
-            "BaseEntry" INTEGER,
+            "BaseEntry" VARCHAR(30) ,
             "BaseLine" INTEGER,
             "unitMsr" NVARCHAR(8) ,
             "Udf1" NVARCHAR(8) ,
@@ -49,7 +49,7 @@ CREATE TABLE AVA_IM_DRN2(
             "EDIDocEntry" BIGINT,
             "EDILineId" INTEGER,
             "EDIItemLineId" INTEGER,
-            "DocEntry" INTEGER ,
+            "DocEntry" VARCHAR(30) ,
             "ItemLineId" INTEGER,
             "LineNum" INTEGER,
             "ItemCode" NVARCHAR(30) ,

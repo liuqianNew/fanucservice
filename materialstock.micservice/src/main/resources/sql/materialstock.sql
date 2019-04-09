@@ -1,6 +1,6 @@
 
 CREATE TABLE AVA_IM_OITW(
-            "DocEntry" INTEGER ,
+            "DocEntry" VARCHAR(30) ,
             "ItemCode" NVARCHAR(30) ,
             "ItemName" NVARCHAR(200) ,
             "Quantity" DECIMAL(11,2) ,
@@ -16,7 +16,7 @@ CREATE TABLE AVA_IM_OITW(
             "Udf5" NVARCHAR(200)
 );
 CREATE TABLE AVA_IM_ITW1(
-            "DocEntry" INTEGER,
+            "DocEntry" VARCHAR(30),
             "ItemLineId" INTEGER,
             "LineNum" INTEGER,
             "ItemCode" NVARCHAR(30) ,

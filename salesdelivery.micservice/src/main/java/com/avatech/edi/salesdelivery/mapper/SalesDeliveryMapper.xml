@@ -4,7 +4,7 @@
 
     <resultMap id="SalesDeliveryMap" type="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery">
         <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
-        <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+        <result column="DocEntry" property="docEntry" jdbcType="VARCHAR"/>
         <result column="CardCode" property="cardCode" jdbcType="NVARCHAR"/>
         <result column="CardName" property="cardName" jdbcType="NVARCHAR"/>
         <result column="ShiptoCode" property="shiptoCode" jdbcType="NVARCHAR"/>
@@ -35,7 +35,7 @@
         <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
         <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
         <result column="WhsCode" property="whsCode" jdbcType="NVARCHAR"/>
-        <result column="BaseEntry" property="baseEntry" jdbcType="INTEGER"/>
+        <result column="BaseEntry" property="baseEntry" jdbcType="VARCHAR"/>
         <result column="BaseLine" property="baseLine" jdbcType="INTEGER"/>
         <result column="unitMsr" property="unitMsr" jdbcType="NVARCHAR"/>
         <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>

@@ -4,7 +4,7 @@
      <resultMap id="IssueOrderMap" type="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder">
          <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
          <result column="DocDate" property="docDate" jdbcType="DATE"/>
-         <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+         <result column="DocEntry" property="docEntry" jdbcType="VARCHAR"/>
          <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
          <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>
          <result column="DocTime" property="docTime" jdbcType="DATE"/>
@@ -18,13 +18,13 @@
      <resultMap id="IssueOrderItemMap" type="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem">
          <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
          <result column="EDILineId" property="eDILineId" jdbcType="INTEGER"/>
-         <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+         <result column="DocEntry" property="docEntry" jdbcType="VARCHAR"/>
          <result column="LineId" property="lineId" jdbcType="INTEGER"/>
          <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
          <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
          <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
          <result column="WhsCode" property="whsCode" jdbcType="NVARCHAR"/>
-         <result column="BaseEntry" property="baseEntry" jdbcType="INTEGER"/>
+         <result column="BaseEntry" property="baseEntry" jdbcType="VARCHAR"/>
          <result column="BaseLine" property="baseLine" jdbcType="INTEGER"/>
          <result column="unitMsr" property="unitMsr" jdbcType="NVARCHAR"/>
          <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
@@ -37,7 +37,7 @@
          <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
          <result column="EDILineId" property="eDILineId" jdbcType="INTEGER"/>
          <result column="EDIItemLineId" property="eDIItemLineId" jdbcType="INTEGER"/>
-         <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+         <result column="DocEntry" property="docEntry" jdbcType="VARCHAR"/>
          <result column="ItemLineId" property="itemLineId" jdbcType="INTEGER"/>
          <result column="LineNum" property="lineNum" jdbcType="INTEGER"/>
          <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>

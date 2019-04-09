@@ -105,7 +105,7 @@ public class MaterialStock{
     private String udf5;
 
 
-    @JsonProperty("Detail")
+    @JsonProperty("Batchs")
     private List<MaterialStockItem> materialStockItems;
 
 

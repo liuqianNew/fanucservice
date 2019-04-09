@@ -29,7 +29,7 @@ public class ReceiptOrderItem{
      * 单据内部标识（单据编号）
      */
     @JsonProperty("DocEntry")
-    private Integer docEntry;
+    private String docEntry;
 
 
     /**
@@ -85,7 +85,7 @@ public class ReceiptOrderItem{
      * 基本单据内部标识
      */
     @JsonProperty("BaseEntry")
-    private Integer baseEntry;
+    private String baseEntry;
 
 
     /**
@@ -212,14 +212,14 @@ public class ReceiptOrderItem{
     /**
      * 获取单据内部标识（单据编号）
      */
-    public Integer getDocEntry() {
+    public String getDocEntry() {
         return docEntry;
     }
 
     /**
      * 设置单据内部标识（单据编号）
      */
-    public void setDocEntry(Integer docEntry) {
+    public void setDocEntry(String docEntry) {
         this.docEntry = docEntry;
     }
      /**
@@ -316,14 +316,14 @@ public class ReceiptOrderItem{
      /**
      * 获取基本单据内部标识
      */
-    public Integer getBaseEntry() {
+    public String getBaseEntry() {
         return baseEntry;
     }
 
     /**
      * 设置基本单据内部标识
      */
-    public void setBaseEntry(Integer baseEntry) {
+    public void setBaseEntry(String baseEntry) {
         this.baseEntry = baseEntry;
     }
      /**
