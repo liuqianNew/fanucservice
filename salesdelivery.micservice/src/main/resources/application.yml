@@ -4,6 +4,8 @@ spring:
     username: SYSTEM
     password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver
+  aop:
+    proxy-target-class: true
 server:
   port: 9110
 logging:

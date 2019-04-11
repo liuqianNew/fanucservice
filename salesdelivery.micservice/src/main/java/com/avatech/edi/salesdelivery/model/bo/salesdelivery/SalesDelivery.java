@@ -471,4 +471,33 @@ public class SalesDelivery{
         }
         return result.ok(docEntry.toString());
     }
+
+    @Override
+    public String toString() {
+        return "SalesDelivery{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", docEntry='" + docEntry + '\'' +
+                ", cardCode='" + cardCode + '\'' +
+                ", cardName='" + cardName + '\'' +
+                ", shiptoCode='" + shiptoCode + '\'' +
+                ", address3='" + address3 + '\'' +
+                ", phone1='" + phone1 + '\'' +
+                ", cntctCode='" + cntctCode + '\'' +
+                ", docType='" + docType + '\'' +
+                ", docDate=" + docDate +
+                ", docStatus='" + docStatus + '\'' +
+                ", comments='" + comments + '\'' +
+                ", userSign='" + userSign + '\'' +
+                ", payType='" + payType + '\'' +
+                ", deliveryNum='" + deliveryNum + '\'' +
+                ", docTime=" + docTime +
+                ", udf1='" + udf1 + '\'' +
+                ", udf2='" + udf2 + '\'' +
+                ", udf3='" + udf3 + '\'' +
+                ", udf4='" + udf4 + '\'' +
+                ", udf5='" + udf5 + '\'' +
+                ", salesDeliveryItems=" + salesDeliveryItems +
+                ", errorTime=" + errorTime +
+                '}';
+    }
 }
