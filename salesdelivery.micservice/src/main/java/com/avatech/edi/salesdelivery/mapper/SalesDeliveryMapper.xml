@@ -112,7 +112,7 @@
          )
     </insert>
 
-    <select id="searchSalesDelivery" resultMap="SalesDeliveryMap">
+    <select id="searchSalesDeliverys" resultMap="SalesDeliveryMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."DocEntry",
@@ -178,7 +178,7 @@
          )
     </insert>
 
-    <select id="searchSalesDeliveryItem" resultMap="SalesDeliveryItemMap">
+    <select id="searchSalesDeliveryItems" resultMap="SalesDeliveryItemMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -234,7 +234,7 @@
          )
     </insert>
 
-    <select id="searchSalesOrderBatchItem" resultMap="SalesOrderBatchItemMap">
+    <select id="searchSalesOrderBatchItems" resultMap="SalesOrderBatchItemMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",

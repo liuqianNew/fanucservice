@@ -284,4 +284,24 @@ public class SalesDeliveryBatchItem {
     public void setUdf5(String udf5) {
         this.udf5 = udf5;
     }
+
+    @Override
+    public String toString() {
+        return "SalesDeliveryBatchItem{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", eDILineId=" + eDILineId +
+                ", eDIItemLineId=" + eDIItemLineId +
+                ", docEntry='" + docEntry + '\'' +
+                ", itemLineId=" + itemLineId +
+                ", lineNum=" + lineNum +
+                ", itemCode='" + itemCode + '\'' +
+                ", quantity=" + quantity +
+                ", batchNum='" + batchNum + '\'' +
+                ", udf1='" + udf1 + '\'' +
+                ", udf2='" + udf2 + '\'' +
+                ", udf3='" + udf3 + '\'' +
+                ", udf4='" + udf4 + '\'' +
+                ", udf5='" + udf5 + '\'' +
+                '}';
+    }
 }

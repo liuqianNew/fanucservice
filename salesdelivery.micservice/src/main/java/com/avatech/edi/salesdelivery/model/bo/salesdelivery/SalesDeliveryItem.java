@@ -355,4 +355,27 @@ public class SalesDeliveryItem{
         }
         return result.ok(docEntry.toString());
     }
+
+    @Override
+    public String toString() {
+        return "SalesDeliveryItem{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", eDILineId=" + eDILineId +
+                ", docEntry='" + docEntry + '\'' +
+                ", lineId=" + lineId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", quantity=" + quantity +
+                ", whsCode='" + whsCode + '\'' +
+                ", baseEntry='" + baseEntry + '\'' +
+                ", baseLine=" + baseLine +
+                ", unitMsr='" + unitMsr + '\'' +
+                ", udf1='" + udf1 + '\'' +
+                ", udf2='" + udf2 + '\'' +
+                ", udf3='" + udf3 + '\'' +
+                ", udf4='" + udf4 + '\'' +
+                ", udf5='" + udf5 + '\'' +
+                ", salesDeliveryBatchItems=" + salesDeliveryBatchItems +
+                '}';
+    }
 }
