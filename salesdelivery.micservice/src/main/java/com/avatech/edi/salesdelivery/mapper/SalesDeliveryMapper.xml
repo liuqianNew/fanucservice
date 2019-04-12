@@ -13,6 +13,11 @@
         <result column="CntctCode" property="cntctCode" jdbcType="NVARCHAR"/>
         <result column="DocType" property="docType" jdbcType="NVARCHAR"/>
         <result column="ErrorTime" property="errorTime" jdbcType="INTEGER"/>
+        <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
+        <result column="SyncMessage" property="syncMessage" jdbcType="NVARCHAR"/>
+        <result column="SyncDate" property="syncDate" jdbcType="DATE"/>
+        <result column="SyncTime" property="syncTime" jdbcType="INTEGER"/>
+        <result column="SAPDocEntry" property="sapDocEntry" jdbcType="NVARCHAR"/>
         <result column="DocDate" property="docDate" jdbcType="DATE"/>
         <result column="DocStatus" property="docStatus" jdbcType="NVARCHAR"/>
         <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
@@ -44,7 +49,7 @@
         <result column="Udf4" property="udf4" jdbcType="NVARCHAR"/>
         <result column="Udf5" property="udf5" jdbcType="NVARCHAR"/>
     </resultMap>
-    <resultMap id="SalesOrderBatchItemMap" type="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem">
+    <resultMap id="SalesDeliveryBatchItemMap" type="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem">
         <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
         <result column="EDILineId" property="eDILineId" jdbcType="INTEGER"/>
         <result column="EDIItemLineId" property="eDIItemLineId" jdbcType="INTEGER"/>
@@ -136,7 +141,7 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_ODRN" T0
+         from "AVA_IM_ODRN" T0 WHERE "IsSync" = 'N'
     </select>
 
     <insert id="insertSalesDeliveryItem" parameterType="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryItem">
@@ -178,7 +183,7 @@
          )
     </insert>
 
-    <select id="searchSalesDeliveryItems" resultMap="SalesDeliveryItemMap">
+    <select id="searchSalesDeliveryItems" resultMap="SalesDeliveryItemMap" parameterType="Long">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -196,10 +201,10 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_DRN1" T0
+         from "AVA_IM_DRN1"  T0 WHERE T0."EDIDocEntry" = #{ediDocEntry}
     </select>
 
-    <insert id="insertSalesOrderBatchItem" parameterType="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem">
+    <insert id="insertSalesDeliveryBatchItem" parameterType="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem">
          INSERT INTO "AVA_IM_DRN2" (
                  "EDIDocEntry",
                  "EDILineId",
@@ -234,7 +239,7 @@
          )
     </insert>
 
-    <select id="searchSalesOrderBatchItems" resultMap="SalesOrderBatchItemMap">
+    <select id="searchSalesDeliveryBatchItems" resultMap="SalesDeliveryBatchItemMap" parameterType="HashMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -250,7 +255,15 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_DRN2" T0
+         from "AVA_IM_DRN2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
-
+    <update id="updateSalesDelivery" parameterType="SalesDeliveryMap">
+        UPDATE "AVA_IM_ODRN" SET "IsSync" = #{isSync}
+                                 ,"SyncMessage" = #{syncMessage}
+                                 ,"SyncDate" = #{syncDate}
+                                 ,"SyncTime" = #{syncTime}
+                                 ,"ErrorTime" = #{errorTime}
+                                 ,"SAPDocEntry" = #{sapDocEntry}
+                                 WHERE "EDIDocEntry" = #{eDIDocEntry}
+    </update>
 </mapper>

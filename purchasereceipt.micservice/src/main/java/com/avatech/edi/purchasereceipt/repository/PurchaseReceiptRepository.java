@@ -13,7 +13,9 @@ import java.util.List;
 
 public interface PurchaseReceiptRepository{
 
-    void savePurchaseReceipt(PurchaseReceipt PurchaseReceipt);
+    void savePurchaseReceipt(PurchaseReceipt purchaseReceipt);
 
     List<PurchaseReceipt> fetchPurchaseReceipts();
+
+    void updatePurchaseReceipt(PurchaseReceipt purchaseReceipt);
  }

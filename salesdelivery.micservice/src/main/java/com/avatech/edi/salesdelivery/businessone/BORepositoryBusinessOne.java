@@ -101,7 +101,7 @@ public class BORepositoryBusinessOne {
         company.setDbUserName(this.dbUsername);
         company.setDbPassword(this.dbPassword);
         company.setLicenseServer(this.licenseServer);
-        //company.setSLDServer(this.sldServer);
+        company.setSLDServer(this.sldServer);
         log.info("begin to connect " + this.companyDB);
         int connectionResult = company.connect();
         if (connectionResult == 0) {

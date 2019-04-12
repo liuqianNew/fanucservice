@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -52,9 +53,23 @@ public class IssueOrderRepositoryImp implements IssueOrderRepository{
     @Override
     public List<IssueOrder> fetchIssueOrders() {
         List<IssueOrder> issueOrders = issueOrderMapper.searchIssueOrders();
+        List<IssueOrderItem> issueOrderItems;
+        HashMap<String,Object> paramMap;
         for (IssueOrder issueOrder:issueOrders) {
-
+            issueOrderItems = issueOrderMapper.searchIssueOrderItems(issueOrder.getEDIDocEntry());
+            for (IssueOrderItem issueOrderItem:issueOrderItems) {
+                paramMap = new HashMap<>();
+                paramMap.put("EDIDocEntry",issueOrderItem.getEDIDocEntry());
+                paramMap.put("EDIItemLineId",issueOrderItem.getEDILineId());
+                issueOrderItem.getIssueOrderBatchItems().addAll(issueOrderMapper.searchIssueOrderBatchItems(paramMap));
+            }
+            issueOrder.getIssueOrderItems().addAll(issueOrderItems);
         }
         return issueOrders;
+    }
+
+    @Override
+    public void updateIssueOrder(IssueOrder issueOrder) {
+        issueOrderMapper.updateIssueOrder(issueOrder);
     }
 }

@@ -17,4 +17,5 @@ public interface SalesDeliveryRepository{
 
     List<SalesDelivery> fetchSalesDeliverys();
 
+    void updateSalesDelivery(SalesDelivery salesDelivery);
 }

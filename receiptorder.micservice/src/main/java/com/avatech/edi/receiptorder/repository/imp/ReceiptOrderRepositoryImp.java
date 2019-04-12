@@ -14,6 +14,7 @@ import com.avatech.edi.receiptorder.repository.ReceiptOrderRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -49,9 +50,26 @@ public class ReceiptOrderRepositoryImp implements ReceiptOrderRepository{
 
     public List<ReceiptOrder> fetchReceiptOrders(){
         List<ReceiptOrder> receiptOrders = new ArrayList();
+        List<ReceiptOrderItem> receiptOrderItems;
+        HashMap<String,Object> paramMap;
         receiptOrders = receiptOrderMapper.searchReceiptOrders();
+        for (ReceiptOrder receiptOrder:receiptOrders) {
+            receiptOrderItems = receiptOrderMapper.searchReceiptOrderItems(receiptOrder.getEDIDocEntry());
+            for (ReceiptOrderItem receiptOrderItem:receiptOrderItems) {
+                paramMap = new HashMap<>();
+                paramMap.put("EDIDocEntry",receiptOrderItem.getEDIDocEntry());
+                paramMap.put("EDIItemLineId",receiptOrderItem.getEDILineId());
+                receiptOrderItem.getreceiptOrderBatchItems().addAll(receiptOrderMapper.searchReceiptOrderBatchItems(paramMap));
+            }
+            receiptOrder.getreceiptOrderItems().addAll(receiptOrderItems);
+        }
         return receiptOrders;
     }
 
-    
+    @Override
+    public void updateReceipOrder(ReceiptOrder receiptOrder) {
+        receiptOrderMapper.updateReceiptOrder(receiptOrder);
+    }
+
+
 }

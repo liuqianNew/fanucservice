@@ -17,5 +17,5 @@ public interface ReceiptOrderRepository{
 
     List<ReceiptOrder> fetchReceiptOrders();
 
-
+    void updateReceipOrder(ReceiptOrder receiptOrder);
 }

@@ -19,6 +19,16 @@ public class PurchaseReceipt{
      */
     private Long eDIDocEntry;
 
+    private String isSync;
+
+    private String syncMessage;
+
+    private Date syncDate;
+
+    private Integer syncTime;
+
+    private String sapDocEntry;
+
 
     /**
      * 单据编号
@@ -146,6 +156,46 @@ public class PurchaseReceipt{
         this.eDIDocEntry = eDIDocEntry;
     }
 
+
+    public String getIsSync() {
+        return isSync;
+    }
+
+    public void setIsSync(String isSync) {
+        this.isSync = isSync;
+    }
+
+    public String getSyncMessage() {
+        return syncMessage;
+    }
+
+    public void setSyncMessage(String syncMessage) {
+        this.syncMessage = syncMessage;
+    }
+
+    public Date getSyncDate() {
+        return syncDate;
+    }
+
+    public void setSyncDate(Date syncDate) {
+        this.syncDate = syncDate;
+    }
+
+    public Integer getSyncTime() {
+        return syncTime;
+    }
+
+    public void setSyncTime(Integer syncTime) {
+        this.syncTime = syncTime;
+    }
+
+    public String getSapDocEntry() {
+        return sapDocEntry;
+    }
+
+    public void setSapDocEntry(String sapDocEntry) {
+        this.sapDocEntry = sapDocEntry;
+    }
 
     /**
      * 获取单据编号

@@ -14,6 +14,7 @@ import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -37,7 +38,6 @@ public class PurchaseReceiptRepositoryImp implements PurchaseReceiptRepository{
                 purchaseReceipt.getpurchaseReceiptItems().get(index).getpurchaseReceiptBatchItems().get(batchIndex).setEDIItemLineId(index);
             }
         }
-
         purchaseReceiptMapper.insertPurchaseReceipt(purchaseReceipt);
         for (PurchaseReceiptItem purchaseReceiptItem:purchaseReceipt.getpurchaseReceiptItems()) {
             purchaseReceiptMapper.insertPurchaseReceiptItem(purchaseReceiptItem);
@@ -49,8 +49,25 @@ public class PurchaseReceiptRepositoryImp implements PurchaseReceiptRepository{
 
     public List<PurchaseReceipt> fetchPurchaseReceipts(){
         List<PurchaseReceipt> purchaseReceipts = new ArrayList();
+        List<PurchaseReceiptItem> purchaseReceiptItems;
+        HashMap<String,Object> paramMap;
         purchaseReceipts = purchaseReceiptMapper.searchPurchaseReceipts();
+        for (PurchaseReceipt purchaseReceipt : purchaseReceipts) {
+            purchaseReceiptItems =  purchaseReceiptMapper.searchPurchaseReceiptItems(purchaseReceipt.getEDIDocEntry());
+            for (PurchaseReceiptItem purchaseReceiptItem:purchaseReceiptItems) {
+                paramMap = new HashMap<>();
+                paramMap.put("EDIDocEntry",purchaseReceiptItem.getEDIDocEntry());
+                paramMap.put("EDIItemLineId",purchaseReceiptItem.getEDILineId());
+                purchaseReceiptItem.getpurchaseReceiptBatchItems().addAll(purchaseReceiptMapper.searchPurchaseReceiptBatchItems(paramMap));
+            }
+            purchaseReceipt.getpurchaseReceiptItems().addAll(purchaseReceiptItems);
+        }
         return purchaseReceipts;
+    }
+
+    @Override
+    public void updatePurchaseReceipt(PurchaseReceipt purchaseReceipt) {
+        purchaseReceiptMapper.updatePurchaseReceipt(purchaseReceipt);
     }
 
 

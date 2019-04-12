@@ -10,6 +10,8 @@ import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryItem;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -21,9 +23,11 @@ public interface SalesDeliveryMapper{
 
     void insertSalesDeliveryItem(SalesDeliveryItem SalesDeliveryItem);
 
-    List<SalesDeliveryItem> searchSalesDeliveryItems();
+    List<SalesDeliveryItem> searchSalesDeliveryItems(Long ediDocEntry);
 
-    void insertSalesOrderBatchItem(SalesDeliveryBatchItem SalesDeliveryBatchItem);
+    void insertSalesDeliveryBatchItem(SalesDeliveryBatchItem SalesDeliveryBatchItem);
 
-    List<SalesDeliveryBatchItem> searchSalesOrderBatchItems();
+    List<SalesDeliveryBatchItem> searchSalesDeliveryBatchItems(HashMap hashMap);
+    
+    void updateSalesDelivery(SalesDelivery salesDelivery);
 }
