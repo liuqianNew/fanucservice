@@ -11,20 +11,23 @@ import com.avatech.edi.issueorder.repository.IssueOrderRepository;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderBatchItem;
+import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustAllStrategy;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,6 +37,8 @@ import java.math.BigDecimal;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -57,25 +62,17 @@ public class IssueOrderController {
     private RestTemplate restTemplate;
 
     @Bean
-    public RestTemplate restTemplate()
-            throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-
-        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
-                .loadTrustMaterial(null, acceptingTrustStrategy)
-                .build();
-
-        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
-
-
-        CloseableHttpClient httpClient = HttpClients.custom()
-                .setSSLSocketFactory(csf)
-                .build();
-
-
-        HttpComponentsClientHttpRequestFactory requestFactory =
-                new HttpComponentsClientHttpRequestFactory();
-
+    public RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
+            @Override
+            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+                return true;
+            }
+        };
+        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
+        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+        CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         requestFactory.setHttpClient(httpClient);
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         return restTemplate;
@@ -137,6 +134,33 @@ public class IssueOrderController {
             result = issueOrder.checkData();
             if(result.getCode().equals("0")){
                 issueOrderService.saveIssueOrder(issueOrder);
+                result = new Result().ok(issueOrder.getDocEntry().toString());
+            }
+        }catch (Exception e){
+            result = new Result().error(issueOrder.getDocEntry().toString(), e.getMessage());
+        }
+        logger.info("回传MES出库信息,{}",result.toString());
+        return result;
+    }
+
+    @PostMapping("createissueorder")
+    public @ResponseBody
+    Result createIssueOrder(@RequestBody IssueOrder issueOrder) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        Result result;
+        try{
+            logger.info("接收出库信息：{}",issueOrder.toString());
+            result = issueOrder.checkData();
+            if(result.getCode().equals("0")){
+                HttpHeaders headers = new HttpHeaders();
+                MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+                headers.setContentType(type);
+                String requestJson = "{\n" +
+                        "    \"CompanyDB\": \"ERP001\",\n" +
+                        "    \"UserName\": \"BJ-FANUC\\\\bfm004\",\n" +
+                        "    \"Password\": \"Aa123456!\"\n" +
+                        "}";
+                HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+                String responese = restTemplate.postForObject("https://172.18.19.127:50000/b1s/v1/Login",entity,String.class);
                 result = new Result().ok(issueOrder.getDocEntry().toString());
             }
         }catch (Exception e){

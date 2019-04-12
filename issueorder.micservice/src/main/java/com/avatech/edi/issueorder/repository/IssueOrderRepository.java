@@ -16,4 +16,6 @@ public interface IssueOrderRepository{
     void saveIssueOrder(IssueOrder IssueOrder);
 
     List<IssueOrder> fetchIssueOrders();
+
+    void updateIssueOrder(IssueOrder issueOrder);
 }

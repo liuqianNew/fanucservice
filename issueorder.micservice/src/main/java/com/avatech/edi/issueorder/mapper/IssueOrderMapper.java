@@ -10,6 +10,8 @@ import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderBatchItem;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -21,10 +23,11 @@ public interface IssueOrderMapper{
 
     void insertIssueOrderItem(IssueOrderItem IssueOrderItem);
 
-    List<IssueOrderItem> searchIssueOrderItems();
+    List<IssueOrderItem> searchIssueOrderItems(Long ediDocEntry);
 
     void insertIssueOrderBatchItem(IssueOrderBatchItem IssueOrderBatchItem);
 
-    List<IssueOrderBatchItem> searchIssueOrderBatchItems();
+    List<IssueOrderBatchItem> searchIssueOrderBatchItems(HashMap hashMap);
 
+    void updateIssueOrder(IssueOrder issueOrder);
 }

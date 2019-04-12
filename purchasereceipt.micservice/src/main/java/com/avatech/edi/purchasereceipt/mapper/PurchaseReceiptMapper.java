@@ -10,6 +10,8 @@ import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -21,9 +23,11 @@ public interface PurchaseReceiptMapper{
 
     void insertPurchaseReceiptItem(PurchaseReceiptItem PurchaseReceiptItem);
 
-    List<PurchaseReceiptItem> searchPurchaseReceiptItems();
+    List<PurchaseReceiptItem> searchPurchaseReceiptItems(Long ediDocEntry);
 
     void insertPurchaseReceiptBatchItem(PurchaseReceiptBatchItem PurchaseReceiptBatchItem);
 
-    List<PurchaseReceiptBatchItem> searchPurchaseReceiptBatchItems();
+    List<PurchaseReceiptBatchItem> searchPurchaseReceiptBatchItems(HashMap hashMap);
+
+    void updatePurchaseReceipt(PurchaseReceipt purchaseReceipt);
 }

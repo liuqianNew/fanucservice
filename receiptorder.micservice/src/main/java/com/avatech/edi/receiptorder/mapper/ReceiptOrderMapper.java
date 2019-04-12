@@ -10,6 +10,8 @@ import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -21,9 +23,11 @@ public interface ReceiptOrderMapper{
 
     void insertReceiptOrderItem(ReceiptOrderItem ReceiptOrderItem);
 
-    List<ReceiptOrderItem> searchReceiptOrderItems();
+    List<ReceiptOrderItem> searchReceiptOrderItems(Long ediDocEntry);
 
     void insertReceiptOrderBatchItem(ReceiptOrderBatchItem ReceiptOrderBatchItem);
 
-    List<ReceiptOrderBatchItem> searchReceiptOrderBatchItems();
+    List<ReceiptOrderBatchItem> searchReceiptOrderBatchItems(HashMap hashMap);
+
+    void updateReceiptOrder(ReceiptOrder receiptOrder);
 }

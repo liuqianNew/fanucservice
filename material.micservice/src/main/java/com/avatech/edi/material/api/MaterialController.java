@@ -25,12 +25,10 @@ public class MaterialController {
     @Autowired
     private MaterialRepository materialRepository;
 
-
     @GetMapping("material")
     public MaterialItem getMaterial(){
         return  null;
     }
-
 
     @PostMapping("material")
     public @ResponseBody

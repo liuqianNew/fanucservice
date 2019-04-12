@@ -11,6 +11,11 @@
         <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>
         <result column="DocTime" property="docTime" jdbcType="INTEGER"/>
         <result column="ErrorTime" property="errorTime" jdbcType="INTEGER"/>
+        <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
+        <result column="SyncMessage" property="syncMessage" jdbcType="NVARCHAR"/>
+        <result column="SyncDate" property="syncDate" jdbcType="DATE"/>
+        <result column="SyncTime" property="syncTime" jdbcType="INTEGER"/>
+        <result column="SAPDocEntry" property="sapDocEntry" jdbcType="NVARCHAR"/>
         <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
         <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
         <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
@@ -95,7 +100,7 @@
     </insert>
 
     <select id="searchReceiptOrder" resultMap="ReceiptOrderMap">
-         SELECT
+         SELECT TOP 10
                  T0."EDIDocEntry",
                  T0."DocDate",
                  T0."DocEntry",
@@ -109,7 +114,7 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_OIGN" T0
+         from "AVA_IM_OIGN" T0 WHERE "IsSync" = 'N'
     </select>
 
     <insert id="insertReceiptOrderItem" parameterType="com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem">
@@ -167,7 +172,7 @@
          )
     </insert>
 
-    <select id="searchReceiptOrderItem" resultMap="ReceiptOrderItemMap">
+    <select id="searchReceiptOrderItem" resultMap="ReceiptOrderItemMap" parameterType="Long">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -193,7 +198,7 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_IGN1" T0
+         from "AVA_IM_IGN1" T0 WHERE T0."EDIDocEntry" = #{ediDocEntry}
     </select>
 
     <insert id="insertReceiptOrderBatchItem" parameterType="com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem">
@@ -231,7 +236,7 @@
          )
     </insert>
 
-    <select id="searchReceiptOrderBatchItem" resultMap="ReceiptOrderBatchItemMap">
+    <select id="searchReceiptOrderBatchItem" resultMap="ReceiptOrderBatchItemMap" parameterType="HashMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -247,7 +252,16 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_IGN2" T0
+         from "AVA_IM_IGN2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
+    <update id="updateReceiptOrder" parameterType="ReceiptOrderMap">
+        UPDATE "AVA_IM_OIGN" SET "IsSync" = #{isSync}
+                                 ,"SyncMessage" = #{syncMessage}
+                                 ,"SyncDate" = #{syncDate}
+                                 ,"SyncTime" = #{syncTime}
+                                 ,"ErrorTime" = #{errorTime}
+                                 ,"SAPDocEntry" = #{sapDocEntry}
+                                 WHERE "EDIDocEntry" = #{eDIDocEntry}
+    </update>
 
 </mapper>
