@@ -254,7 +254,7 @@
                  T0."Udf5"
          from "AVA_IM_IGN2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
-    <update id="updateReceiptOrder" parameterType="ReceiptOrderMap">
+    <update id="updateReceiptOrder" parameterType="com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder">
         UPDATE "AVA_IM_OIGN" SET "IsSync" = #{isSync}
                                  ,"SyncMessage" = #{syncMessage}
                                  ,"SyncDate" = #{syncDate}

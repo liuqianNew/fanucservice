@@ -235,7 +235,7 @@
              from "AVA_IM_DLN2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
          </select>
 
-    <update id="updatePurchaseReceipt" parameterType="PurchaseReceiptMap">
+    <update id="updatePurchaseReceipt" parameterType="com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt">
         UPDATE "AVA_IM_ODLN" SET "IsSync" = #{isSync}
                                  ,"SyncMessage" = #{syncMessage}
                                  ,"SyncDate" = #{syncDate}

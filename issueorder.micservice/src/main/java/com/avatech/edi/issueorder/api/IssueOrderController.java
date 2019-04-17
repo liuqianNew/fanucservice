@@ -11,6 +11,7 @@ import com.avatech.edi.issueorder.repository.IssueOrderRepository;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderBatchItem;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -57,27 +58,6 @@ public class IssueOrderController {
 
     @Autowired
     private IssueOrderRepository issueOrderRepository;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Bean
-    public RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
-            @Override
-            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-                return true;
-            }
-        };
-        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
-        CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setHttpClient(httpClient);
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        return restTemplate;
-    }
-
 
     @GetMapping("issueorder")
     public @ResponseBody IssueOrder getIssueOrder(){
@@ -126,41 +106,13 @@ public class IssueOrderController {
     }
 
     @PostMapping("issueorder")
-    public @ResponseBody
-    Result addIssueOrder(@RequestBody IssueOrder issueOrder){
+    public @ResponseBody Result addIssueOrder(@RequestBody IssueOrder issueOrder){
         Result result;
         try{
             logger.info("接收出库信息：{}",issueOrder.toString());
             result = issueOrder.checkData();
             if(result.getCode().equals("0")){
                 issueOrderService.saveIssueOrder(issueOrder);
-                result = new Result().ok(issueOrder.getDocEntry().toString());
-            }
-        }catch (Exception e){
-            result = new Result().error(issueOrder.getDocEntry().toString(), e.getMessage());
-        }
-        logger.info("回传MES出库信息,{}",result.toString());
-        return result;
-    }
-
-    @PostMapping("createissueorder")
-    public @ResponseBody
-    Result createIssueOrder(@RequestBody IssueOrder issueOrder) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        Result result;
-        try{
-            logger.info("接收出库信息：{}",issueOrder.toString());
-            result = issueOrder.checkData();
-            if(result.getCode().equals("0")){
-                HttpHeaders headers = new HttpHeaders();
-                MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
-                headers.setContentType(type);
-                String requestJson = "{\n" +
-                        "    \"CompanyDB\": \"ERP001\",\n" +
-                        "    \"UserName\": \"BJ-FANUC\\\\bfm004\",\n" +
-                        "    \"Password\": \"Aa123456!\"\n" +
-                        "}";
-                HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
-                String responese = restTemplate.postForObject("https://172.18.19.127:50000/b1s/v1/Login",entity,String.class);
                 result = new Result().ok(issueOrder.getDocEntry().toString());
             }
         }catch (Exception e){
