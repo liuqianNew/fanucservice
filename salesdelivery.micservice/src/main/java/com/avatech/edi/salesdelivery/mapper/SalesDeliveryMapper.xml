@@ -257,7 +257,7 @@
                  T0."Udf5"
          from "AVA_IM_DRN2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
-    <update id="updateSalesDelivery" parameterType="SalesDeliveryMap">
+    <update id="updateSalesDelivery" parameterType="com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery">
         UPDATE "AVA_IM_ODRN" SET "IsSync" = #{isSync}
                                  ,"SyncMessage" = #{syncMessage}
                                  ,"SyncDate" = #{syncDate}
