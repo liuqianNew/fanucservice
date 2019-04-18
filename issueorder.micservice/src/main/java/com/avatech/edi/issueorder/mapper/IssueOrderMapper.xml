@@ -212,6 +212,7 @@
                  T0."Udf5"
          from "AVA_IM_IGE2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
+
     <update id="updateIssueOrder" parameterType="IssueOrderMap">
         UPDATE "AVA_IM_OIGE" SET "IsSync" = #{isSync}
                                  ,"SyncMessage" = #{syncMessage}
@@ -221,4 +222,5 @@
                                  ,"SAPDocEntry" = #{sapDocEntry}
                                  WHERE "EDIDocEntry" = #{eDIDocEntry}
     </update>
+
 </mapper>

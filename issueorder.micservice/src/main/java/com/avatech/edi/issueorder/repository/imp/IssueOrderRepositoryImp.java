@@ -31,10 +31,10 @@ public class IssueOrderRepositoryImp implements IssueOrderRepository{
         Long ediId;
         ediId = idWorker.nextId();
         issueOrder.setEDIDocEntry(ediId);
-        for (int index = 0;index<issueOrder.getIssueOrderItems().size();index++) {
+        for (int index = 0; index < issueOrder.getIssueOrderItems().size(); index++) {
             issueOrder.getIssueOrderItems().get(index).setEDIDocEntry(ediId);
             issueOrder.getIssueOrderItems().get(index).setEDILineId(index);
-            for (int batchIndex = 0 ;batchIndex < issueOrder.getIssueOrderItems().get(index).getIssueOrderBatchItems().size();batchIndex++){
+            for (int batchIndex = 0; batchIndex < issueOrder.getIssueOrderItems().get(index).getIssueOrderBatchItems().size(); batchIndex++) {
                 issueOrder.getIssueOrderItems().get(index).getIssueOrderBatchItems().get(batchIndex).setEDIDocEntry(ediId);
                 issueOrder.getIssueOrderItems().get(index).getIssueOrderBatchItems().get(batchIndex).setEDILineId(batchIndex);
                 issueOrder.getIssueOrderItems().get(index).getIssueOrderBatchItems().get(batchIndex).setEDIItemLineId(index);
@@ -42,9 +42,9 @@ public class IssueOrderRepositoryImp implements IssueOrderRepository{
         }
 
         issueOrderMapper.insertIssueOrder(issueOrder);
-        for (IssueOrderItem issueOrderItem:issueOrder.getIssueOrderItems()) {
+        for (IssueOrderItem issueOrderItem : issueOrder.getIssueOrderItems()) {
             issueOrderMapper.insertIssueOrderItem(issueOrderItem);
-            for (IssueOrderBatchItem issueOrderBatchItem:issueOrderItem.getIssueOrderBatchItems()) {
+            for (IssueOrderBatchItem issueOrderBatchItem : issueOrderItem.getIssueOrderBatchItems()) {
                 issueOrderMapper.insertIssueOrderBatchItem(issueOrderBatchItem);
             }
         }
