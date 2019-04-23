@@ -100,7 +100,7 @@
              )
          </insert>
 
-    <select id="searchPurchaseReceipt" resultMap="PurchaseReceiptMap">
+    <select id="searchPurchaseReceipts" resultMap="PurchaseReceiptMap">
              SELECT  TOP 10
                      T0."EDIDocEntry",
                      T0."DocEntry",
