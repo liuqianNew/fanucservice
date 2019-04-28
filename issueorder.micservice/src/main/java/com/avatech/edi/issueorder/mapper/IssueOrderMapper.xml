@@ -98,7 +98,7 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_OIGE" T0 WHERE "IsSync" = 'N'
+         from "AVA_IM_OIGE" T0 WHERE ifnull("IsSync",'N') != 'Y' AND "ErrorTime"  5
     </select>
 
     <insert id="insertIssueOrderItem" parameterType="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem">

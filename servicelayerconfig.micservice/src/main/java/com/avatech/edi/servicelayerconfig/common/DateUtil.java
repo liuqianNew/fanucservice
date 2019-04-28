@@ -1,10 +1,13 @@
-package com.avatech.edi.servicelayerconfig.model;
+package com.avatech.edi.servicelayerconfig.common;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 
 public class DateUtil {
+
+
+
     public static Long getLongTime() {
         return getLongTime(LocalDateTime.now());
     }
@@ -16,4 +19,6 @@ public class DateUtil {
     public static Long getLongTime(Date date) {
         return getLongTime(date.toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime());
     }
+
+
 }

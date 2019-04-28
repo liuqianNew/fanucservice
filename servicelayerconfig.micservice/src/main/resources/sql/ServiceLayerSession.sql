@@ -8,5 +8,5 @@
                     "UserName" NVARCHAR(20) ,
                     "SessionId" NVARCHAR(60) ,
                     "IsDelete" NVARCHAR(1) ,
-                    "SessionTimeOut" INTEGER
+                    "SessionTimeOut" BIGINT
         );

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CompanyInfo {
 
+    @JsonProperty("Url")
+    private String url;
+
     @JsonProperty("CompanyDB")
     private String companyDB;
 
@@ -12,6 +15,14 @@ public class CompanyInfo {
 
     @JsonProperty("Password")
     private String password;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getCompanyDB() {
         return companyDB;

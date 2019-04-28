@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -17,12 +18,13 @@ import java.util.List;
 public class CompanyInfoManager {
     private final Logger log = LoggerFactory.getLogger(CompanyInfoManager.class);
 
-    private static final String COMPANY_INFO_CONFIG_PATH = "/Users/fanxing/dev/CompanyInfo.json";
+    @Value("${path.company-file-path}")
+    private String companyInfoPath;
 
     private static List<CompanyInfo> companInfos;
 
     private List<CompanyInfo> getCompanyInfos() throws Exception {
-        File file = new File(COMPANY_INFO_CONFIG_PATH);
+        File file = new File(companyInfoPath);
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         try {
