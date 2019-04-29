@@ -14,4 +14,4 @@ logging:
       hibernate:
         SQL: DEBUG
 path:
-  company-file-path:/Users/fanxing/dev/CompanyInfo.json
+  company-file-path: /Users/fanxing/dev/CompanyInfo.json

@@ -42,6 +42,7 @@ public class Result {
     public Result ok(String value){
         this.code = "0";
         this.message = "Successful";
+        this.data = value;
         return this;
     }
 
