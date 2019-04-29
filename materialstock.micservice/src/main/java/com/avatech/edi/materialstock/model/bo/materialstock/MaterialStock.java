@@ -10,9 +10,22 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 public class MaterialStock{
 
+
+    private Long eDIDocEntry;
+
+    private String isSync;
+
+    private String syncMessage;
+
+    private Date syncDate;
+
+    private Integer syncTime;
+
+    private String sapDocEntry;
 
     /**
      * 物料编号
@@ -70,6 +83,8 @@ public class MaterialStock{
     private String docDate;
 
 
+    private Integer errorTime;
+
     /**
      * 自定义字段
      */
@@ -109,7 +124,71 @@ public class MaterialStock{
     private List<MaterialStockItem> materialStockItems;
 
 
-     /**
+
+
+    public Integer getErrorTime() {
+        return errorTime;
+    }
+
+    public void setErrorTime(Integer errorTime) {
+        this.errorTime = errorTime;
+    }
+    /**
+     * 获取单据编号
+     */
+    public Long getEDIDocEntry() {
+        return eDIDocEntry;
+    }
+
+    /**
+     * 设置单据编号
+     */
+    public void setEDIDocEntry(Long eDIDocEntry) {
+        this.eDIDocEntry = eDIDocEntry;
+    }
+
+    public String getIsSync() {
+        return isSync;
+    }
+
+    public void setIsSync(String isSync) {
+        this.isSync = isSync;
+    }
+
+    public String getSyncMessage() {
+        return syncMessage;
+    }
+
+    public void setSyncMessage(String syncMessage) {
+        this.syncMessage = syncMessage;
+    }
+
+    public Date getSyncDate() {
+        return syncDate;
+    }
+
+    public void setSyncDate(Date syncDate) {
+        this.syncDate = syncDate;
+    }
+
+    public Integer getSyncTime() {
+        return syncTime;
+    }
+
+    public void setSyncTime(Integer syncTime) {
+        this.syncTime = syncTime;
+    }
+
+    public String getSapDocEntry() {
+        return sapDocEntry;
+    }
+
+    public void setSapDocEntry(String sapDocEntry) {
+        this.sapDocEntry = sapDocEntry;
+    }
+
+
+    /**
      * 获取物料编号
      */
     public String getItemCode() {

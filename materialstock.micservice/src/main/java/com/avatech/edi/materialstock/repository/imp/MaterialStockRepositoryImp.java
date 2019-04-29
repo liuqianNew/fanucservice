@@ -43,4 +43,9 @@ public class MaterialStockRepositoryImp implements MaterialStockRepository{
         materialStockMapper.deleteAllMaterialStockItem();
     }
 
+    @Override
+    public void updateMaterialStock(MaterialStock materialStock){
+        materialStockMapper.updateMaterialStock(materialStock);
+    }
+
 }

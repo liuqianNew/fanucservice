@@ -98,7 +98,7 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_OIGE" T0 WHERE "IsSync" = 'N'
+         from "AVA_IM_OIGE" T0 WHERE ifnull("IsSync",'N') != 'Y' AND "ErrorTime"  5
     </select>
 
     <insert id="insertIssueOrderItem" parameterType="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem">
@@ -212,7 +212,8 @@
                  T0."Udf5"
          from "AVA_IM_IGE2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
-    <update id="updateIssueOrder" parameterType="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder">
+
+    <update id="updateIssueOrder" parameterType="IssueOrderMap">
         UPDATE "AVA_IM_OIGE" SET "IsSync" = #{isSync}
                                  ,"SyncMessage" = #{syncMessage}
                                  ,"SyncDate" = #{syncDate}
@@ -221,4 +222,5 @@
                                  ,"SAPDocEntry" = #{sapDocEntry}
                                  WHERE "EDIDocEntry" = #{eDIDocEntry}
     </update>
+
 </mapper>

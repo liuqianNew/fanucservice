@@ -1,14 +1,17 @@
-# EDI
 spring:
   datasource:
     url: jdbc:sap://172.18.19.127:30015?currentschema=ERP001
     username: SYSTEM
     password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver
+  aop:
+    proxy-target-class: true
 server:
-  port: 9110
+  port: 9111
 logging:
   level:
     org:
       hibernate:
         SQL: DEBUG
+path:
+  company-file-path: /Users/fanxing/dev/CompanyInfo.json
