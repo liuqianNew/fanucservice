@@ -7,7 +7,7 @@
          <result column="DocEntry" property="docEntry" jdbcType="VARCHAR"/>
          <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
          <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>
-         <result column="DocTime" property="docTime" jdbcType="DATE"/>
+         <result column="DocTime" property="docTime" jdbcType="INTEGER"/>
          <result column="ErrorTime" property="errorTime" jdbcType="INTEGER"/>
          <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
          <result column="SyncMessage" property="syncMessage" jdbcType="NVARCHAR"/>
@@ -84,11 +84,11 @@
          )
     </insert>
 
-    <select id="searchIssueOrder" resultMap="IssueOrderMap">
+    <select id="searchIssueOrders" resultMap="IssueOrderMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."DocDate",
-                 T0."DocEntry",
+                 T1."DocEntry",
                  T0."Comments",
                  T0."UserSign",
                  T0."DocTime",
@@ -98,7 +98,8 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_OIGE" T0 WHERE ifnull("IsSync",'N') != 'Y' AND "ErrorTime"  5
+         from "AVA_IM_OIGE" T0 INNER JOIN OWOR T1 ON T0."DocEntry" = T1."DocNum"
+         WHERE ifnull("IsSync",'N') != 'Y' AND ifnull("ErrorTime",0) &lt; 5
     </select>
 
     <insert id="insertIssueOrderItem" parameterType="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem">
@@ -139,7 +140,7 @@
          )
      </insert>
 
-    <select id="searchIssueOrderItem" resultMap="IssueOrderItemMap" parameterType="Long">
+    <select id="searchIssueOrderItems" resultMap="IssueOrderItemMap" parameterType="Long">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -194,7 +195,7 @@
          )
     </insert>
 
-    <select id="searchIssueOrderBatchItem" resultMap="IssueOrderBatchItemMap" parameterType="HashMap">
+    <select id="searchIssueOrderBatchItems" resultMap="IssueOrderBatchItemMap" parameterType="HashMap">
          SELECT
                  T0."EDIDocEntry",
                  T0."EDILineId",
@@ -213,7 +214,7 @@
          from "AVA_IM_IGE2" T0 WHERE T0."EDIDocEntry" = #{EDIDocEntry} AND T0."EDIItemLineId" = #{EDIItemLineId}
     </select>
 
-    <update id="updateIssueOrder" parameterType="IssueOrderMap">
+    <update id="updateIssueOrder" parameterType="com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder">
         UPDATE "AVA_IM_OIGE" SET "IsSync" = #{isSync}
                                  ,"SyncMessage" = #{syncMessage}
                                  ,"SyncDate" = #{syncDate}

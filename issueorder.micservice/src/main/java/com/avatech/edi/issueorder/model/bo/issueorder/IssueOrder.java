@@ -35,7 +35,6 @@ public class IssueOrder{
     @JsonProperty("DocDate")
     private String docDate;
 
-
     /**
      * 单据编号
      */
@@ -337,4 +336,9 @@ public class IssueOrder{
                 "\",\"issueOrderItems\":[" + issueOrderItems +
                 "]}";
     }
+
+
+
+
+
 }

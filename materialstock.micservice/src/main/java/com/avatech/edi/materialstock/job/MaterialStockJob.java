@@ -55,7 +55,6 @@ public class MaterialStockJob {
     @Scheduled(cron = "0 0/1 * * * ?")
     private void process() {
         try {
-
             // 1.get unsync order from mid database
             List<MaterialStock> materialStocks = materialStockRepository.fetchMaterialStocks();
             if (materialStocks == null || materialStocks.size() == 0) {
@@ -72,8 +71,6 @@ public class MaterialStockJob {
             headers.add("Cookie", seesionId);
             // 3.call service layer to create production order
             goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStocks);
-
-
 
         } catch (Exception e) {
             logger.error("同步生产发货发生异常", e);

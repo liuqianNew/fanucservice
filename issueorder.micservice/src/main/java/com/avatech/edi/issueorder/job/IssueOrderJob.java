@@ -21,7 +21,7 @@ public class IssueOrderJob {
 
     private final Logger logger = LoggerFactory.getLogger(IssueOrderJob.class);
 
-    private static final String PRODUCTION_URL  = "/";
+    private static final String PRODUCTION_URL  = "/InventoryGentery";
 
     @Autowired
     private IssueOrderRepository issueOrderRepository;
@@ -87,7 +87,7 @@ public class IssueOrderJob {
     }
 
     private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser"+companyUser, String.class);
+        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser="+companyUser, String.class);
         return response;
     }
 }
