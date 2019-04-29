@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="ServiceLayerSession" ShortName="SL">
+    <Table Name="AVA_IN_SESSION" Description="session" Type="bott_NoObject" State="bots_System" PropertyName="ServiceLayerSession">
+        <Field Name="CompanyDB" Description="数据库名称" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="CompanyDB" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="UserName" Description="B1用户名" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="UserName" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="SessionId" Description="sessionID" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="SessionId" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="IsDelete" Description="是否停用" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="IsDelete" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="SessionTimeOut" Description="session失效时间" DataType="db_Numeric" SubType="st_None" EditSize="30" PropertyName="SessionTimeOut" IsSystem="Yes" FixedDataType="Integer" />
+    </Table>
+</DomainModel>

@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;<<<<<<< HEAD
 /**
  * FileName: PurchaseReceiptJob
  * Date:     2019/4/18 16:26
