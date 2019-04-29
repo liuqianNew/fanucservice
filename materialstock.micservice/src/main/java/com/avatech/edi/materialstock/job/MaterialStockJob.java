@@ -1,10 +1,9 @@
-package com.avatech.edi.salesdelivery.job;
+package com.avatech.edi.materialstock.job;
 
-import com.avatech.edi.salesdelivery.common.BaseException;
-import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery;
-import com.avatech.edi.salesdelivery.model.vo.SyncResult;
-import com.avatech.edi.salesdelivery.repository.SalesDeliveryRepository;
-import com.avatech.edi.salesdelivery.service.SalesDeliveryService;
+import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock;
+import com.avatech.edi.materialstock.repository.MaterialStockRepository;
+import com.avatech.edi.materialstock.service.GoodsIssueService;
+import com.avatech.edi.materialstock.service.GoodsReceiptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,24 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class SalesDeliveryJob {
+public class MaterialStockJob {
+    private final Logger logger = LoggerFactory.getLogger(MaterialStockJob.class);
 
-    private final Logger logger = LoggerFactory.getLogger(SalesDeliveryJob.class);
+    private static final String GOODS_RECEIPT_URL  = "/";
 
-    private static final String PRODUCTION_URL  = "/";
+    private static final String GOODS_ISSUE_URL  = "/";
 
     @Autowired
-    private SalesDeliveryRepository salesDeliveryRepository;
+    private MaterialStockRepository materialStockRepository;
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private GoodsIssueService goodsIssueService;
+
+    @Autowired
+    private GoodsReceiptService goodsReceiptService;
 
     @Value("${company.sessionurl}")
     private String sessionUrl;
@@ -49,9 +55,10 @@ public class SalesDeliveryJob {
     @Scheduled(cron = "0 0/1 * * * ?")
     private void process() {
         try {
+
             // 1.get unsync order from mid database
-            List<SalesDelivery> salesDeliveries = salesDeliveryRepository.fetchSalesDeliverys();
-            if (salesDeliveries == null || salesDeliveries.size() == 0) {
+            List<MaterialStock> materialStocks = materialStockRepository.fetchMaterialStocks();
+            if (materialStocks == null || materialStocks.size() == 0) {
                 return;
             }
             // 2.get session
@@ -63,27 +70,11 @@ public class SalesDeliveryJob {
             MediaType type1 = MediaType.parseMediaType("application/json; charset=UTF-8");
             headers.setContentType(type1);
             headers.add("Cookie", seesionId);
-
             // 3.call service layer to create production order
-            for (SalesDelivery order : salesDeliveries) {
-                logger.info("同步销售交货信息:%s", order.toString());
-                HttpEntity<String> orderEntry = new HttpEntity<String>(order.toString(), headers);
-                ResponseEntity<String> response = restTemplate.exchange(sessionUrl + PRODUCTION_URL,
-                        HttpMethod.POST, orderEntry, String.class);
-                // 4.update status of mid database order
-                if (response.getStatusCode().equals(HttpStatus.OK) ||
-                        response.getStatusCode().equals(HttpStatus.CREATED)) {
-                    logger.info("销售交货单据同步成功");
-                    order.setIsSync("Y");
-                    order.setSyncDate(new Date());
-                    order.setSyncMessage("Sync successful");
-                } else {
-                    logger.info("单据同步失败");
-                    order.setIsSync("E");
-                    order.setErrorTime(order.getErrorTime() + 1);
-                }
-                salesDeliveryRepository.updateSalesDelivery(order);
-            }
+            goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStocks);
+
+
+
         } catch (Exception e) {
             logger.error("同步生产发货发生异常", e);
         }

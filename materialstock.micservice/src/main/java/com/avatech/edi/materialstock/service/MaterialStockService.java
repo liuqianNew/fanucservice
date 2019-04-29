@@ -29,5 +29,11 @@ public class MaterialStockService{
     public void saveMaterialStock(MaterialStock materialStock){
         materialStockRepository.saveMaterialStock(materialStock);
     }
+
+    public void updateMaterislStock(List<MaterialStock> materialStocks){
+        for (MaterialStock materialStock:materialStocks){
+            materialStockRepository.updateMaterialStock(materialStock);
+        }
+    }
 }
 

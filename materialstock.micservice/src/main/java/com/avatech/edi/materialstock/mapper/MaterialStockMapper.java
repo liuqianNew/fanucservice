@@ -25,4 +25,6 @@ public interface MaterialStockMapper{
     void deleteAllMaterialStock();
 
     void deleteAllMaterialStockItem();
+
+    void updateMaterialStock(MaterialStock materialStock);
 }
