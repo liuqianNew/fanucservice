@@ -114,7 +114,8 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_OIGN" T0 WHERE "IsSync" = 'N'
+         from "AVA_IM_OIGN" T0
+         WHERE ifnull(T0"IsSync",'N') = 'N' AND ifnull(T0."ErrorTime",0) &lt; 5
     </select>
 
     <insert id="insertReceiptOrderItem" parameterType="com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem">
@@ -184,7 +185,7 @@
                  T0."WareHouse",
                  T0."Project",
                  T0."BaseREF",
-                 T0."BaseEntry",
+                 T1."DocEntry",
                  T0."BaseLine",
                  T0."OcrCode",
                  T0."OcrCode2",
@@ -198,7 +199,8 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_IGN1" T0 WHERE T0."EDIDocEntry" = #{ediDocEntry}
+         from "AVA_IM_IGN1" T0 INNER JOIN OWOR T1 ON T0."DocEntry" = T1."DocNum"
+         WHERE T0."EDIDocEntry" = #{ediDocEntry}
     </select>
 
     <insert id="insertReceiptOrderBatchItem" parameterType="com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem">

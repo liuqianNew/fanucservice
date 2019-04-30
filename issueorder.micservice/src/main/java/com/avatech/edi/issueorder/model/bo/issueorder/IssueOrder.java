@@ -35,7 +35,6 @@ public class IssueOrder{
     @JsonProperty("DocDate")
     private String docDate;
 
-
     /**
      * 单据编号
      */
@@ -327,8 +326,6 @@ public class IssueOrder{
                 "\"docDate\":\"" +  docDate +
                 //"\",\"docEntry\":\"" + docEntry +
                 "\",\"comments\":\"" + comments +
-                "\",\"userSign\":\"" + userSign +
-                "\",\"docTime\":\"" + docTime +
                 "\",\"udf1\":\"" + udf1 +
                 "\",\"udf2\":\"" + udf2 +
                 "\",\"udf3\":\"" + udf3 +
@@ -337,4 +334,9 @@ public class IssueOrder{
                 "\",\"issueOrderItems\":[" + issueOrderItems +
                 "]}";
     }
+
+
+
+
+
 }

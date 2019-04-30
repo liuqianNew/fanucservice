@@ -517,4 +517,18 @@ public class ReceiptOrderItem{
         }
         return result.ok(docEntry.toString());
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+
+                "\"ItemCode\":\"" + itemCode + '\"' +
+                ",\"Quantity\":" + qty +
+                ",\"Warehouse\":\"" + wareHouse + '\"'+
+                ",\"BaseType\":" + baseEntry +
+                ",\"BaseEntry\":" + baseEntry +
+                ",\"BaseLine\":" + baseLine +
+                ",\"BatchNumberLines\":[" + receiptOrderBatchItems +
+                "]}";
+    }
 }
