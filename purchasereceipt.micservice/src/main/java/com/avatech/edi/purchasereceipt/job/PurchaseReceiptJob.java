@@ -43,10 +43,6 @@ public class PurchaseReceiptJob {
     @Value("${company.companyuser}")
     private String companyUser;
 
-    @Bean
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-    }
 
     @Scheduled(cron = "0 0/1 * * * ?")
     private void process() {
@@ -68,15 +64,29 @@ public class PurchaseReceiptJob {
 
             // 3.call service layer to create production order
             for (PurchaseReceipt order : purchaseReceipts) {
-                purchaseReceiptService.deleteDraft(headers,sessionUrl+ DRAFT,0);
-                purchaseReceiptService.createPurchaseReceipt(headers,sessionUrl + PURCHASE_NOTES_URL,order);
+                //处理删除草稿表
+                if(order.getDocEntry()==null||order.getDocEntry().equals("")){
+                    break;
+                }
+                try {
+                    Integer docEntry = Integer.valueOf(order.getDocEntry());
+                    purchaseReceiptService.deleteDraft(headers,sessionUrl+ DRAFT,docEntry);
+                    purchaseReceiptService.createPurchaseReceipt(headers,sessionUrl + PURCHASE_NOTES_URL,order);
+                    order.setIsSync("Y");
+                    order.setSyncDate(new Date());
+                    order.setSyncMessage("Sync successful");
+                } catch (NumberFormatException e) {
+                    logger.error("采购收货删除草稿发生异常", e);
+                    //采购收货中间表
+                    order.setIsSync("E");
+                    order.setErrorTime(order.getErrorTime() + 1);
+                }
                 purchaseReceiptRepository.updatePurchaseReceipt(order);
             }
         } catch (Exception e) {
             logger.error("同步采购收货发生异常", e);
         }
     }
-
     private String getSessionId(){
         String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser"+companyUser, String.class);
         return response;

@@ -62,7 +62,7 @@ public class PurchaseReceipt{
      * 过账日期
      */
     @JsonProperty("DocDate")
-    private Date docDate;
+    private String docDate;
 
 
     /**
@@ -252,14 +252,14 @@ public class PurchaseReceipt{
      /**
      * 获取过账日期
      */
-    public Date getDocDate() {
+    public String getDocDate() {
         return docDate;
     }
 
     /**
      * 设置过账日期
      */
-    public void setDocDate(Date docDate) {
+    public void setDocDate(String docDate) {
         this.docDate = docDate;
     }
      /**
