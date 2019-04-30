@@ -326,8 +326,6 @@ public class IssueOrder{
                 "\"docDate\":\"" +  docDate +
                 //"\",\"docEntry\":\"" + docEntry +
                 "\",\"comments\":\"" + comments +
-                "\",\"userSign\":\"" + userSign +
-                "\",\"docTime\":\"" + docTime +
                 "\",\"udf1\":\"" + udf1 +
                 "\",\"udf2\":\"" + udf2 +
                 "\",\"udf3\":\"" + udf3 +

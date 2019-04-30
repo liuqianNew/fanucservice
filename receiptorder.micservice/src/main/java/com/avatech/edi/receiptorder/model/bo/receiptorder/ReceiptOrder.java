@@ -345,4 +345,13 @@ public class ReceiptOrder{
         return result.ok(docEntry.toString());
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"DocDate\":\"" + docDate +
+                "\"Comments\":\"" + comments +
+                "\"DocumentLines\":[" + receiptOrderItems +
+                "]}";
+    }
 }

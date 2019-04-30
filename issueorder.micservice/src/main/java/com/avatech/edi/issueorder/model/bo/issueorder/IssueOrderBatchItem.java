@@ -289,17 +289,9 @@ public class IssueOrderBatchItem{
     @Override
     public String toString() {
         return "{" +
-                //"docEntry\":\"" + docEntry +
-                //"\",\"itemLineId\":\"" + itemLineId +
-                //"\",\"lineNum\":\"" + lineNum +
-                "\",\"itemCode\":\"" + itemCode +
-                "\",\"quantity\":\"" + quantity +
-                "\",\"batchNum\":\"" + batchNum +
-                "\",\"udf1\":\"" + udf1 +
-                "\",\"udf2\":\"" + udf2 +
-                "\",\"udf3\":\"" + udf3 +
-                "\",\"udf4\":\"" + udf4 +
-                "\",\"udf5\":\"" + udf5 +
+                "\"ItemCode\":\"" + itemCode + '\"'+
+                ",\"Quantity\":" + quantity +
+                ",\"BatchNum\":\"" + batchNum +'\"'+
                 '}';
     }
 }
