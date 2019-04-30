@@ -43,15 +43,15 @@ public class PurchaseReceiptServiceTest {
         purchaseReceiptItem.setBaseLine(0);//采购订单行号
         purchaseReceiptItem.setWhsCode("W001");//仓库
         purchaseReceiptItem.setQuantity(new BigDecimal(1));//数量
-        purchaseReceiptItem.setItemCode("M000000001");//物料编号
+        purchaseReceiptItem.setItemCode("M00000001");//物料编号
         purchaseReceiptItem.setUnitMsr("");//计量单位
         purchaseReceiptItems.add(purchaseReceiptItem);
         //批次
         List<PurchaseReceiptBatchItem> items = purchaseReceiptItem.getpurchaseReceiptBatchItems();
         PurchaseReceiptBatchItem item = new PurchaseReceiptBatchItem();
-        item.setItemCode("M000000001");
+        item.setItemCode("M00000001");
         item.setBatchNum("qqqqqqq");//序列号
-        item.setQuantity(new BigDecimal(2));//数量
+        item.setQuantity(new BigDecimal(1));//数量
         items.add(item);
         purchaseReceiptService.savePurchaseReceipt(order);
     }

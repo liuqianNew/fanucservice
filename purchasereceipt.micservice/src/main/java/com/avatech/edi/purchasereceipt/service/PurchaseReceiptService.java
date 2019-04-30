@@ -1,5 +1,6 @@
 package com.avatech.edi.purchasereceipt.service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
@@ -29,6 +30,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 public class PurchaseReceiptService{
@@ -58,44 +60,12 @@ public class PurchaseReceiptService{
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         return restTemplate;
     }
-    public void createPurchaseReceipt(HttpHeaders headers,String postUrl,PurchaseReceipt purchaseReceipt){
+
+    public void createPurchaseReceipt(HttpHeaders headers,String postUrl,PurchaseReceipt purchaseReceipt) throws Exception {
         logger.info("同步采购收货信息:%s", purchaseReceipt.toString());
-        if(purchaseReceipt==null||purchaseReceipt.equals("")){
-            return;
-        }
         try {
-            //3、添加采购收货表
-            JSONArray DocumentLines = new JSONArray();
-            JSONObject requestJson = new JSONObject();
-            JSONArray BatchNumbers = new JSONArray();
-            JSONObject objLine = null;
-            JSONObject BatchNumber ;
-            requestJson.put("CardCode",purchaseReceipt.getCardCode());//供应商编号
-            requestJson.put("DocDate",purchaseReceipt.getDocDate());//过账日期(YYYY-MM-DD)
-            requestJson.put("Comments",purchaseReceipt.getComments());//备份
-            requestJson.put("DocTime",purchaseReceipt.getDocTime());//创建时间（HHmmss）
-            //明细
-            for(PurchaseReceiptItem item:purchaseReceipt.getpurchaseReceiptItems()){
-                objLine = new JSONObject();
-                objLine.put("ItemCode",item.getItemCode());//物料编号
-                objLine.put("Quantity",item.getQuantity());//数量
-                objLine.put("WhsCode",item.getWhsCode());//仓库
-                objLine.put("BaseEntry",item.getDocEntry());//采购订单号
-                objLine.put("BaseLine",item.getBaseLine());//采购订单行号
-                objLine.put("unitMsr",item.getUnitMsr());//计量单位
-                 //批次
-                for(PurchaseReceiptBatchItem purItem:item.getpurchaseReceiptBatchItems()){
-                    BatchNumber = new JSONObject();
-                    BatchNumber.put("BatchNumber",purItem.getBatchNum());
-                    BatchNumber.put("Quantity",purItem.getQuantity());
-                    BatchNumbers.add(BatchNumber);
-                }
-                objLine.put("BatchLines",BatchNumbers);//采购订单行号
-            }
-            DocumentLines.add(objLine);
-            requestJson.put("DocumentLines",DocumentLines);
-            String order= requestJson.toString();
-            HttpEntity<String> orderEntry = new HttpEntity<String>(order, headers);
+           //3、添加采购收货表
+            HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(purchaseReceipt), headers);
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
             HttpMethod.POST, orderEntry, String.class);
             // 4.update status of mid database order
@@ -112,10 +82,49 @@ public class PurchaseReceiptService{
             }
         } catch (Exception e) {
             logger.info("单据同步失败",e);
+            throw new Exception("同步采购收货异常");
         }
-        //purchaseReceiptRepository.updatePurchaseReceipt(purchaseReceipt);
     }
+
     public void deleteDraft(HttpHeaders headers,String postUrl,Integer docEntry) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-        ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE, null, String.class, 227);
+        try{
+            HttpEntity<String> entity = new HttpEntity<String>("", headers);
+            ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
+        }catch (Exception e){
+            logger.error("删除采购收货草稿异常：",e);
+        }
+    }
+
+    private String getOrderString(PurchaseReceipt purchaseReceipt){
+        JSONArray DocumentLines = new JSONArray();
+        JSONObject requestJson = new JSONObject();
+        JSONArray BatchNumbers = new JSONArray();
+        JSONObject objLine = null;
+        JSONObject BatchNumber ;
+        requestJson.put("CardCode",purchaseReceipt.getCardCode());//供应商编号
+        requestJson.put("DocDate",purchaseReceipt.getDocDate());//过账日期(YYYY-MM-DD)
+        requestJson.put("Comments",purchaseReceipt.getComments());//备份
+        //明细
+        for(PurchaseReceiptItem item:purchaseReceipt.getpurchaseReceiptItems()){
+            objLine = new JSONObject();
+            objLine.put("ItemCode",item.getItemCode());//物料编号
+            objLine.put("Quantity",item.getQuantity());//数量
+            objLine.put("WhsCode",item.getWhsCode());//仓库
+            objLine.put("BaseType","22");//基于类型
+            objLine.put("BaseEntry",item.getBaseEntry());//采购订单号
+            objLine.put("BaseLine",item.getBaseLine());//采购订单行号
+            objLine.put("unitMsr",item.getUnitMsr());//计量单位
+            //批次
+            for(PurchaseReceiptBatchItem purItem:item.getpurchaseReceiptBatchItems()){
+                BatchNumber = new JSONObject();
+                BatchNumber.put("BatchNumber",purItem.getBatchNum());
+                BatchNumber.put("Quantity",purItem.getQuantity());
+                BatchNumbers.add(BatchNumber);
+            }
+            objLine.put("BatchNumbers",BatchNumbers);//采购订单行号
+        }
+        DocumentLines.add(objLine);
+        requestJson.put("DocumentLines",DocumentLines);
+        return requestJson.toString();
     }
 }

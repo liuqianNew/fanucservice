@@ -1,6 +1,7 @@
 package com.avatech.edi.purchasereceipt.job;
 
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
+import com.avatech.edi.purchasereceipt.model.dto.Result;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
 import com.avatech.edi.purchasereceipt.service.PurchaseReceiptService;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import javax.xml.ws.Response;
 import java.util.Date;
 import java.util.List;
 
@@ -72,9 +74,6 @@ public class PurchaseReceiptJob {
             // 3.call service layer to create production order
             for (PurchaseReceipt order : purchaseReceipts) {
                 //处理删除草稿表
-                if(order.getDocEntry()==null||order.getDocEntry().equals("")){
-                    break;
-                }
                 try {
                     Integer docEntry = Integer.valueOf(order.getDocEntry());
                     purchaseReceiptService.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
@@ -82,7 +81,7 @@ public class PurchaseReceiptJob {
                     order.setIsSync("Y");
                     order.setSyncDate(new Date());
                     order.setSyncMessage("Sync successful");
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     logger.error("采购收货删除草稿发生异常", e);
                     //采购收货中间表
                     order.setIsSync("E");
@@ -95,7 +94,7 @@ public class PurchaseReceiptJob {
         }
     }
     private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser="+companyUser, String.class);
-        return response;
+        ResponseEntity<Result> response = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
+        return response.getBody().getData();
     }
 }

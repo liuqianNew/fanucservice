@@ -103,7 +103,7 @@
     <select id="searchPurchaseReceipts" resultMap="PurchaseReceiptMap">
              SELECT  TOP 10
                      T0."EDIDocEntry",
-                     T1."DocEntry",
+                     T0."DocEntry",
                      T0."CardCode",
                      T0."CardName",
                      T0."DocType",
@@ -118,7 +118,7 @@
                      T0."Udf3",
                      T0."Udf4",
                      T0."Udf5"
-             from "AVA_IM_ODLN" T0 INNER JOIN ODRF T1 ON T0."DocEntry" = T1."DocNum"
+             from "AVA_IM_ODLN" T0
             WHERE ifnull(T0."IsSync",'N') = 'N' and ifnull(T0."ErrorTime",0) &lt; 5
          </select>
 
