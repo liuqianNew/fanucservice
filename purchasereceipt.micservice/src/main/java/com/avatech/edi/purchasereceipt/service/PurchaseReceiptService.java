@@ -6,16 +6,28 @@ import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 
 @Service
@@ -31,13 +43,21 @@ public class PurchaseReceiptService{
         purchaseReceiptRepository.savePurchaseReceipt(order);
     }
 
-    @Autowired
-    private RestTemplate restTemplate;
-    @Bean
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
+    public RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
+            @Override
+            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+                return true;
+            }
+        };
+        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
+        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+        CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+        requestFactory.setHttpClient(httpClient);
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        return restTemplate;
     }
-
     public void createPurchaseReceipt(HttpHeaders headers,String postUrl,PurchaseReceipt purchaseReceipt){
         logger.info("同步采购收货信息:%s", purchaseReceipt.toString());
         if(purchaseReceipt==null||purchaseReceipt.equals("")){
@@ -76,7 +96,7 @@ public class PurchaseReceiptService{
             requestJson.put("DocumentLines",DocumentLines);
             String order= requestJson.toString();
             HttpEntity<String> orderEntry = new HttpEntity<String>(order, headers);
-            ResponseEntity<String> response = restTemplate.exchange(postUrl,
+            ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
             HttpMethod.POST, orderEntry, String.class);
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
@@ -90,12 +110,12 @@ public class PurchaseReceiptService{
                 purchaseReceipt.setIsSync("E");
                 purchaseReceipt.setErrorTime(purchaseReceipt.getErrorTime() + 1);
             }
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             logger.info("单据同步失败",e);
         }
         //purchaseReceiptRepository.updatePurchaseReceipt(purchaseReceipt);
     }
-    public void deleteDraft(HttpHeaders headers,String postUrl,Integer docEntry){
-
+    public void deleteDraft(HttpHeaders headers,String postUrl,Integer docEntry) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE, null, String.class, 227);
     }
 }

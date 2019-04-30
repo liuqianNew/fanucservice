@@ -161,7 +161,7 @@
              )
          </insert>
 
-    <select id="searchPurchaseReceiptItem" resultMap="PurchaseReceiptItemMap" parameterType="Long">
+    <select id="searchPurchaseReceiptItems" resultMap="PurchaseReceiptItemMap" parameterType="Long">
              SELECT
                      T0."EDIDocEntry",
                      T0."EDILineId",
@@ -217,7 +217,7 @@
              )
          </insert>
 
-    <select id="searchPurchaseReceiptBatchItem" resultMap="PurchaseReceiptBatchItemMap" parameterType="HashMap">
+    <select id="searchPurchaseReceiptBatchItems" resultMap="PurchaseReceiptBatchItemMap" parameterType="HashMap">
              SELECT
                      T0."EDIDocEntry",
                      T0."EDILineId",
