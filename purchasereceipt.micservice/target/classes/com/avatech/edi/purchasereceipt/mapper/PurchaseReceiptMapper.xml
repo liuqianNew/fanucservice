@@ -118,12 +118,8 @@
                      T0."Udf3",
                      T0."Udf4",
                      T0."Udf5"
-<<<<<<< HEAD
              from "AVA_IM_ODLN" T0
             WHERE ifnull(T0."IsSync",'N') = 'N' and ifnull(T0."ErrorTime",0) &lt; 5
-=======
-             from "AVA_IM_ODLN" T0 WHERE T0."IsSync" = 'N'
->>>>>>> 3da045124a79bab8b20b81ad0c52539593653a58
          </select>
 
     <insert id="insertPurchaseReceiptItem" parameterType="com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem">
@@ -165,11 +161,7 @@
              )
          </insert>
 
-<<<<<<< HEAD
     <select id="searchPurchaseReceiptItems" resultMap="PurchaseReceiptItemMap" parameterType="Long">
-=======
-    <select id="searchPurchaseReceiptItem" resultMap="PurchaseReceiptItemMap" parameterType="Long">
->>>>>>> 3da045124a79bab8b20b81ad0c52539593653a58
              SELECT
                      T0."EDIDocEntry",
                      T0."EDILineId",
@@ -225,11 +217,7 @@
              )
          </insert>
 
-<<<<<<< HEAD
     <select id="searchPurchaseReceiptBatchItems" resultMap="PurchaseReceiptBatchItemMap" parameterType="HashMap">
-=======
-    <select id="searchPurchaseReceiptBatchItem" resultMap="PurchaseReceiptBatchItemMap" parameterType="HashMap">
->>>>>>> 3da045124a79bab8b20b81ad0c52539593653a58
              SELECT
                      T0."EDIDocEntry",
                      T0."EDILineId",
