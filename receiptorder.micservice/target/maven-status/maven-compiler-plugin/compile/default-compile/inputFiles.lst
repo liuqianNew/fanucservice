@@ -1,0 +1,12 @@
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\api\ReceiptOrderController.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\model\bo\receiptorder\ReceiptOrder.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\model\bo\receiptorder\ReceiptOrderItem.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\repository\ReceiptOrderRepository.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\mapper\ReceiptOrderMapper.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\common\SnowflakeIdWorker.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\model\dto\Result.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\model\bo\receiptorder\ReceiptOrderBatchItem.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\service\ReceiptOrderService.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\ReceiptOrderApplication.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\model\vo\SyncResult.java
+G:\IdeaWorks\fanucservice\fanucservice\receiptorder.micservice\src\main\java\com\avatech\edi\receiptorder\repository\imp\ReceiptOrderRepositoryImp.java

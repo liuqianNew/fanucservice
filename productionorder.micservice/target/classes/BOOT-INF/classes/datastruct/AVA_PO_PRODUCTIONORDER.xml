@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="ProductionOrder" ShortName="PM">
+    <Table Name="OWOR" Description="生产订单" Type="bott_NoObject" State="bots_System" PropertyName="ProductionOrder">
+        <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" FixedDataType="Integer" />
+        <Field Name="ItemCode" Description="产品编号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ItemCode" FixedDataType="String" />
+        <Field Name="Status" Description="生产订单状态" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="Status" FixedDataType="String" />
+        <Field Name="Type" Description="生产订单类型(常规/返工)" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="Type" FixedDataType="String" />
+        <Field Name="PlannedQty" Description="计划数量-抬头" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="PlannedQty" FixedDataType="BigDecimal" />
+        <Field Name="Comments" Description="备注" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Comments" FixedDataType="String" />
+        <Field Name="RlsDate" Description="审批日期(格式：YYYY-MM-DD)" DataType="db_Date" SubType="st_None" EditSize="10" PropertyName="RlsDate" FixedDataType="String" />
+        <Field Name="Warehouse" Description="仓库" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Warehouse" FixedDataType="String" />
+        <Field Name="Project" Description="项目代码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Project" FixedDataType="String" />
+        <Field Name="OcrCode" Description="分配规则" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode" FixedDataType="String" />
+        <Field Name="OcrCode2" Description="分配规则2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode2" FixedDataType="String" />
+        <Field Name="OcrCode3" Description="分配规则3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode3" FixedDataType="String" />
+        <Field Name="OcrCode4" Description="分配规则4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode4" FixedDataType="String" />
+        <Field Name="OcrCode5" Description="分配规则5" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode5" FixedDataType="String" />
+        <Field Name="OriginNum" Description="生产订单原始编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="OriginNum" FixedDataType="Integer" />
+        <Field Name="Cardcode" Description="客户代码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Cardcode" FixedDataType="String" />
+        <Field Name="UserSign" Description="用户签名" DataType="db_Alpha" SubType="st_None" EditSize="2" PropertyName="UserSign" FixedDataType="String" />
+        <Field Name="StartDate" Description="开始日期(格式：YYYY-MM-DD)" DataType="db_Date" SubType="st_None" EditSize="10" PropertyName="StartDate" FixedDataType="String" />
+        <Field Name="DueDate" Description="到期日(格式：YYYY-MM-DD)" DataType="db_Date" SubType="st_None" EditSize="10" PropertyName="DueDate" FixedDataType="String" />
+        <Field Name="DocTime" Description="创建时间(10点02分01秒：100201)" DataType="db_Date" SubType="st_Time" EditSize="10" PropertyName="DocTime" FixedDataType="Integer" />
+        <Field Name="Udf1" Description="预留字段1" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Udf1" FixedDataType="String" />
+        <Field Name="Udf2" Description="预留字段2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf2" FixedDataType="String" />
+        <Field Name="Udf3" Description="预留字段3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf3" FixedDataType="String" />
+        <Field Name="Udf4" Description="预留字段4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf4" FixedDataType="String" />
+        <Field Name="Udf5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Udf5" FixedDataType="String" />
+    </Table>
+    <Table Name="WOR1" Description="生产订单行" Type="bott_NoObject" State="bots_System" PropertyName="ProductionOrderItem">
+        <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="DocEntry" FixedDataType="Integer" />
+        <Field Name="LineNum" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="LineNum" FixedDataType="Integer" />
+        <Field Name="ItemCode" Description="物料编号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ItemCode" FixedDataType="String" />
+        <Field Name="ItemName" Description="物料描述" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="ItemName" FixedDataType="String" />
+        <Field Name="BaseQty" Description="基础数量" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="BaseQty" FixedDataType="BigDecimal" />
+        <Field Name="PlannedQty" Description="计划" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="PlannedQty" FixedDataType="BigDecimal" />
+        <Field Name="WareHouse" Description="仓库" DataType="db_Alpha" SubType="st_Noneaa" EditSize="8" PropertyName="WareHouse" FixedDataType="String" />
+        <Field Name="Project" Description="项目代码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Project" FixedDataType="String" />
+        <Field Name="OcrCode" Description="分配规则" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode" FixedDataType="String" />
+        <Field Name="OcrCode2" Description="分配规则2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode2" FixedDataType="String" />
+        <Field Name="OcrCode3" Description="分配规则3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode3" FixedDataType="String" />
+        <Field Name="OcrCode4" Description="分配规则4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode4" FixedDataType="String" />
+        <Field Name="OcrCode5" Description="分配规则5" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="OcrCode5" FixedDataType="String" />
+        <Field Name="Udf1" Description="预留字段1" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Udf1" FixedDataType="String" />
+        <Field Name="Udf2" Description="预留字段2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf2" FixedDataType="String" />
+        <Field Name="Udf3" Description="预留字段3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf3" FixedDataType="String" />
+        <Field Name="Udf4" Description="预留字段4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Udf4" FixedDataType="String" />
+        <Field Name="Udf5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="Udf5" FixedDataType="String" />
+    </Table>
+    <BusinessObject Code="AVA_SM_PRODUCTIONORDER" Name="销售订单" TableName="OWOR" ObjectType="boud_Document" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" PropertyName="ProductionOrder">
+        <ChildTables>
+            <ChildTable TableName="WOR1" />
+        </ChildTables>
+        <FindColumns />
+        <FormColumns />
+    </BusinessObject>
+</DomainModel>

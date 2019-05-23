@@ -78,8 +78,4 @@ public class PurchaseReceiptController {
         logger.info("回传MES采购收货信息,{}",result.toString());
         return result;
     }
-
-
-
-
 }

@@ -1,0 +1,15 @@
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\IssueorderApplication.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\model\bo\issueorder\IssueOrderItem.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\model\vo\SyncResult.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\repository\imp\IssueOrderRepositoryImp.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\common\SnowflakeIdWorker.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\job\HttpUrl.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\common\RestTemplate.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\model\bo\issueorder\IssueOrder.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\model\dto\Result.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\repository\IssueOrderRepository.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\api\HttpClientFactory.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\model\bo\issueorder\IssueOrderBatchItem.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\api\IssueOrderController.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\mapper\IssueOrderMapper.java
+G:\IdeaWorks\fanucservice\fanucservice\issueorder.micservice\src\main\java\com\avatech\edi\issueorder\service\IssueOrderService.java
