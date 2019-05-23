@@ -24,7 +24,7 @@ public class ServiceLayerSessionRepositoryImp implements ServiceLayerSessionRepo
         HashMap<String,String> paramMap = new HashMap<>();
         paramMap.put("companyDB",serviceLayerSession.getCompanyDB());
         paramMap.put("userName",serviceLayerSession.getUserName());
-        serviceLayerSessionMapper.deleteServiceLayerSessions(paramMap);
+        serviceLayerSessionMapper.deleteServiceLayerSession(paramMap);
         serviceLayerSessionMapper.insertServiceLayerSession(serviceLayerSession);
     }
 

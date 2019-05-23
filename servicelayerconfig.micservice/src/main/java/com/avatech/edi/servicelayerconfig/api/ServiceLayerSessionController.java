@@ -52,13 +52,4 @@ public class ServiceLayerSessionController {
         }
     }
 
-
-    @PostMapping("servicelayersession")
-    public @ResponseBody
-    Result addServiceLayerSession(@RequestBody ServiceLayerSession serviceLayerSession){
-         serviceLayerSessionService.login();
-         return null;
-    }
-
-
 }

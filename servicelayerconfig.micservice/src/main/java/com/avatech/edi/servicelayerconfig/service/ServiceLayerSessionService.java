@@ -61,50 +61,6 @@ public class ServiceLayerSessionService{
         return restTemplate;
     }
 
-
-    public void login(){
-        try{
-            HttpHeaders headers = new HttpHeaders();
-            MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
-            headers.setContentType(type);
-            String requestJson = "{\n" +
-                    "    \"CompanyDB\": \"ERP001\",\n" +
-                    "    \"UserName\": \"BJ-FANUC\\\\bfm004\",\n" +
-                    "    \"Password\": \"Aa123456!\"\n" +
-                    "}";
-            HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
-
-            //String responese = restTemplate.postForObject("https://172.18.19.127:50000/b1s/v1/Login",entity,String.class);
-
-            //HttpEntity<Object> =
-            HttpEntity<String> response = restTemplate.exchange("https://172.18.19.127:50000/b1s/v1/Login"
-                    , HttpMethod.POST, entity, String.class);
-
-
-
-            String materialJson = "{ \"ItemCode\": \"M00000012\",\n" +
-                    "            \"ItemName\": \"齿轮合件\",\n" +
-                    "            \"ForeignName\": null,\n" +
-                    "            \"ItemsGroupCode\": 101,\n" +
-                    "            \"CustomsGroupCode\": -1}";
-
-            HttpHeaders headers1 = new HttpHeaders();
-            MediaType type1 = MediaType.parseMediaType("application/json; charset=UTF-8");
-            headers1.setContentType(type1);
-            headers1.add("Cookie",response.getHeaders().get("set-cookie").get(0)+"ROUTEID=.node0;path=/b1s");
-
-            HttpEntity<String> itemEntity= new HttpEntity<String>(materialJson,headers1);
-            HttpEntity<String> response1 = restTemplate.exchange("https://172.18.19.127:50000/b1s/v1/Items"
-                    , HttpMethod.POST, itemEntity, String.class);
-
-            if(((ResponseEntity<String>) response1).getStatusCode().equals(200)){
-                System.out.print(response1.getBody().toString());
-            }
-        }catch (Exception e){
-            logger.error("login exception:",e);
-        }
-    }
-
     public String ServiceLayerLogin(String companyDB,String userName) throws Exception {
         try {
             CompanyInfo companyInfo = companyInfoManager.getCompanInfoInstance(companyDB, userName);
