@@ -37,5 +37,8 @@
                      T0."SessionTimeOut"
              from "AVA_IN_SESSION" T0 where T0."CompanyDB" = #{companyDB} AND T0."UserName" = #{userName}
          </select>
+    <delete id="deleteServiceLayerSession" parameterType="HashMap">
+        DELETE * from "AVA_IN_SESSION" T0 where T0."CompanyDB" = #{companyDB} AND T0."UserName" = #{userName}
+    </delete>
 
 </mapper>

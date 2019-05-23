@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
@@ -112,6 +113,7 @@ public class ServiceLayerSessionService{
             headers.setContentType(type);
             ObjectMapper mapper = new ObjectMapper();
             HttpEntity<String> entity = new HttpEntity<String>(mapper.writeValueAsString(companyInfo), headers);
+
             ResponseEntity<String> response = restTemplate.exchange(companyInfo.getUrl(),
                      HttpMethod.POST, entity, String.class);
             logger.info("登录结果：{},返回内容:{}", response.getStatusCode(), response.getBody());

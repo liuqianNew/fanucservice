@@ -18,4 +18,6 @@ public interface ServiceLayerSessionMapper{
     void insertServiceLayerSession(ServiceLayerSession ServiceLayerSession);
 
     List<ServiceLayerSession> searchServiceLayerSessions(HashMap map);
+
+    void deleteServiceLayerSessions(HashMap map);
 }

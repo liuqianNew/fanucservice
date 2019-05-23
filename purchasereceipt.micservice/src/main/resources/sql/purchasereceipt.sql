@@ -13,7 +13,7 @@ CREATE TABLE AVA_IM_ODLN(
             "DocStatus" NVARCHAR(1) ,
             "UserSign" NVARCHAR(8) ,
             "Comments" NVARCHAR(200) ,
-            "DocTime" DATE ,
+            "DocTime" INTEGER ,
             "ErrorTime" INTEGER ,
             "IsSync" NVARCHAR(1) default 'N',
             "SyncMessage" NVARCHAR(200),

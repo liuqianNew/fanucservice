@@ -15,6 +15,11 @@ movefile(){
         echo $jarfile
         cp $jarfile ../../$folder
     done
+    for warfile in ./*.war
+        do
+            echo $warfile
+            cp $warfile ../../$folder
+        done
     cd ..
 }
 checkpackage $folder

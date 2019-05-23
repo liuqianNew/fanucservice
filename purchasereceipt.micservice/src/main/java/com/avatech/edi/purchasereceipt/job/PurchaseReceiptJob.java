@@ -43,11 +43,6 @@ public class PurchaseReceiptJob {
     @Value("${company.companyuser}")
     private String companyUser;
 
-    @Bean
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-    }
-
     @Scheduled(cron = "0 0/1 * * * ?")
     private void process() {
         try {

@@ -55,7 +55,7 @@
      </resultMap>
 
     <select id="searchDraftOrders" resultMap="DraftOrderMap">
-        SELECT TOP 10  T0."DocNum" as "DocEntry"
+        SELECT TOP 10  T0."DocEntry"
                  ,T0."CardCode"
                  ,T0."CardName"
                  ,'' as "ShiptoCode"
@@ -81,7 +81,7 @@
      </select>
 
     <select id="searchDraftOrderItems" resultMap="DraftOrderItemMap" parameterType="String">
-         SELECT  T1."DocNum" as "DocEntry"
+         SELECT  T0."DocEntry"
                  ,T0."LineNum" AS "LineId"
                  ,T0."ItemCode"
                  ,T0."Dscription" AS "ItemName"
@@ -95,8 +95,8 @@
                  ,'' as "Udf3"
                  ,'' as "Udf4"
                  ,'' as "Udf5"
-         FROM "DRF1" T0 INNER JOIN "ODRF" T1 ON T0."DocEntry" = T1."DocEntry"
-         WHERE T1."DocNum" = #{docEntry}
+         FROM "DRF1" T0
+         WHERE T0."DocEntry" = #{docEntry}
     </select>
 
     <select id="searchBatchItems" resultMap="BatchItemMap" parameterType="Map">
