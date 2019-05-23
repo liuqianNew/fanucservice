@@ -1,6 +1,7 @@
 package com.avatech.edi.purchasereceipt.job;
 
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
+import com.avatech.edi.purchasereceipt.model.dto.Result;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
 import com.avatech.edi.purchasereceipt.service.PurchaseReceiptService;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import javax.xml.ws.Response;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +23,9 @@ import java.util.List;
 public class PurchaseReceiptJob {
     private final Logger logger = LoggerFactory.getLogger(PurchaseReceiptJob.class);
 
-    private static final String PURCHASE_NOTES_URL  = "/";
+    private static final String PURCHASE_NOTES_URL  = "/PurchaseDeliveryNotes";
 
-    private static final String DRAFT = "/";
+    private static final String DRAFT = "/Drafts";
 
     @Autowired
     private PurchaseReceiptRepository purchaseReceiptRepository;
@@ -34,6 +36,10 @@ public class PurchaseReceiptJob {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Bean
+    public RestTemplate getRestTemplate(){
+        return new RestTemplate();
+    }
     @Value("${company.sessionurl}")
     private String sessionUrl;
 
@@ -42,6 +48,10 @@ public class PurchaseReceiptJob {
 
     @Value("${company.companyuser}")
     private String companyUser;
+
+    @Value("${company.servicelayerurl}")
+    private String serviceLayerAPI;
+
 
     @Scheduled(cron = "0 0/1 * * * ?")
     private void process() {
@@ -63,17 +73,28 @@ public class PurchaseReceiptJob {
 
             // 3.call service layer to create production order
             for (PurchaseReceipt order : purchaseReceipts) {
-                purchaseReceiptService.deleteDraft(headers,sessionUrl+ DRAFT,0);
-                purchaseReceiptService.createPurchaseReceipt(headers,sessionUrl + PURCHASE_NOTES_URL,order);
+                //处理删除草稿表
+                try {
+                    Integer docEntry = Integer.valueOf(order.getDocEntry());
+                    purchaseReceiptService.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
+                    purchaseReceiptService.createPurchaseReceipt(headers,serviceLayerAPI + PURCHASE_NOTES_URL,order);
+                    order.setIsSync("Y");
+                    order.setSyncDate(new Date());
+                    order.setSyncMessage("Sync successful");
+                } catch (Exception e) {
+                    logger.error("采购收货删除草稿发生异常", e);
+                    //采购收货中间表
+                    order.setIsSync("E");
+                    order.setErrorTime(order.getErrorTime() + 1);
+                }
                 purchaseReceiptRepository.updatePurchaseReceipt(order);
             }
         } catch (Exception e) {
             logger.error("同步采购收货发生异常", e);
         }
     }
-
     private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser"+companyUser, String.class);
-        return response;
+        ResponseEntity<Result> response = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
+        return response.getBody().getData();
     }
 }

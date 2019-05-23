@@ -24,7 +24,6 @@ public class PurchaseReceiptRepositoryImp implements PurchaseReceiptRepository{
 
 
     public void savePurchaseReceipt(PurchaseReceipt purchaseReceipt){
-        purchaseReceiptMapper.insertPurchaseReceipt(purchaseReceipt);
         SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
         Long ediId;
         ediId = idWorker.nextId();

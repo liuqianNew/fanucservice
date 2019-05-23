@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:sap://172.18.19.127:30015?currentschema=ERP001
+    username: SYSTEM
+    password: Fanuc2019
+    driver-class-name: com.sap.db.jdbc.Driver
+server:
+  port: 9103
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
