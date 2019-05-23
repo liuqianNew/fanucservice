@@ -4,15 +4,14 @@ spring:
     username: SYSTEM
     password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver
+  aop:
+    proxy-target-class: true
 server:
-  port: 9101
+  port: 9111
 logging:
   level:
     org:
       hibernate:
         SQL: DEBUG
-company:
-  companydb: ERP001
-  companyuser: BJ-FANUC\bfm004
-  sessionurl: http://172.18.19.130:9111/v1/servicelayersession
-  servicelayerurl: https://172.18.19.127:50000/b1s/v1
+path:
+  company-file-path: /Users/fanxing/dev/CompanyInfo.json

@@ -10,13 +10,9 @@ logging:
   level:
     org:
       hibernate:
-<<<<<<< HEAD
         SQL: DEBUG
 company:
   companydb: ERP001
   companyuser: BJ-FANUC\bfm004
   sessionurl: http://localhost:9111/v1/servicelayersession
   servicelayerurl: https://172.18.19.127:50000/b1s/v1
-=======
-        SQL: DEBUG
->>>>>>> 3da045124a79bab8b20b81ad0c52539593653a58
