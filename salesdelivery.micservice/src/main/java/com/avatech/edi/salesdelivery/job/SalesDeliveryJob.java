@@ -2,9 +2,11 @@ package com.avatech.edi.salesdelivery.job;
 
 import com.avatech.edi.salesdelivery.common.BaseException;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery;
+import com.avatech.edi.salesdelivery.model.dto.Result;
 import com.avatech.edi.salesdelivery.model.vo.SyncResult;
 import com.avatech.edi.salesdelivery.repository.SalesDeliveryRepository;
 import com.avatech.edi.salesdelivery.service.SalesDeliveryService;
+import com.avatech.edi.salesdelivery.service.SalesDeliveryService2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,22 @@ public class SalesDeliveryJob {
 
     private final Logger logger = LoggerFactory.getLogger(SalesDeliveryJob.class);
 
+
+    private static final String SALEDELIVER_URL  = "/";
     private static final String PRODUCTION_URL  = "/";
+    private static final String PURCHASE_NOTES_URL  = "/PurchaseDeliveryNotes";
+    private static final String SALEDELIVERY_NOTES_URL  = "/DeliveryNotes";
+
+    private static final String DRAFT = "/Drafts";
 
     @Autowired
     private SalesDeliveryRepository salesDeliveryRepository;
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private SalesDeliveryService2 salesDeliveryService2;
 
     @Value("${company.sessionurl}")
     private String sessionUrl;
@@ -40,6 +51,9 @@ public class SalesDeliveryJob {
 
     @Value("${company.companyuser}")
     private String companyUser;
+
+    @Value("${company.servicelayerurl}")
+    private String serviceLayerAPI;
 
     @Bean
     public RestTemplate getRestTemplate(){
@@ -64,33 +78,55 @@ public class SalesDeliveryJob {
             headers.setContentType(type1);
             headers.add("Cookie", seesionId);
 
-            // 3.call service layer to create production order
+            //modify by yuan
+            // 3.call service layer to create saledelivery order
             for (SalesDelivery order : salesDeliveries) {
-                logger.info("同步销售交货信息:%s", order.toString());
-                HttpEntity<String> orderEntry = new HttpEntity<String>(order.toString(), headers);
-                ResponseEntity<String> response = restTemplate.exchange(sessionUrl + PRODUCTION_URL,
-                        HttpMethod.POST, orderEntry, String.class);
-                // 4.update status of mid database order
-                if (response.getStatusCode().equals(HttpStatus.OK) ||
-                        response.getStatusCode().equals(HttpStatus.CREATED)) {
-                    logger.info("销售交货单据同步成功");
+                //处理删除草稿表
+                try {
+                    Integer docEntry = Integer.valueOf(order.getDocEntry());
+                    salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
+                    salesDeliveryService2.createSalesDelivery(headers,serviceLayerAPI + SALEDELIVERY_NOTES_URL,order);
                     order.setIsSync("Y");
                     order.setSyncDate(new Date());
                     order.setSyncMessage("Sync successful");
-                } else {
-                    logger.info("单据同步失败");
+                } catch (Exception e) {
+                    logger.error("销售发货单删除草稿发生异常", e);
+                    //销售发货单中间表
                     order.setIsSync("E");
                     order.setErrorTime(order.getErrorTime() + 1);
                 }
                 salesDeliveryRepository.updateSalesDelivery(order);
             }
+            //--------------------------------------------------------------
+
+
+            // 3.call service layer to create production order
+//            for (SalesDelivery order : salesDeliveries) {
+//                logger.info("同步销售交货信息:%s", order.toString());
+//                HttpEntity<String> orderEntry = new HttpEntity<String>(order.toString(), headers);
+//                ResponseEntity<String> response = restTemplate.exchange(sessionUrl + PRODUCTION_URL,
+//                        HttpMethod.POST, orderEntry, String.class);
+//                // 4.update status of mid database order
+//                if (response.getStatusCode().equals(HttpStatus.OK) ||
+//                        response.getStatusCode().equals(HttpStatus.CREATED)) {
+//                    logger.info("销售交货单据同步成功");
+//                    order.setIsSync("Y");
+//                    order.setSyncDate(new Date());
+//                    order.setSyncMessage("Sync successful");
+//                } else {
+//                    logger.info("单据同步失败");
+//                    order.setIsSync("E");
+//                    order.setErrorTime(order.getErrorTime() + 1);
+//                }
+//                salesDeliveryRepository.updateSalesDelivery(order);
+//            }
         } catch (Exception e) {
             logger.error("同步生产发货发生异常", e);
         }
     }
 
     private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser"+companyUser, String.class);
-        return response;
+        ResponseEntity<Result> response1 = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
+        return response1.getBody().getData();
     }
 }

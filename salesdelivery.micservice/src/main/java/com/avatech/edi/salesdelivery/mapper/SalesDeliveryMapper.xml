@@ -135,7 +135,7 @@
                  T0."PayType",
                  T0."DeliveryNum",
                  T0."DocTime",
-                 T0."ErrorTime",
+                 IFNULL(T0."ErrorTime",0) as "ErrorTime",
                  T0."Udf1",
                  T0."Udf2",
                  T0."Udf3",
