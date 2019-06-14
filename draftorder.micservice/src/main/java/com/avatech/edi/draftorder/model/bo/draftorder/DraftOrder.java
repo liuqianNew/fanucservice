@@ -407,7 +407,7 @@ public class DraftOrder{
 
     @Override
     public String toString() {
-        return "{" +
+        return "[{" +
                 "\"DocEntry\":\"" + docEntry +
                 "\",\"CardCode\":\"" + cardCode +
                 "\",\"CardName\":\"" + cardName +
@@ -427,6 +427,6 @@ public class DraftOrder{
                 "\",\"Udf3\":\"" + udf3 +
                 "\",\"Udf4\":\"" + udf4 +
                 "\",\"Udf5\":\"" + udf5 +
-                "\"}";
+                "\"}]";
     }
 }

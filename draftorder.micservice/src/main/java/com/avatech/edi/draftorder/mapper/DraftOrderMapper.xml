@@ -75,7 +75,7 @@
                  ,'' as "Udf3"
                  ,'' as "Udf4"
                  ,'' as "Udf5"
-         FROM "ODRF" T0  INNER JOIN "OCRD" T1 ON T0."CardCode" = T1."CardCode" AND (T0."ObjType" = 17 or T0."ObjType" = 22)
+         FROM "ODRF" T0  INNER JOIN "OCRD" T1 ON T0."CardCode" = T1."CardCode" AND (T0."ObjType" = 15 or T0."ObjType" = 20)
          				 LEFT JOIN "CRD1" T2 ON T1."CardCode" = T2."CardCode" AND T2."AdresType" = 'S'
          				 WHERE  IFNULL("U_IsSync",'N') = 'N'
      </select>

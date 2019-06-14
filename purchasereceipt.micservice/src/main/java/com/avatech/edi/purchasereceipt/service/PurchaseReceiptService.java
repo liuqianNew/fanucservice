@@ -20,6 +20,7 @@ import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -80,7 +81,7 @@ public class PurchaseReceiptService{
                 purchaseReceipt.setIsSync("E");
                 purchaseReceipt.setErrorTime(purchaseReceipt.getErrorTime() + 1);
             }
-        } catch (Exception e) {
+        }catch (Exception e) {
             logger.info("单据同步失败",e);
             throw new Exception("同步采购收货异常");
         }

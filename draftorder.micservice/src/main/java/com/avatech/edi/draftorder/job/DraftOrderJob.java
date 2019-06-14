@@ -43,7 +43,7 @@ public class DraftOrderJob {
         FDIService service = MESService.getInstance();
         logger.info("推送MES草稿信息：{}",order.toString());
         logger.info("推送MES草稿明细信息：{}",order.getdraftOrderItems().toString());
-        logger.info("推送MES草稿批次信息：{}",order.toString());
+        //logger.info("推送MES草稿批次信息：{}",order.toString());
         String result;
         if(order.getDocType().equals("15")){
             result = service.getFDIServiceSoap().getDNOrder(order.toString(),order.getdraftOrderItems().toString());
