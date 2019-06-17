@@ -294,7 +294,7 @@ public class DraftOrderItem{
     @Override
     public String toString() {
         return "{" +
-                "DocEntry\":\"" + docEntry +
+                "\"DocEntry\":\"" + docEntry +
                 "\",\"LineId\":\"" + lineId +
                 "\",\"ItemCode\":\"" + itemCode +
                 "\",\"ItemName\":\"" + itemName +
