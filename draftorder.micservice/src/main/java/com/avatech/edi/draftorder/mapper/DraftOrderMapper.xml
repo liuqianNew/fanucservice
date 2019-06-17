@@ -114,7 +114,7 @@
          FROM "OBTN" T0 WHERE T0."DocEntry" = #{docEntry} AND T0."ItemLineId" = #{itemLineId}
     </select>
 
-    <update id="updateProductionOrderUserField" parameterType="com.avatech.edi.draftorder.model.vo.SyncResult">
-        UPDATE ODRF SET "U_IsSync" = #{syncResult},"U_SyncMessage" = #{syncMessage} WHERE "DocNum" = #{syncUniqueKey}
+    <update id="updateDraftOrder" parameterType="com.avatech.edi.draftorder.model.vo.SyncResult">
+        UPDATE ODRF SET "U_IsSync" = #{syncResult},"U_SyncMessage" = #{syncMessage} WHERE "DocEntry" = #{syncUniqueKey}
     </update>
 </mapper>

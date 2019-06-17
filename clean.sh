@@ -1,4 +1,11 @@
 #!/bin/sh
+folder="package"
+if [ ! -d $folder ];
+then
+    mkdir $folder
+fi
+rm -rf $folder/*
+
 for file in ./*.micservice
 do
     # 如果是目录 则执行逻辑
