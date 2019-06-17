@@ -2,10 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
+=======
+    <packaging>jar</packaging>
+>>>>>>> f36c192e0a74aa5ada501956b4d97e528acaf739
 
     <groupId>com.avatech.edi</groupId>
     <artifactId>salesdelivery.micservice</artifactId>
-    <version>1.0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>salesdelivery.micservice</name>
     <description>project for salesdelivery</description>
     <parent>
@@ -62,6 +66,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

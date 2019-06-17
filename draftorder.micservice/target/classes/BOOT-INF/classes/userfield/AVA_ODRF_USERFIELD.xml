@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DomainModel Name="ProductionOrder" ShortName="FANUC">
-    <Table Name="ODRF" Description="草稿" Type="bott_NoObject" State="bots_System" PropertyName="DraftDocuments">
-        <Field Name="PayType" Description="付款方式" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="PayType" FixedDataType="System.String" />
-        <Field Name="DeliveryNum" Description="货运单号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="DeliveryNum" FixedDataType="System.String" />
-        <Field Name="IsSync" Description="是否同步MES" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="IsSync" FixedDataType="System.String" />
-        <Field Name="SyncMessage" Description="同步MES消息" DataType="db_Alpha" SubType="st_None" EditSize="60" PropertyName="SyncMessage" FixedDataType="System.String" />
-    </Table>
-</DomainModel>
