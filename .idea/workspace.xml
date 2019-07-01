@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d3985339-888c-4f68-925b-d8f3eac4a3dd" name="Default" comment="" />
+    <list default="true" id="d3985339-888c-4f68-925b-d8f3eac4a3dd" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/clean.sh" beforeDir="false" afterPath="$PROJECT_DIR$/clean.sh" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/materials.microservice/target/" />
     <ignored path="$PROJECT_DIR$/salesdeliveries.microservice/target/" />
     <ignored path="$PROJECT_DIR$/salesorders.microservice/target/" />
@@ -36,7 +38,7 @@
         <entry file="file://$PROJECT_DIR$/materials.microservice/src/main/java/com/avatech/edi/materials/api/MaterialController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="e#977#978#0" expanded="true" />
                 <element signature="e#1004#1005#0" expanded="true" />
@@ -71,7 +73,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SalesOrder.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SalesOrder.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesorders.microservice/src/main/resources/userfield/SalesOrder.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
@@ -80,23 +82,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AVA_OITM_USERFIELD.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/materials.microservice/src/main/resources/userfield/AVA_OITM_USERFIELD.xml">
+      <file leaf-file-name="clean.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/clean.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+            <state relative-caret-position="378">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="18">
-                <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-              </first_editor>
-              <second_editor />
+      <file leaf-file-name="AVA_OITM_USERFIELD.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/materials.microservice/src/main/resources/userfield/AVA_OITM_USERFIELD.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -138,6 +137,7 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/materials.microservice/src/main/java/com/avatech/edi/materials/MaterialsApplication.java" />
         <option value="$PROJECT_DIR$/materials.microservice/src/main/resources/userfield/AVA_OITM_USERFIELD.xml" />
+        <option value="$PROJECT_DIR$/clean.sh" />
       </list>
     </option>
   </component>
@@ -276,12 +276,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1561950001039</updated>
-      <workItem from="1561950002328" duration="4732000" />
+      <workItem from="1561950002328" duration="5030000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4732000" />
+    <option name="totallyTimeSpent" value="5030000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
@@ -481,7 +481,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="18">
-            <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            <caret line="1" selection-start-line="1" selection-end-line="1" />
           </first_editor>
           <second_editor />
         </state>
@@ -504,7 +504,7 @@
     <entry file="file://$PROJECT_DIR$/materials.microservice/src/main/java/com/avatech/edi/materials/api/MaterialController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#977#978#0" expanded="true" />
             <element signature="e#1004#1005#0" expanded="true" />
@@ -515,7 +515,7 @@
     <entry file="file://$PROJECT_DIR$/materials.microservice/src/main/resources/userfield/AVA_OITM_USERFIELD.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -541,6 +541,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clean.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
