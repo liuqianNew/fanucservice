@@ -1,0 +1,38 @@
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# ibas packages
+*/.idea
+*/.idea/
+*/out
+*/out/
+
+# files
+*_log_*.txt
+*.tmp
+*.class
+*.js
+*.glf
+
+# work folder
+/target/
+/release/
+/.vs/
+/.vscode/
+/.metadata/
+/.recommenders/
+/RemoteSystemsTempFiles/
+/Servers/
+.idea/
+.idea
+.cache
+*.iml
+.project
+.settings/
+.classpath
+*.prefs
