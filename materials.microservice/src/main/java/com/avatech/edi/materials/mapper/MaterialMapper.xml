@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.avatech.edi.materials.mapper.MaterialMapper">
+
+         <resultMap id="MaterialItemMap" type="com.avatech.edi.materials.model.bo.material.Material">
+                    <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
+                    <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
+                    <result column="FrgnName" property="frgnName" jdbcType="NVARCHAR"/>
+                    <result column="Spec" property="spec" jdbcType="NVARCHAR"/>
+                    <result column="ItmsGrpName" property="itmsGrpName" jdbcType="NVARCHAR"/>
+                    <result column="ItmsGrpCod" property="itmsGrpCod" jdbcType="NVARCHAR"/>
+                    <result column="PrchseItem" property="prchseItem" jdbcType="NVARCHAR"/>
+                    <result column="SellItem" property="sellItem" jdbcType="NVARCHAR"/>
+                    <result column="InvntItem" property="invntItem" jdbcType="NVARCHAR"/>
+                    <result column="DfltWH" property="dfltWH" jdbcType="NVARCHAR"/>
+                    <result column="CardCode" property="cardCode" jdbcType="NVARCHAR"/>
+                    <result column="BuyUnitMsr" property="buyUnitMsr" jdbcType="NVARCHAR"/>
+                    <result column="SalUnitMsr" property="salUnitMsr" jdbcType="NVARCHAR"/>
+                    <result column="ManSerNum" property="manSerNum" jdbcType="NVARCHAR"/>
+                    <result column="ManBtchNum" property="manBtchNum" jdbcType="NVARCHAR"/>
+                    <result column="validFor" property="validFor" jdbcType="NVARCHAR"/>
+                    <result column="INUoMEntry" property="iNUoMEntry" jdbcType="NVARCHAR"/>
+                    <result column="PrcrmntMtd" property="prcrmntMtd" jdbcType="NVARCHAR"/>
+                    <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
+                    <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
+                    <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
+                    <result column="Udf4" property="udf4" jdbcType="NVARCHAR"/>
+                    <result column="Udf5" property="udf5" jdbcType="NVARCHAR"/>
+         </resultMap>
+
+
+         <insert id="insertMaterialItem" parameterType="com.avatech.edi.materials.model.bo.material.Material">
+             INSERT INTO "OITM" (
+                     "ItemCode",
+                     "ItemName",
+                     "FrgnName",
+                     "Spec",
+                     "ItmsGrpName",
+                     "ItmsGrpCod",
+                     "PrchseItem",
+                     "SellItem",
+                     "InvntItem",
+                     "DfltWH",
+                     "CardCode",
+                     "BuyUnitMsr",
+                     "SalUnitMsr",
+                     "ManSerNum",
+                     "ManBtchNum",
+                     "validFor",
+                     "INUoMEntry",
+                     "PrcrmntMtd",
+                     "Udf1",
+                     "Udf2",
+                     "Udf3",
+                     "Udf4",
+                     "Udf5"
+              )
+             values(
+                      #{itemCode},
+                      #{itemName},
+                      #{frgnName},
+                      #{spec},
+                      #{itmsGrpName},
+                      #{itmsGrpCod},
+                      #{prchseItem},
+                      #{sellItem},
+                      #{invntItem},
+                      #{dfltWH},
+                      #{cardCode},
+                      #{buyUnitMsr},
+                      #{salUnitMsr},
+                      #{manSerNum},
+                      #{manBtchNum},
+                      #{validFor},
+                      #{iNUoMEntry},
+                      #{prcrmntMtd},
+                      #{udf1},
+                      #{udf2},
+                      #{udf3},
+                      #{udf4},
+                      #{udf5}
+             )
+         </insert>
+
+         <select id="searchMaterialItem" resultMap="MaterialItemMap">
+             SELECT
+                     T0."ItemCode",
+                     T0."ItemName",
+                     T0."FrgnName",
+                     T0."Spec",
+                     T0."ItmsGrpName",
+                     T0."ItmsGrpCod",
+                     T0."PrchseItem",
+                     T0."SellItem",
+                     T0."InvntItem",
+                     T0."DfltWH",
+                     T0."CardCode",
+                     T0."BuyUnitMsr",
+                     T0."SalUnitMsr",
+                     T0."ManSerNum",
+                     T0."ManBtchNum",
+                     T0."validFor",
+                     T0."INUoMEntry",
+                     T0."PrcrmntMtd",
+                     T0."Udf1",
+                     T0."Udf2",
+                     T0."Udf3",
+                     T0."Udf4",
+                     T0."Udf5"
+             from "OITM" T0
+         </select>
+
+</mapper>

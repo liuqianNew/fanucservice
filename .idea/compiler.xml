@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="materials.microservice" />
+        <module name="salesdeliveries.microservice" />
+        <module name="salesorders.microservice" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="materials.microservice" target="1.8" />
+      <module name="salesdeliveries.microservice" target="1.8" />
+      <module name="salesorders.microservice" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
