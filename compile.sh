@@ -23,7 +23,7 @@ movefile(){
     cd ..
 }
 checkpackage $folder
-for file in ./*.micservice
+for file in ./*.microservice
 do
     # 如果是目录 则执行逻辑
     if test -d $file  
