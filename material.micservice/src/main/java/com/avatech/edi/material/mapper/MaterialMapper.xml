@@ -40,7 +40,7 @@
                      ,T0."ItemName"
                      ,T0."FrgnName"
                      ,T0."Spec"
-                     --,T1."ItmsGrpNam"
+                     ,T1."ItmsGrpNam"
                      ,T0."ItmsGrpCod"
                      ,T0."PrchseItem"
                      ,T0."SellItem"
@@ -72,7 +72,7 @@
                      ,'' as "Udf3"
                      ,'' as "Udf4"
                      ,'' as "Udf5"
-             FROM "OITM" T0 INNER JOIN "OITB" T1 on T0."ItmsGrpCod" = T1."ItmsGrpCod"
+             FROM "OITM" T0 INNER JOIN "OITB" T1 on T0."ItmsGrpCod" = T1."ItmsGrpCod" where Ifnull("U_IsSync",'N') = 'N'
          </select>
         <update id="updateMaterialUserField" parameterType="com.avatech.edi.material.model.vo.SyncResult">
             update "OITM" SET "U_IsSync" = #{syncResult},"U_SyncMessage" = #{syncMessage} WHERE "ItemCode" = #{syncUniqueKey}

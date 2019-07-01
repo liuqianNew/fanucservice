@@ -320,6 +320,13 @@ public class IssueOrder{
         return result.ok(docEntry.toString());
     }
 
+
+    public void error(String syncResult,String syncMessage,Integer errorTime){
+        this.setIsSync(syncResult);
+        this.setErrorTime(errorTime);
+        this.setSyncMessage(syncMessage);
+    }
+
     @Override
     public String toString() {
         return "{" +

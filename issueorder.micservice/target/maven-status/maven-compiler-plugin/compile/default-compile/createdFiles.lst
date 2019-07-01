@@ -1,0 +1,14 @@
+com/avatech/edi/issueorder/model/bo/issueorder/IssueOrderItem.class
+com/avatech/edi/issueorder/mapper/IssueOrderMapper.class
+com/avatech/edi/issueorder/model/dto/Result.class
+com/avatech/edi/issueorder/repository/IssueOrderRepository.class
+com/avatech/edi/issueorder/model/bo/issueorder/IssueOrderBatchItem.class
+com/avatech/edi/issueorder/model/vo/SyncResult.class
+com/avatech/edi/issueorder/service/IssueOrderService$1.class
+com/avatech/edi/issueorder/api/IssueOrderController.class
+com/avatech/edi/issueorder/model/bo/issueorder/IssueOrder.class
+com/avatech/edi/issueorder/service/IssueOrderService.class
+com/avatech/edi/issueorder/repository/imp/IssueOrderRepositoryImp.class
+com/avatech/edi/issueorder/job/IssueOrderJob.class
+com/avatech/edi/issueorder/common/SnowflakeIdWorker.class
+com/avatech/edi/issueorder/IssueorderApplication.class

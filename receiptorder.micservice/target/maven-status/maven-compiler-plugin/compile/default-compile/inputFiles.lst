@@ -1,0 +1,13 @@
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/model/dto/Result.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/repository/imp/ReceiptOrderRepositoryImp.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/model/vo/SyncResult.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/mapper/ReceiptOrderMapper.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/job/ReceiptOrderJob.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/service/ReceiptOrderService.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrderBatchItem.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/api/ReceiptOrderController.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/ReceiptOrderApplication.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrderItem.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/model/bo/receiptorder/ReceiptOrder.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/common/SnowflakeIdWorker.java
+/Users/fanxing/Documents/ava-work/fanucservice/receiptorder.micservice/src/main/java/com/avatech/edi/receiptorder/repository/ReceiptOrderRepository.java

@@ -63,6 +63,11 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.9</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -84,7 +89,7 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>./</targetPath>
+                <targetPath>BOOT-INF/classes/</targetPath>
             </resource>
         </resources>
     </build>

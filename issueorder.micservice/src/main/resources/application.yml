@@ -13,6 +13,6 @@ logging:
         SQL: DEBUG
 company:
   companydb: ERP001
-  companyuser: BJ-FANUC\bfm004
+  companyuser: BJ-FANUC\bfm002
   sessionurl: http://localhost:9111/v1/servicelayersession
   servicelayerurl: https://172.18.19.127:50000/b1s/v1

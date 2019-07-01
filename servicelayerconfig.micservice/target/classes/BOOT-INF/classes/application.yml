@@ -14,4 +14,4 @@ logging:
       hibernate:
         SQL: DEBUG
 path:
-  company-file-path: C:\\Users\\yuanxingfang\\CompanyInfo.json
+  company-file-path: Users/fanxing/dev/CompanyInfo.json

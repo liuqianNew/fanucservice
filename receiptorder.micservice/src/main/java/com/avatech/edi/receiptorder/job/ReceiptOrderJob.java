@@ -2,6 +2,7 @@ package com.avatech.edi.receiptorder.job;
 
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
 import com.avatech.edi.receiptorder.repository.ReceiptOrderRepository;
+import com.avatech.edi.receiptorder.service.ReceiptOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,13 @@ public class ReceiptOrderJob {
 
     private final Logger logger = LoggerFactory.getLogger(ReceiptOrderJob.class);
 
-    private static final String PRODUCTION_URL  = "/";
+    private static final String PRODUCTION_URL  = "/InventoryGenExits";
 
     @Autowired
     private ReceiptOrderRepository receiptOrderRepository;
+
+    @Autowired
+    private ReceiptOrderService receiptOrderService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,6 +41,9 @@ public class ReceiptOrderJob {
 
     @Value("${company.companyuser}")
     private String companyUser;
+
+    @Value("${company.servicelayerurl}")
+    private String serviceLayerAPI;
 
     @Bean
     public RestTemplate getRestTemplate(){
@@ -63,22 +70,7 @@ public class ReceiptOrderJob {
 
             // 3.call service layer to create production order
             for (ReceiptOrder order : receiptOrders) {
-                logger.info("同步生产收货信息:%s", order.toString());
-                HttpEntity<String> orderEntry = new HttpEntity<String>(order.toString(), headers);
-                ResponseEntity<String> response = restTemplate.exchange(sessionUrl + PRODUCTION_URL,
-                        HttpMethod.POST, orderEntry, String.class);
-                // 4.update status of mid database order
-                if (response.getStatusCode().equals(HttpStatus.OK) ||
-                        response.getStatusCode().equals(HttpStatus.CREATED)) {
-                    logger.info("生产收货单据同步成功");
-                    order.setIsSync("Y");
-                    order.setSyncDate(new Date());
-                    order.setSyncMessage("Sync successful");
-                } else {
-                    logger.info("单据同步失败");
-                    order.setIsSync("E");
-                    order.setErrorTime(order.getErrorTime() + 1);
-                }
+                receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTION_URL,order);
                 receiptOrderRepository.updateReceipOrder(order);
             }
         } catch (Exception e) {

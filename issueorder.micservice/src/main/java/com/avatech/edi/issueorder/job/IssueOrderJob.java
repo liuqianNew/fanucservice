@@ -1,18 +1,32 @@
 package com.avatech.edi.issueorder.job;
 
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder;
+import com.avatech.edi.issueorder.model.dto.Result;
 import com.avatech.edi.issueorder.repository.IssueOrderRepository;
+import com.avatech.edi.issueorder.service.IssueOrderService;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,10 +35,13 @@ public class IssueOrderJob {
 
     private final Logger logger = LoggerFactory.getLogger(IssueOrderJob.class);
 
-    private static final String PRODUCTION_URL  = "/InventoryGentery";
+    private static final String PRODUCTION_URL  = "/InventoryGenEntries";
 
     @Autowired
     private IssueOrderRepository issueOrderRepository;
+
+    @Autowired
+    private IssueOrderService issueOrderService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -38,10 +55,14 @@ public class IssueOrderJob {
     @Value("${company.companyuser}")
     private String companyUser;
 
+    @Value("${company.servicelayerurl}")
+    private String serviceLayerAPI;
+
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
+
 
     @Scheduled(cron = "0 0/1 * * * ?")
     private void process() {
@@ -63,22 +84,7 @@ public class IssueOrderJob {
 
             // 3.call service layer to create production order
             for (IssueOrder order : issueOrders) {
-                logger.info("同步生产收货信息:%s", order.toString());
-                HttpEntity<String> orderEntry = new HttpEntity<String>(order.toString(), headers);
-                ResponseEntity<String> response = restTemplate.exchange(sessionUrl + PRODUCTION_URL,
-                        HttpMethod.POST, orderEntry, String.class);
-                // 4.update status of mid database order
-                if (response.getStatusCode().equals(HttpStatus.OK) ||
-                        response.getStatusCode().equals(HttpStatus.CREATED)) {
-                    logger.info("生产发货单据同步成功");
-                    order.setIsSync("Y");
-                    order.setSyncDate(new Date());
-                    order.setSyncMessage("Sync successful");
-                } else {
-                    logger.info("单据同步失败");
-                    order.setIsSync("E");
-                    order.setErrorTime(order.getErrorTime() + 1);
-                }
+                issueOrderService.createIssueOrder(headers,serviceLayerAPI + PRODUCTION_URL,order);
                 issueOrderRepository.updateIssueOrder(order);
             }
         } catch (Exception e) {
@@ -86,8 +92,8 @@ public class IssueOrderJob {
         }
     }
 
-    private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser="+companyUser, String.class);
-        return response;
+    private String getSessionId() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        ResponseEntity<Result> response = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
+        return response.getBody().getData();
     }
 }

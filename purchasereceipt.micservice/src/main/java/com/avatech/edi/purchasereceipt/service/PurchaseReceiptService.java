@@ -103,7 +103,7 @@ public class PurchaseReceiptService{
         JSONObject objLine = null;
         JSONObject BatchNumber ;
         requestJson.put("CardCode",purchaseReceipt.getCardCode());//供应商编号
-        requestJson.put("DocDate",purchaseReceipt.getDocDate());//过账日期(YYYY-MM-DD)
+        requestJson.put("DocDate",new Date());//过账日期(YYYY-MM-DD)
         requestJson.put("Comments",purchaseReceipt.getComments());//备份
         //明细
         for(PurchaseReceiptItem item:purchaseReceipt.getpurchaseReceiptItems()){

@@ -19,6 +19,12 @@ public class SyncResult {
         return this;
     }
 
+    public SyncResult(String syncUniqueKey,String syncResult,String syncMessage){
+        this.setSyncUniqueKey(syncUniqueKey);
+        this.setSyncResult(syncResult);
+        this.setSyncMessage(syncMessage);
+    }
+
     /**
      * Y:同步成功；N：同步失败
      */

@@ -345,6 +345,11 @@ public class ReceiptOrder{
         return result.ok(docEntry.toString());
     }
 
+    public void error(String syncResult,String syncMessage,Integer errorTime){
+        this.setIsSync(syncResult);
+        this.setErrorTime(errorTime);
+        this.setSyncMessage(syncMessage);
+    }
 
     @Override
     public String toString() {

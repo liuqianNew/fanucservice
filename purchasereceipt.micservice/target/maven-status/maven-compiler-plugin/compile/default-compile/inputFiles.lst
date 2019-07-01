@@ -1,0 +1,13 @@
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/model/bo/purchasereceipt/PurchaseReceiptBatchItem.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/model/dto/Result.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/repository/imp/PurchaseReceiptRepositoryImp.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/model/vo/SyncResult.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/PurchasereceiptApplication.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/mapper/PurchaseReceiptMapper.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/job/PurchaseReceiptJob.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/service/PurchaseReceiptService.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/repository/PurchaseReceiptRepository.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/model/bo/purchasereceipt/PurchaseReceiptItem.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/common/SnowflakeIdWorker.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/api/PurchaseReceiptController.java
+/Users/fanxing/Documents/ava-work/fanucservice/purchasereceipt.micservice/src/main/java/com/avatech/edi/purchasereceipt/model/bo/purchasereceipt/PurchaseReceipt.java
