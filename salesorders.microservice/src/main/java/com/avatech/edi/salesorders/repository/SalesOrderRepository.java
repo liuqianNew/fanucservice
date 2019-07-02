@@ -16,7 +16,4 @@ public interface SalesOrderRepository{
 
     List<SalesOrder> fetchSalesOrders();
 
-    void saveSalesOrderLine(SalesOrderLine SalesOrderLine);
-
-    List<SalesOrderLine> fetchSalesOrderLines();
 }

@@ -20,25 +20,24 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
     private SalesOrderMapper salesOrderMapper;
 
 
+    /**
+     * 保存销售订单
+     * @param salesOrder
+     */
     public void saveSalesOrder(SalesOrder salesOrder){
         salesOrderMapper.insertSalesOrder(salesOrder);
-
+        for (SalesOrderLine salesOrderLine:salesOrder.getsalesOrderLines()) {
+            salesOrderMapper.insertSalesOrderLine(salesOrderLine);
+        }
     }
 
+    /**
+     * 查询销售订单
+     * @return
+     */
     public List<SalesOrder> fetchSalesOrders(){
         List<SalesOrder> salesOrders = new ArrayList();
         salesOrders = salesOrderMapper.searchSalesOrders();
         return salesOrders;
-    }
-
-    public void saveSalesOrderLine(SalesOrderLine salesOrderLine){
-        salesOrderMapper.insertSalesOrderLine(salesOrderLine);
-
-    }
-
-    public List<SalesOrderLine> fetchSalesOrderLines(){
-        List<SalesOrderLine> salesOrderLines = new ArrayList();
-        salesOrderLines = salesOrderMapper.searchSalesOrderLines();
-        return salesOrderLines;
     }
 }

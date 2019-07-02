@@ -107,7 +107,7 @@
                      T0."Udf3",
                      T0."Udf4",
                      T0."Udf5"
-             from "OITM" T0
+             from "OITM" T0 where isnull(T0."U_IsSync",'N') = 'N'
          </select>
 
 </mapper>

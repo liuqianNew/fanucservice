@@ -14,9 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping("v1/*")
+@RequestMapping("/edi/sap/v1/*")
 public class MaterialController {
 
     private final Logger logger = LoggerFactory.getLogger(MaterialController.class);
@@ -29,8 +31,15 @@ public class MaterialController {
 
 
     @GetMapping("material")
-    public Material getMaterial(){
-        return  null;
+    public Result getMaterial(){
+        Result<List<Material>> result = new Result<>();
+        try{
+            List<Material> materialList = materialRepository.fetchMaterialItems();
+            return result.ok(materialList);
+        }catch (Exception e){
+            logger.error("查询物料信息异常：",e);
+            return new Result("1","内部错误");
+        }
     }
 
 

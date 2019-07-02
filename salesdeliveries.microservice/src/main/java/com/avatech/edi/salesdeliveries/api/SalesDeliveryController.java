@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("v1/*")
+@RequestMapping("/edi/sap/v1/*")
 public class SalesDeliveryController {
 
     private final Logger logger = LoggerFactory.getLogger(SalesDeliveryController.class);

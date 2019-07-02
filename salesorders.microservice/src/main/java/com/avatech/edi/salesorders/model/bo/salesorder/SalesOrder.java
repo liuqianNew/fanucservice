@@ -404,4 +404,13 @@ public class SalesOrder{
     public void setSalesOrderLines(List<SalesOrderLine> salesOrderLines) {
         this.salesOrderLines = salesOrderLines;
     }
+
+    /**
+     * 检查订单
+     */
+    public void check(){
+
+
+        this.getsalesOrderLines().forEach(c->c.check());
+    }
 }

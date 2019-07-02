@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("v1/*")
+@RequestMapping("/edi/sap/v1/*")
 public class SalesOrderController {
 
     private final Logger logger = LoggerFactory.getLogger(SalesOrderController.class);
@@ -38,8 +38,12 @@ public class SalesOrderController {
     @PostMapping("salesorder")
     public @ResponseBody
     Result addSalesOrder(@RequestBody SalesOrder salesOrder){
-        return null;
+        try{
+            salesOrderRepository.saveSalesOrder(salesOrder);
+            return new Result().ok();
+        }catch (Exception e){
+            logger.error("保存销售订单信息异常：",e);
+            return new Result().error("1","内部错误");
+        }
     }
-
-
 }

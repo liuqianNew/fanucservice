@@ -201,4 +201,8 @@ public class SalesOrderLine{
     public void setWarehouse(String warehouse) {
         this.warehouse = warehouse;
     }
+
+    public void check(){
+
+    }
 }
