@@ -57,7 +57,11 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
+<<<<<<< HEAD
             <version>7.2.2.jre11</version>
+=======
+            <version>6.2.2.jre8</version>
+>>>>>>> ac1b8e9bf91fcfaebaea56f3c5f19cfccfbc7c1a
         </dependency>
     </dependencies>
 
