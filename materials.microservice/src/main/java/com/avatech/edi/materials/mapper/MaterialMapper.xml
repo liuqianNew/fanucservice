@@ -83,31 +83,25 @@
          </insert>
 
          <select id="searchMaterialItem" resultMap="MaterialItemMap">
-             SELECT
-                     T0."ItemCode",
-                     T0."ItemName",
-                     T0."FrgnName",
-                     T0."Spec",
-                     T0."ItmsGrpName",
-                     T0."ItmsGrpCod",
-                     T0."PrchseItem",
-                     T0."SellItem",
-                     T0."InvntItem",
-                     T0."DfltWH",
-                     T0."CardCode",
-                     T0."BuyUnitMsr",
-                     T0."SalUnitMsr",
-                     T0."ManSerNum",
-                     T0."ManBtchNum",
-                     T0."validFor",
-                     T0."INUoMEntry",
-                     T0."PrcrmntMtd",
-                     T0."Udf1",
-                     T0."Udf2",
-                     T0."Udf3",
-                     T0."Udf4",
-                     T0."Udf5"
-             from "OITM" T0 where isnull(T0."U_IsSync",'N') = 'N'
+             select  "ItemCode"  ,
+                        "ItemName"  ,
+                        "FrgnName"  ,
+                        "Spec",
+                        "ItmsGrpNam",
+                        T0."ItmsGrpCod",
+                        "PrchseItem" ,
+                        "SellItem" ,
+                        "InvntItem" ,
+                        "DfltWH",
+                        "CardCode"  ,
+                        "BuyUnitMsr",
+                        "SalUnitMsr",
+                        "ManSerNum" ,
+                        "ManBtchNum" ,
+                        "validFor" ,
+                        "INUoMEntry"  ,
+                        '' "PrcrmntMtd"  from OITM T0 INNER JOIN OITB T1
+                        ON T0.ItmsGrpCod = T1.ItmsGrpCod WHERE T0."U_IsSync" = 'N'
          </select>
 
 </mapper>
