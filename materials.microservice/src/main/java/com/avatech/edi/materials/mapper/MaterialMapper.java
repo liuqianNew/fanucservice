@@ -15,5 +15,7 @@ public interface MaterialMapper{
 
     void insertMaterialItem(Material Material);
 
+    void  updateMaterialItem(String itemCode);
+
     List<Material> searchMaterialItems();
 }

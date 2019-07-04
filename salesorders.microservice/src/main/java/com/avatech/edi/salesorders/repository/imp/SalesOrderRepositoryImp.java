@@ -10,6 +10,7 @@ import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
 import com.avatech.edi.salesorders.mapper.SalesOrderMapper;
 import com.avatech.edi.salesorders.repository.SalesOrderRepository;
 import com.avatech.edi.salesorders.utils.SnowflakeIdWorker;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
@@ -48,5 +49,15 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
         List<SalesOrder> salesOrders = new ArrayList();
         salesOrders = salesOrderMapper.searchSalesOrders();
         return salesOrders;
+    }
+    /**
+     * 修改销售订单
+     *
+     */
+    @Override
+    public SalesOrder updateSalesOrder(String docEntry) {
+
+         salesOrderMapper.updateSalesOrder(docEntry);
+        return null;
     }
 }
