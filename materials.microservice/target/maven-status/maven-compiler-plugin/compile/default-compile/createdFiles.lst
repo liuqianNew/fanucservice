@@ -1,0 +1,16 @@
+com/avatech/edi/materials/service/MaterialInventoryService.class
+com/avatech/edi/materials/model/vo/Result.class
+com/avatech/edi/materials/MaterialsApplication.class
+com/avatech/edi/materials/repository/imp/MaterialRepositoryImp.class
+com/avatech/edi/materials/api/MaterialController.class
+com/avatech/edi/materials/mapper/MaterialInventoryMapper.class
+com/avatech/edi/materials/repository/MaterialInventoryRepository.class
+com/avatech/edi/materials/mapper/MaterialMapper.class
+com/avatech/edi/materials/repository/imp/MaterialInventoryRepositoryImp.class
+com/avatech/edi/materials/utils/DateUtils.class
+com/avatech/edi/materials/model/bo/materialinventory/MaterialInventory.class
+com/avatech/edi/materials/utils/SnowflakeIdWorker.class
+com/avatech/edi/materials/repository/MaterialRepository.class
+com/avatech/edi/materials/api/MaterialInventoryController.class
+com/avatech/edi/materials/service/MaterialService.class
+com/avatech/edi/materials/model/bo/material/Material.class

@@ -1,0 +1,10 @@
+# EDI
+server:
+  port: 9101
+
+spring:
+  datasource:
+    url: "jdbc:sqlserver://EFED;DatabaseName=SBODemoCN"
+    username: dev
+    password: 123456
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
