@@ -9,6 +9,7 @@ import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
 import com.avatech.edi.salesorders.mapper.SalesOrderMapper;
 import com.avatech.edi.salesorders.repository.SalesOrderRepository;
+import com.avatech.edi.salesorders.utils.SnowflakeIdWorker;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
@@ -24,11 +25,19 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
      * 保存销售订单
      * @param salesOrder
      */
-    public void saveSalesOrder(SalesOrder salesOrder){
+    public SalesOrder saveSalesOrder(SalesOrder salesOrder){
+        SnowflakeIdWorker worker = new SnowflakeIdWorker(0,0);
+        long docEntry = worker.nextId();
+        salesOrder.setDocEntry(docEntry);
         salesOrderMapper.insertSalesOrder(salesOrder);
+        int index = 0;
         for (SalesOrderLine salesOrderLine:salesOrder.getsalesOrderLines()) {
+            salesOrderLine.setDocEntry(docEntry);
+            salesOrderLine.setLineId(index);
+            index ++;
             salesOrderMapper.insertSalesOrderLine(salesOrderLine);
         }
+        return salesOrder;
     }
 
     /**

@@ -4,6 +4,10 @@
  * AT 2019-07-01
  */
 package com.avatech.edi.materials.model.bo.material;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Material {
 
 
@@ -22,18 +26,21 @@ public class Material {
     /**
      * 外文描述
      */
+    @JsonIgnore
     private String frgnName;
 
 
     /**
      * 物料规格说明
      */
+    @JsonIgnore
     private String spec;
 
 
     /**
      * 物料组（中文描述）
      */
+    @JsonIgnore
     private String itmsGrpName;
 
 
@@ -46,102 +53,121 @@ public class Material {
     /**
      * 采购物料
      */
+    @JsonIgnore
     private String prchseItem;
 
 
     /**
      * 销售物料
      */
+    @JsonIgnore
     private String sellItem;
 
 
     /**
      * 库存物料
      */
+    @JsonIgnore
     private String invntItem;
 
 
     /**
      * 默认仓库
      */
+    @JsonIgnore
     private String dfltWH;
 
 
     /**
      * 首选供应商
      */
+    @JsonIgnore
     private String cardCode;
 
 
     /**
      * 采购计量单位
      */
+    @JsonIgnore
     private String buyUnitMsr;
 
 
     /**
      * 销售计量单位
      */
+    @JsonIgnore
     private String salUnitMsr;
 
 
     /**
      * 序列号管理[是:Y/否:N]
      */
+    @JsonIgnore
     private String manSerNum;
 
 
     /**
      * 管理批号 [是:Y/否:N]
      */
+    @JsonIgnore
     private String manBtchNum;
 
 
     /**
      * 活跃
      */
+    @JsonIgnore
     private String validFor;
 
 
     /**
      * 库存计量单位条目
      */
+
+    //@JsonProperty("inuoMEntry")iNUoMEntry
+    @JsonIgnore
     private String iNUoMEntry;
 
 
     /**
      * 补给方式
      */
+    @JsonIgnore
     private String prcrmntMtd;
 
 
     /**
      * 预留字段1
      */
+    @JsonIgnore
     private String udf1;
 
 
     /**
      * 预留字段2
      */
+    @JsonIgnore
     private String udf2;
 
 
     /**
      * 预留字段3
      */
+    @JsonIgnore
     private String udf3;
 
 
     /**
      * 预留字段4
      */
+    @JsonIgnore
     private String udf4;
 
 
     /**
      * 预留字段5
      */
+    @JsonIgnore
     private String udf5;
 
 

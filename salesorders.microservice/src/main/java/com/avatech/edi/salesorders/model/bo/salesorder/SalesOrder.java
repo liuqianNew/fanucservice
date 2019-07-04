@@ -4,6 +4,9 @@
  * AT 2019-07-01
  */
 package com.avatech.edi.salesorders.model.bo.salesorder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +22,14 @@ public class SalesOrder{
     /**
      * 业务伙伴
      */
+    @JsonProperty("carcode")
     private String cardCode;
 
 
     /**
      * 过账日期
      */
+    @JsonProperty("docdate")
     private Date docDate;
 
 
@@ -37,54 +42,64 @@ public class SalesOrder{
     /**
      * 单据状态
      */
+    @JsonIgnore
     private String docStatus;
 
 
     /**
      * 删除
      */
+    @JsonIgnore
     private String deleted;
 
 
     /**
      * 是否同步
      */
+    //@JsonProperty("isync")
+    @JsonIgnore
     private String isSync;
 
 
     /**
      * 同步日期
      */
+    @JsonIgnore
     private Date syncDate;
 
 
     /**
      * 基于单据号
      */
+    @JsonIgnore
     private String baseDocEntry;
 
 
     /**
      * 基于单据类型
      */
+    @JsonIgnore
     private String baseDocType;
 
 
     /**
      * 是否同步
      */
+    @JsonIgnore
     private String sapDocEntry;
 
 
     /**
      * 平台订单号
      */
+    @JsonProperty("billno")
     private String billNo;
 
 
     /**
      * 预留字段1
      */
+    @JsonIgnore
     private String extend1;
 
 
@@ -115,21 +130,25 @@ public class SalesOrder{
     /**
      * 创建人
      */
+    @JsonIgnore
     private String creator;
 
 
     /**
      * 创建日期
      */
+    @JsonIgnore
     private Date createDate;
 
 
     /**
      * 创建时间
      */
+    @JsonIgnore
     private Integer createTime;
 
 
+    @JsonProperty("items")
     private List<SalesOrderLine> salesOrderLines;
 
 

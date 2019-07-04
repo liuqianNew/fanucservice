@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface SalesOrderRepository{
 
-    void saveSalesOrder(SalesOrder SalesOrder);
+    SalesOrder saveSalesOrder(SalesOrder SalesOrder);
 
     List<SalesOrder> fetchSalesOrders();
 
