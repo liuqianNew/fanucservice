@@ -6,6 +6,7 @@
 package com.avatech.edi.salesorders.model.bo.salesorder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -427,8 +428,10 @@ public class SalesOrder{
     /**
      * 检查订单
      */
-    public void check(){
-
+    public void check() throws Exception {
+        if(StringUtils.isEmpty(this.getCardCode())){
+            throw new Exception("cardcode不能为空");
+        }
 
         this.getsalesOrderLines().forEach(c->c.check());
     }

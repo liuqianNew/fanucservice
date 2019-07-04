@@ -5,11 +5,10 @@
  */
 package com.avatech.edi.salesdeliveries.api;
 
-import com.avatech.edi.salesdeliveries.model.vo.Result;
+import com.avatech.edi.model.dto.Result;
 import com.avatech.edi.salesdeliveries.service.SalesDeliveryService;
 import com.avatech.edi.salesdeliveries.repository.SalesDeliveryRepository;
 import com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDelivery;
-import com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDeliveryLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

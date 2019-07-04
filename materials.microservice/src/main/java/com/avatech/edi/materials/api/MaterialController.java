@@ -5,10 +5,10 @@
  */
 package com.avatech.edi.materials.api;
 
-import com.avatech.edi.materials.model.vo.Result;
 import com.avatech.edi.materials.service.MaterialService;
 import com.avatech.edi.materials.repository.MaterialRepository;
 import com.avatech.edi.materials.model.bo.material.Material;
+import com.avatech.edi.model.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
