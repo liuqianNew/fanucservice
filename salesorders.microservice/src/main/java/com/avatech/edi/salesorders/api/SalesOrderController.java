@@ -31,6 +31,7 @@ public class SalesOrderController {
     private SalesOrderRepository salesOrderRepository;
 
 
+
     @GetMapping("salesorder")
     public SalesOrder getSalesOrder(){
 
@@ -43,9 +44,9 @@ public class SalesOrderController {
     public Result cancelSalesOrder(String docEntry){
         Result<SalesOrder> result = new Result<>();
         try{
-            //SalesOrder order = salesOrderRepository.saveSalesOrder(salesOrder);
+            SalesOrder  salesOrder=   salesOrderRepository.updateSalesOrder(docEntry);
 
-            return result.ok();
+            return result.ok(salesOrder);
         }catch (Exception e){
             logger.error("保存销售订单信息异常：",e);
             return new Result().error("1","内部错误");

@@ -16,4 +16,5 @@ public interface SalesOrderRepository{
 
     List<SalesOrder> fetchSalesOrders();
 
+    SalesOrder  updateSalesOrder(String docEntry) ;
 }

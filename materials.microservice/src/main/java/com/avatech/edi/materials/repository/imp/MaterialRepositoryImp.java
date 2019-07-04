@@ -24,6 +24,14 @@ public class MaterialRepositoryImp implements MaterialRepository{
 
     }
 
+    @Override
+    public List<Material> updateMaterialItem(String itemCode) {
+
+         materialMapper.updateMaterialItem(itemCode);
+
+        return null;
+    }
+
     public List<Material> fetchMaterialItems(){
         List<Material> materials = new ArrayList();
         materials = materialMapper.searchMaterialItems();

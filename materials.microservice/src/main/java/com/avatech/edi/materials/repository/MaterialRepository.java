@@ -13,5 +13,6 @@ public interface MaterialRepository{
 
     void saveMaterialItem(Material Material);
 
+   List<Material> updateMaterialItem(String itemCode);
     List<Material> fetchMaterialItems();
 }
