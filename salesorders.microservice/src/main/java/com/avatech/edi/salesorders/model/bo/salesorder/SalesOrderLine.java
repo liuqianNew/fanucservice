@@ -5,6 +5,9 @@
  */
 package com.avatech.edi.salesorders.model.bo.salesorder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class SalesOrderLine{
@@ -25,30 +28,35 @@ public class SalesOrderLine{
     /**
      * 基于单据号
      */
+    @JsonIgnore
     private String baseDocEntry;
 
 
     /**
      * 基于单据类型
      */
+    @JsonIgnore
     private String baseDocType;
 
 
     /**
      * 基于单据行号
      */
+    @JsonIgnore
     private Integer baseLineNum;
 
 
     /**
      * 物料编号
      */
+    @JsonIgnore
     private String itemCode;
 
 
     /**
      * 条形码
      */
+    @JsonIgnore
     private String codeBars;
 
 
@@ -67,7 +75,83 @@ public class SalesOrderLine{
     /**
      * 仓库
      */
+    @JsonProperty("whscode")
     private String warehouse;
+
+/**
+ * 预留字段
+ */
+    private String extend1;
+    private String extend2;
+    private String extend3;
+    private String extend4;
+    private String extend5;
+    /**
+     * 获取预留字段1
+     */
+    public String getExtend1() {
+        return extend1;
+    }
+
+    /**
+     * 设置预留字段1
+     */
+    public void setExtend1(String extend1) {
+        this.extend1 = extend1;
+    }
+    /**
+     * 获取预留字段2
+     */
+    public String getExtend2() {
+        return extend2;
+    }
+
+    /**
+     * 设置预留字段2
+     */
+    public void setExtend2(String extend2) {
+        this.extend2 = extend2;
+    }
+    /**
+     * 获取预留字段3
+     */
+    public String getExtend3() {
+        return extend3;
+    }
+
+    /**
+     * 设置预留字段3
+     */
+    public void setExtend3(String extend3) {
+        this.extend3 = extend3;
+    }
+    /**
+     * 获取预留字段4
+     */
+    public String getExtend4() {
+        return extend4;
+    }
+
+    /**
+     * 设置预留字段4
+     */
+    public void setExtend4(String extend4) {
+        this.extend4 = extend4;
+    }
+    /**
+     * 获取预留字段5
+     */
+    public String getExtend5() {
+        return extend5;
+    }
+
+    /**
+     * 设置预留字段5
+     */
+    public void setExtend5(String extend5) {
+        this.extend5 = extend5;
+    }
+
 
 
 

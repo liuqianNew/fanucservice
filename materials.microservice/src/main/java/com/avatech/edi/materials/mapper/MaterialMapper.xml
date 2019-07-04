@@ -8,19 +8,19 @@
                     <result column="FrgnName" property="frgnName" jdbcType="NVARCHAR"/>
                     <result column="Spec" property="spec" jdbcType="NVARCHAR"/>
                     <result column="ItmsGrpName" property="itmsGrpName" jdbcType="NVARCHAR"/>
-                    <result column="ItmsGrpCod" property="itmsGrpCod" jdbcType="NVARCHAR"/>
-                    <result column="PrchseItem" property="prchseItem" jdbcType="NVARCHAR"/>
-                    <result column="SellItem" property="sellItem" jdbcType="NVARCHAR"/>
-                    <result column="InvntItem" property="invntItem" jdbcType="NVARCHAR"/>
+                    <result column="ItmsGrpCod" property="itmsGrpCod" jdbcType="INTEGER"/>
+                    <result column="PrchseItem" property="prchseItem" jdbcType="INTEGER"/>
+                    <result column="SellItem" property="sellItem" jdbcType="INTEGER"/>
+                    <result column="InvntItem" property="invntItem" jdbcType="INTEGER"/>
                     <result column="DfltWH" property="dfltWH" jdbcType="NVARCHAR"/>
                     <result column="CardCode" property="cardCode" jdbcType="NVARCHAR"/>
                     <result column="BuyUnitMsr" property="buyUnitMsr" jdbcType="NVARCHAR"/>
                     <result column="SalUnitMsr" property="salUnitMsr" jdbcType="NVARCHAR"/>
-                    <result column="ManSerNum" property="manSerNum" jdbcType="NVARCHAR"/>
-                    <result column="ManBtchNum" property="manBtchNum" jdbcType="NVARCHAR"/>
-                    <result column="validFor" property="validFor" jdbcType="NVARCHAR"/>
-                    <result column="INUoMEntry" property="iNUoMEntry" jdbcType="NVARCHAR"/>
-                    <result column="PrcrmntMtd" property="prcrmntMtd" jdbcType="NVARCHAR"/>
+                    <result column="ManSerNum" property="manSerNum" jdbcType="CHAR"/>
+                    <result column="ManBtchNum" property="manBtchNum" jdbcType="CHAR"/>
+                    <result column="validFor" property="validFor" jdbcType="CHAR"/>
+                    <result column="INUoMEntry" property="iNUoMEntry" jdbcType="INTEGER"/>
+                    <result column="PrcrmntMtd" property="prcrmntMtd" jdbcType="VARCHAR"/>
                     <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
                     <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
                     <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
@@ -82,13 +82,13 @@
              )
          </insert>
 
-         <select id="searchMaterialItem" resultMap="MaterialItemMap">
-             select  "ItemCode"  ,
+         <select id="searchMaterialItems" resultMap="MaterialItemMap">
+             select top 100  "ItemCode"  ,
                         "ItemName"  ,
                         "FrgnName"  ,
                         "Spec",
                         "ItmsGrpNam",
-                        T0."ItmsGrpCod",
+                        T0."ItmsGrpCod" as "ItmsGrpCod",
                         "PrchseItem" ,
                         "SellItem" ,
                         "InvntItem" ,
