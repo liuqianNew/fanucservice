@@ -46,10 +46,10 @@ public class SnowflakeIdWorker {
 
     /**
      * 构造函数
-     * @param workerId 工作ID (0~31)
-     * @param datacenterId 数据中心ID (0~31)
+     * @param i
+     * @param i1
      */
-    public SnowflakeIdWorker(int workerId, int datacenterId) {
+    public SnowflakeIdWorker(int i, int i1) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }

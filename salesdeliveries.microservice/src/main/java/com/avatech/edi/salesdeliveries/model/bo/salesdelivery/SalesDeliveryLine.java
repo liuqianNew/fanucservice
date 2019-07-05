@@ -5,6 +5,8 @@
  */
 package com.avatech.edi.salesdeliveries.model.bo.salesdelivery;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
 public class SalesDeliveryLine{
@@ -25,6 +27,7 @@ public class SalesDeliveryLine{
     /**
      * 基于单据号
      */
+    @JsonIgnore
     private String baseDocEntry;
 
 
