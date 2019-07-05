@@ -5,6 +5,7 @@
  */
 package com.avatech.edi.salesorders.repository.imp;
 
+import com.avatech.edi.common.data.ArrayList;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
 import com.avatech.edi.salesorders.mapper.SalesOrderMapper;
@@ -13,7 +14,7 @@ import com.avatech.edi.salesorders.utils.SnowflakeIdWorker;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Component
@@ -47,6 +48,7 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
      */
     public List<SalesOrder> fetchSalesOrders(){
         List<SalesOrder> salesOrders = new ArrayList();
+
         salesOrders = salesOrderMapper.searchSalesOrders();
         return salesOrders;
     }
