@@ -1,5 +1,6 @@
 package com.avatech.edi.salesorders.service;
 
+import com.avatech.edi.common.data.ArrayList;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
 import com.avatech.edi.salesorders.repository.SalesOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class SalesOrderService{
     private SalesOrderRepository salesOrderRepository;
 
      public List<SalesOrder> fetchSalesOrders(){
+
          List<SalesOrder>  SalesOrder =  salesOrderRepository.fetchSalesOrders();
 
          return SalesOrder;

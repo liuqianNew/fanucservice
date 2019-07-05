@@ -7,12 +7,12 @@ package com.avatech.edi.salesdeliveries.repository;
 
 import com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDelivery;
 import com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDeliveryLine;
-import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 public interface SalesDeliveryRepository{
 
-    void saveSalesDelivery(SalesDelivery SalesDelivery);
+    SalesDelivery saveSalesDelivery(SalesDelivery SalesDelivery);
 
     List<SalesDelivery> fetchSalesDeliverys();
 

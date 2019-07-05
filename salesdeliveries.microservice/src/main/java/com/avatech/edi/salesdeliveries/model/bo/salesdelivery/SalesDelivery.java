@@ -4,6 +4,8 @@
  * AT 2019-07-01
  */
 package com.avatech.edi.salesdeliveries.model.bo.salesdelivery;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +21,7 @@ public class SalesDelivery{
     /**
      * 业务伙伴
      */
+
     private String cardCode;
 
 
@@ -37,30 +40,35 @@ public class SalesDelivery{
     /**
      * 单据状态
      */
+    @JsonIgnore
     private String docStatus;
 
 
     /**
      * 删除
      */
+    @JsonIgnore
     private String deleted;
 
 
     /**
      * 是否同步
      */
+    @JsonIgnore
     private String isSync;
 
 
     /**
      * 同步日期
      */
+    @JsonIgnore
     private Date syncDate;
 
 
     /**
      * 是否同步
      */
+    @JsonIgnore
     private String sAPDocEntry;
 
 
@@ -73,24 +81,28 @@ public class SalesDelivery{
     /**
      * 物流订单号
      */
+    @JsonIgnore
     private String logisticsNo;
 
 
     /**
      * 基于单据号
      */
+    @JsonIgnore
     private String baseDocEntry;
 
 
     /**
      * 基于单据类型
      */
+    @JsonIgnore
     private String baseDocType;
 
 
     /**
      * 预留字段1
      */
+    @JsonIgnore
     private String extend1;
 
 
@@ -121,21 +133,24 @@ public class SalesDelivery{
     /**
      * 创建人
      */
+    @JsonIgnore
     private String creator;
 
 
     /**
      * 创建日期
      */
+    @JsonIgnore
     private Date createDate;
 
 
     /**
      * 创建时间
      */
+    @JsonIgnore
     private Integer createTime;
 
-
+    @JsonIgnore
     private List<SalesDeliveryLine> salesDeliveryLines;
 
 
@@ -423,4 +438,6 @@ public class SalesDelivery{
     public void setSalesDeliveryLines(List<SalesDeliveryLine> salesDeliveryLines) {
         this.salesDeliveryLines = salesDeliveryLines;
     }
+
+
 }

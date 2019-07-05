@@ -32,11 +32,11 @@ public class SalesOrderController {
 
 
     @GetMapping("salesorder")
-    public SalesOrder getSalesOrder(){
+    public List<SalesOrder>  getSalesOrder(){
 
         List<SalesOrder> salesOrder =salesOrderService.fetchSalesOrders();
 
-        return (SalesOrder) salesOrder;
+        return  salesOrder;
     }
 
     @PatchMapping("salesorder/{docentry}")
