@@ -3,4 +3,6 @@ server:
   port: 9101
 spring:
   profiles:
-    active: dev
+    active: test
+  jmx:
+    enabled: false

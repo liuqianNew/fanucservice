@@ -3,12 +3,8 @@
  * CREATE BY AVATECH EDI CODE TOOL
  * AT 2019-07-01
  */
-        CREATE TABLE AVA_IM_OITW(
-                    "ItemCode" NVARCHAR(8) ,
-                    "ItemName" NVARCHAR(30) ,
-                    "GroupCode" DECIMAL(8) ,
-                    "GroupName" NVARCHAR(20) ,
-                    "PackUnit" NVARCHAR(20) ,
-                    "OnHand" INTEGER(20) ,
-                    "Price" INTEGER(20) 
-        );
+create view AVA_IM_VIEW_OITW as
+select T0."ItemCode",T1."ItemName",T0."WhsCode",T1."SalUnitMsr", T3."ItmsGrpCod",T3."ItmsGrpNam",T0."OnHand" ,"Price" from OITW T0
+											left join OITM T1 ON T0."ItemCode" = T1."ItemCode"
+											inner join ITM1 T2 ON T0."ItemCode" = T2."ItemCode" and T2."PriceList" = 1
+											left join OITB T3 ON T1."ItmsGrpCod" = T3."ItmsGrpCod"

@@ -32,11 +32,16 @@ public class SalesOrderController {
 
 
     @GetMapping("salesorder")
-    public SalesOrder getSalesOrder(){
+    public Result getSalesOrder(){
+        Result<List<SalesOrder>> result = new Result<>();
+        try{
+            List<SalesOrder> salesOrder =salesOrderService.fetchSalesOrders();
+            return result.ok(salesOrder);
+        }catch (Exception e){
+            logger.error("查询销售订单信息异常：",e);
+            return result.error("1","内部错误");
+        }
 
-        List<SalesOrder> salesOrder =salesOrderService.fetchSalesOrders();
-
-        return (SalesOrder) salesOrder;
     }
 
     @PatchMapping("salesorder/{docentry}")

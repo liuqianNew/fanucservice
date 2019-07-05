@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: "jdbc:sqlserver://vmwarevic;DatabaseName=SBODemoCN"
-    username: dev
-    password: 123456
+    url: "jdbc:sqlserver://vmwarevic;DatabaseName=testFornet"
+    username: sa
+    password: avatech
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

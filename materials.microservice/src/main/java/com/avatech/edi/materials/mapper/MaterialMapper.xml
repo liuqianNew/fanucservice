@@ -104,7 +104,7 @@
                         ON T0.ItmsGrpCod = T1.ItmsGrpCod WHERE T0."U_IsSync" = 'N'
          </select>
 
-  <update id="updateMaterialItem"  parameterMap="com.avatech.edi.materials.model.bo.material.Material"  >
+  <update id="updateMaterialItem"  parameterType="com.avatech.edi.materials.model.bo.material.Material"  >
 
       UPDATE  "ItemCode"  SET "U_IsSync"='Y' WHERE  "ItemCode"=#{itemCode}
 
