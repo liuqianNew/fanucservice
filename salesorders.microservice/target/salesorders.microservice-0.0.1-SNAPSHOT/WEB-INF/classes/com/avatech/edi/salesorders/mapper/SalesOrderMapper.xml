@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.avatech.edi.salesdeliveries.mapper.SalesDeliveryMapper">
+<mapper namespace="com.avatech.edi.salesorders.mapper.SalesOrderMapper">
 
-         <resultMap id="SalesDeliveryMap" type="com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDelivery">
+         <resultMap id="SalesOrderMap" type="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder">
                     <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
                     <result column="CardCode" property="cardCode" jdbcType="NVARCHAR"/>
                     <result column="DocDate" property="docDate" jdbcType="DATE"/>
@@ -11,11 +11,10 @@
                     <result column="Deleted" property="deleted" jdbcType="NVARCHAR"/>
                     <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
                     <result column="SyncDate" property="createDate" jdbcType="DATE"/>
-                    <result column="SAPDocEntry" property="sAPDocEntry" jdbcType="NVARCHAR"/>
-                    <result column="BillNo" property="billNo" jdbcType="NVARCHAR"/>
-                    <result column="LogisticsNo" property="logisticsNo" jdbcType="NVARCHAR"/>
                     <result column="BaseEntry" property="baseDocEntry" jdbcType="NVARCHAR"/>
                     <result column="BaseType" property="baseDocType" jdbcType="NVARCHAR"/>
+                    <result column="sapDocEntry" property="sapDocEntry" jdbcType="NVARCHAR"/>
+                    <result column="BillNo" property="billNo" jdbcType="NVARCHAR"/>
                     <result column="Extend1" property="extend1" jdbcType="NVARCHAR"/>
                     <result column="Extend2" property="extend2" jdbcType="NVARCHAR"/>
                     <result column="Extend3" property="extend3" jdbcType="NVARCHAR"/>
@@ -25,27 +24,27 @@
                     <result column="CreateDate" property="createDate" jdbcType="DATE"/>
                     <result column="CreateTime" property="createTime" jdbcType="INTEGER"/>
          </resultMap>
-         <resultMap id="SalesDeliveryLineMap" type="com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDeliveryLine">
-                    <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
-                    <result column="LineId" property="lineId" jdbcType="INTEGER"/>
-                    <result column="BaseEntry" property="baseDocEntry" jdbcType="NVARCHAR"/>
-                    <result column="BaseType" property="baseDocType" jdbcType="INTEGER"/>
-                    <result column="BaseLineNum" property="baseLineNum" jdbcType="INTEGER"/>
-                    <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
-                    <result column="CodeBars" property="codeBars" jdbcType="NVARCHAR"/>
-                    <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
-                    <result column="Price" property="price" jdbcType="INTEGER"/>
-                    <result column="WhsCode" property="warehouse" jdbcType="NVARCHAR"/>
-                    <result column="Extend1" property="extend1" jdbcType="NVARCHAR"/>
-                    <result column="Extend2" property="extend2" jdbcType="NVARCHAR"/>
-                    <result column="Extend3" property="extend3" jdbcType="NVARCHAR"/>
-                    <result column="Extend4" property="extend4" jdbcType="NVARCHAR"/>
-                    <result column="Extend5" property="extend5" jdbcType="NVARCHAR"/>
+         <resultMap id="SalesOrderLineMap" type="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine">
+            <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+            <result column="LineId" property="lineId" jdbcType="INTEGER"/>
+            <result column="BaseEntry" property="baseDocEntry" jdbcType="NVARCHAR"/>
+            <result column="BaseType" property="baseDocType" jdbcType="INTEGER"/>
+            <result column="BaseLineNum" property="baseLineNum" jdbcType="INTEGER"/>
+            <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
+            <result column="CodeBars" property="codeBars" jdbcType="NVARCHAR"/>
+            <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
+            <result column="Price" property="price" jdbcType="INTEGER"/>
+            <result column="WhsCode" property="warehouse" jdbcType="NVARCHAR"/>
+             <result column="Extend1" property="extend1" jdbcType="NVARCHAR"/>
+             <result column="Extend2" property="extend2" jdbcType="NVARCHAR"/>
+             <result column="Extend3" property="extend3" jdbcType="NVARCHAR"/>
+             <result column="Extend4" property="extend4" jdbcType="NVARCHAR"/>
+             <result column="Extend5" property="extend5" jdbcType="NVARCHAR"/>
          </resultMap>
 
 
-         <insert id="insertSalesDelivery" parameterType="com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDelivery">
-             INSERT INTO "AVA_SM_ODLN" (
+         <insert id="insertSalesOrder" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder">
+             INSERT INTO "AVA_SM_ORDR" (
                      "DocEntry",
                      "CardCode",
                      "DocDate",
@@ -54,11 +53,10 @@
                      "Deleted",
                      "IsSync",
                      "SyncDate",
-                     "SAPDocEntry",
-                     "BillNo",
-                     "LogisticsNo",
                      "BaseEntry",
                      "BaseType",
+                     "sapDocEntry",
+                     "BillNo",
                      "Extend1",
                      "Extend2",
                      "Extend3",
@@ -71,56 +69,54 @@
              values(
                       #{docEntry},
                       #{cardCode},
-                      #{docDate},
+                      #{docDate,jdbcType=DATE},
                       #{note},
                       #{docStatus},
                       #{deleted},
                       #{isSync},
-                      #{createDate},
-                      #{sAPDocEntry},
-                      #{billNo},
-                      #{logisticsNo},
+                      #{createDate,jdbcType=DATE},
                       #{baseDocEntry},
                       #{baseDocType},
+                      #{sapDocEntry},
+                      #{billNo},
                       #{extend1},
                       #{extend2},
                       #{extend3},
                       #{extend4},
                       #{extend5},
                       #{creator},
-                      #{createDate},
+                      #{createDate,jdbcType=DATE},
                       #{createTime}
              )
          </insert>
 
-         <select id="searchSalesDelivery" resultMap="SalesDeliveryMap">
-              SELECT
+         <select id="searchSalesOrders"  parameterType="String"    resultMap="SalesOrderMap">
+             SELECT
                      T0."DocEntry",
                      T0."CardCode",
                      T0."DocDate",
-                     T0."Comments" as "Note",
+                     T0."Note",
                      T0."DocStatus",
-                     '' "Deleted",
-                     '' "IsSync",
-                     '' "SyncDate",
-                     '' "SAPDocEntry",
-                     '' "BillNo",
-                     T0."U_LogisticsNo",
-                     '' "BaseEntry",
-                     '' "BaseType",
-                     '' "Extend1",
-                     '' "Extend2",
-                     '' "Extend3",
-                     '' "Extend4",
-                     '' "Extend5",
-                     '' "Creator",
-                     '' "CreateDate",
-                     '' "CreateTime"
-             from "ODLN" T0  where "U_IsSync"='N'
+                     T0."Deleted",
+                     T0."IsSync",
+                     T0."SyncDate",
+                     T0."BaseEntry",
+                     T0."BaseType",
+                     T0."SAPDocEntry" as "sapDocEntry",
+                     T0."BillNo",
+                     T0."Extend1",
+                     T0."Extend2",
+                     T0."Extend3",
+                     T0."Extend4",
+                     T0."Extend5",
+                     T0."Creator",
+                     T0."CreateDate",
+                     T0."CreateTime"
+             from "AVA_SM_ORDR" T0
          </select>
 
-         <insert id="insertSalesDeliveryLine" parameterType="com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDeliveryLine">
-             INSERT INTO "AVA_SM_DLN1" (
+         <insert id="insertSalesOrderLine" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine">
+             INSERT INTO "AVA_SM_RDR1" (
                      "DocEntry",
                      "LineId",
                      "BaseEntry",
@@ -156,7 +152,7 @@
              )
          </insert>
 
-         <select id="searchSalesDeliveryLine" resultMap="SalesDeliveryLineMap">
+         <select id="searchSalesOrderLine" resultMap="SalesOrderLineMap">
              SELECT
                      T0."DocEntry",
                      T0."LineId",
@@ -173,7 +169,10 @@
                      T0."Extend3",
                      T0."Extend4",
                      T0."Extend5"
-             from "AVA_SM_DLN1" T0
+             from "AVA_SM_RDR1" T0
          </select>
+    <update id="updateSalesOrder" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder"  >
+          UPDATE "AVA_SM_ORDR"  SET  "Deleted" ='Y'  WHERE "DocEntry"={docEntry}
+    </update>
 
 </mapper>
