@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="SalesDelivery" ShortName="SM">
+  <Table Name="AVA_SM_ODLN" Description="销售交货" Type="bott_Document" State="bots_BoModelOnly" PropertyName="SalesDelivery">
+    <Field Name="DocEntry" Description="单据编码" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="Long" IsPrimaryKey="Yes" />
+    <Field Name="CardCode" Description="业务伙伴" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="CardCode" IsSystem="Yes" FixedDataType="String"/>
+	  <Field Name="DocDate" Description="过账日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="DocDate" IsSystem="Yes" FixedDataType="Date" />
+    <Field Name="Note" Description="备注" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="Note" FixedDataType="String" />
+    <Field Name="DocStatus" Description="单据状态" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="DocStatus" FixedDataType="String" />
+    <Field Name="Deleted" Description="删除" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="Deleted" FixedDataType="String" />
+    <Field Name="IsSync" Description="是否同步" DataType="db_Alpha" SubType="st_None" EditSize="1" PropertyName="IsSync" FixedDataType="String" />
+    <Field Name="SyncDate" Description="同步日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="CreateDate" IsSystem="Yes" FixedDataType="Date" />
+    <Field Name="SAPDocEntry" Description="是否同步" DataType="db_Alpha" SubType="st_None" EditSize="10" PropertyName="SAPDocEntry" FixedDataType="String" />
+    <Field Name="BillNo" Description="平台订单号" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BillNo" FixedDataType="String" />
+    <Field Name="LogisticsNo" Description="物流订单号" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="LogisticsNo" FixedDataType="String" />
+    <Field Name="BaseEntry" Description="基于单据号" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BaseDocEntry" FixedDataType="String" />
+    <Field Name="BaseType" Description="基于单据类型" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BaseDocType" FixedDataType="String" />
+    <Field Name="Extend1" Description="预留字段1" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Extend1" FixedDataType="String" />
+    <Field Name="Extend2" Description="预留字段2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Extend2" FixedDataType="String" />
+    <Field Name="Extend3" Description="预留字段3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Extend3" FixedDataType="String" />
+    <Field Name="Extend4" Description="预留字段4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Extend4" FixedDataType="String" />
+    <Field Name="Extend5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="Extend5" FixedDataType="String" />
+    <Field Name="Creator" Description="创建人" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Creator" FixedDataType="String" /> 
+    <Field Name="CreateDate" Description="创建日期" DataType="db_Date" SubType="st_None" EditSize="8" PropertyName="CreateDate" IsSystem="Yes" FixedDataType="Date" />
+    <Field Name="CreateTime" Description="创建时间" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="CreateTime" IsSystem="Yes" FixedDataType="Integer"/>
+  </Table>
+  <Table Name="AVA_SM_DLN1" Description="销售交货行" Type="bott_DocumentLines"  State="bots_BoModelOnly" PropertyName="SalesDeliveryLine">
+    <Field Name="DocEntry" Description="单据编码" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocEntry" IsSystem="Yes" FixedDataType="Long" IsPrimaryKey="Yes" />
+    <Field Name="LineId" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="LineId" IsSystem="Yes" FixedDataType="Integer" IsPrimaryKey="Yes" />
+    <Field Name="BaseEntry" Description="基于单据号" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="BaseDocEntry" FixedDataType="String" />
+    <Field Name="BaseType" Description="基于单据类型" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseDocType" FixedDataType="String" />
+    <Field Name="BaseLineNum" Description="基于单据行号" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="BaseLineNum" FixedDataType="Integer" />
+    <Field Name="ItemCode" Description="物料编号" DataType="db_Alpha" SubType="st_None" EditSize="20" PropertyName="ItemCode" FixedDataType="String" />
+    <Field Name="CodeBars" Description="条形码" DataType="db_Alpha" SubType="st_None" EditSize="100" PropertyName="CodeBars" FixedDataType="String" />
+    <Field Name="Quantity" Description="数量" DataType="db_Float" SubType="st_Quantity" EditSize="8" PropertyName="Quantity" FixedDataType="BigDecimal" />
+    <Field Name="Price" Description="未税单价" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="Price" FixedDataType="BigDecimal" />
+    <Field Name="WhsCode" Description="仓库" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Warehouse" FixedDataType="String" />
+    <Field Name="Extend1" Description="预留字段1" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="Extend1" FixedDataType="String" />
+    <Field Name="Extend2" Description="预留字段2" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Extend2" FixedDataType="String" />
+    <Field Name="Extend3" Description="预留字段3" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Extend3" FixedDataType="String" />
+    <Field Name="Extend4" Description="预留字段4" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="Extend4" FixedDataType="String" />
+    <Field Name="Extend5" Description="预留字段5" DataType="db_Alpha" SubType="st_None" EditSize="255" PropertyName="Extend5" FixedDataType="String" />
+  </Table>
+  <BusinessObject Code="AVA_SM_SALESDELIVERY" Name="销售交货" TableName="AVA_SM_ODLN" ObjectType="boud_Document" CanCancel="No" CanClose="No" CanDelete="No" CanYearTransfer="No" ManageSeries="Yes" PropertyName="SalesDelivery" OnlyForBoModel="Yes">
+    <ChildTables>
+      <ChildTable TableName="AVA_SM_DLN1" />
+    </ChildTables>
+    <FindColumns />
+    <FormColumns />
+  </BusinessObject>
+</DomainModel>
