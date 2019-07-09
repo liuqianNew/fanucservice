@@ -29,8 +29,20 @@ public class SalesDeliveryController {
 
 
     @GetMapping("salesdelivery")
-    public SalesDelivery getSalesDelivery(){
-        return  null;
+    public Result getSalesDelivery(){
+
+        Result<SalesDelivery> result = new Result<>();
+        try{
+
+          salesDeliveryRepository.fetchSalesDeliverys();
+
+            return result.ok();
+        }catch (Exception e){
+            logger.error("保存销售订单信息异常：",e);
+            return new Result().error("1","内部错误");
+        }
+
+
     }
 
 
