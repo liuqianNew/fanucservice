@@ -5,6 +5,7 @@
  */
 package com.avatech.edi.materials.api;
 
+import com.avatech.edi.materials.model.bo.material.Material;
 import com.avatech.edi.materials.service.MaterialInventoryService;
 import com.avatech.edi.materials.repository.MaterialInventoryRepository;
 import com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory;
@@ -13,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -29,16 +32,17 @@ public class MaterialInventoryController {
 
 
     @GetMapping("materialinventory")
-    public MaterialInventory getMaterialInventory(){
-        return  null;
+    public Result getMaterialInventory(){
+        Result<List<MaterialInventory>> result = new Result<>();
+        try{
+            List<MaterialInventory> materialInventories = materialInventoryRepository.fetchMaterialInventorys();
+            return result.ok(materialInventories);
+        }catch (Exception e){
+            logger.error("查询物料信息异常：",e);
+            return new Result("1","内部错误");
+        }
     }
 
-
-    @PostMapping("materialinventory")
-    public @ResponseBody
-    Result addMaterialInventory(@RequestBody MaterialInventory materialInventory){
-        return null;
-    }
 
 
 }
