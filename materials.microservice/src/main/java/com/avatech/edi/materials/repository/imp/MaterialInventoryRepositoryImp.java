@@ -21,7 +21,6 @@ public class MaterialInventoryRepositoryImp implements MaterialInventoryReposito
 
     public void saveMaterialInventory(MaterialInventory materialInventory){
         materialInventoryMapper.insertMaterialInventory(materialInventory);
-
     }
 
     public List<MaterialInventory> fetchMaterialInventorys(){

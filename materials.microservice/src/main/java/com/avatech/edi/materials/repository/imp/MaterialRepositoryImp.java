@@ -18,18 +18,13 @@ public class MaterialRepositoryImp implements MaterialRepository{
     @Autowired
     private MaterialMapper materialMapper;
 
-
     public void saveMaterialItem(Material material){
         materialMapper.insertMaterialItem(material);
-
     }
 
     @Override
-    public List<Material> updateMaterialItem(String itemCode) {
-
-         materialMapper.updateMaterialItem(itemCode);
-
-        return null;
+    public void updateMaterialItem(String itemCode) {
+        materialMapper.updateMaterialItem(itemCode);
     }
 
     public List<Material> fetchMaterialItems(){

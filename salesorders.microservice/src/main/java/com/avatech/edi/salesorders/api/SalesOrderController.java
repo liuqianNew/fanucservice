@@ -30,45 +30,29 @@ public class SalesOrderController {
     private SalesOrderRepository salesOrderRepository;
 
 
-
-    @GetMapping("salesorder")
-    public Result getSalesOrder(){
-        Result<List<SalesOrder>> result = new Result<>();
-        try{
-            List<SalesOrder> salesOrder =salesOrderService.fetchSalesOrders();
-            return result.ok(salesOrder);
-        }catch (Exception e){
-            logger.error("查询销售订单信息异常：",e);
-            return result.error("1","内部错误");
-        }
-
-    }
-
     @PatchMapping("salesorder/{docentry}")
-    public Result cancelSalesOrder(@PathVariable("docentry")String docEntry){
+    public Result cancelSalesOrder(@PathVariable("docentry") String docEntry) {
         Result<SalesOrder> result = new Result<>();
-        try{
-            SalesOrder  salesOrder=   salesOrderRepository.updateSalesOrder(docEntry);
-
+        try {
+            SalesOrder salesOrder = salesOrderRepository.updateSalesOrder(docEntry);
             return result.ok(salesOrder);
-        }catch (Exception e){
-            logger.error("保存销售订单信息异常：",e);
-            return new Result().error("1","内部错误");
+        } catch (Exception e) {
+            logger.error("撤销销售订单信息异常：", e);
+            return new Result().error("1", "内部错误");
         }
     }
 
     @PostMapping("salesorder")
     public @ResponseBody
-    Result addSalesOrder(@RequestBody SalesOrder salesOrder){
+    Result addSalesOrder(@RequestBody SalesOrder salesOrder) {
         Result<SalesOrder> result = new Result<>();
-        try{
+        try {
             salesOrder.check();
             SalesOrder order = salesOrderRepository.saveSalesOrder(salesOrder);
-
             return result.ok(order);
-        }catch (Exception e){
-            logger.error("保存销售订单信息异常：",e);
-            return new Result().error("1","内部错误");
+        } catch (Exception e) {
+            logger.error("保存销售订单信息异常：", e);
+            return new Result().error("1", "内部错误");
         }
     }
 }

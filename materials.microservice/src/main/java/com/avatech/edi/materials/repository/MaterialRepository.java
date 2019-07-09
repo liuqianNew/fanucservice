@@ -9,10 +9,11 @@ import com.avatech.edi.materials.model.bo.material.Material;
 
 import java.util.List;
 
-public interface MaterialRepository{
+public interface MaterialRepository {
 
     void saveMaterialItem(Material Material);
 
-   List<Material> updateMaterialItem(String itemCode);
+    void updateMaterialItem(String itemCode);
+
     List<Material> fetchMaterialItems();
 }

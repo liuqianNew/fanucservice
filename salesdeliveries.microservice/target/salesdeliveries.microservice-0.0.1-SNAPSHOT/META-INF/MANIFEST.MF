@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: salesdeliveries.microservice
-Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: LENOVO
-Implementation-Vendor-Id: com.avatech.edi
-Created-By: IntelliJ IDEA
-Build-Jdk: 1.8.0_25
-Main-Class: ${start-class}
-

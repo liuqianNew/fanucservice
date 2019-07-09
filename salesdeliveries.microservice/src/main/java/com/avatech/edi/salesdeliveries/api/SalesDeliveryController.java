@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/edi/sap/v1/*")
@@ -29,41 +31,16 @@ public class SalesDeliveryController {
 
 
     @GetMapping("salesdelivery")
-    public Result getSalesDelivery(){
-
-        Result<SalesDelivery> result = new Result<>();
-        try{
-
-          salesDeliveryRepository.fetchSalesDeliverys();
-
+    public Result getSalesDelivery() {
+        Result<List<SalesDelivery>> result = new Result<>();
+        try {
+            List<SalesDelivery> salesDeliveryList = salesDeliveryRepository.fetchSalesDeliverys();
             return result.ok();
-        }catch (Exception e){
-            logger.error("保存销售订单信息异常：",e);
-            return new Result().error("1","内部错误");
+        } catch (Exception e) {
+            logger.error("获取销售交货信息异常：", e);
+            return new Result().error("1", "内部错误");
         }
-
-
     }
-
-
-    @PostMapping("salesdelivery")
-    public @ResponseBody
-    Result addSalesDelivery(@RequestBody SalesDelivery salesDelivery){
-
-        Result<SalesDelivery> result = new Result<>();
-        try{
-
-            SalesDelivery  sdy=  salesDeliveryRepository.saveSalesDelivery(salesDelivery);
-
-            return result.ok(sdy);
-        }catch (Exception e){
-            logger.error("保存销售订单信息异常：",e);
-            return new Result().error("1","内部错误");
-        }
-
-
-    }
-
 
 
 }

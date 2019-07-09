@@ -56,9 +56,7 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
      *
      */
     @Override
-    public SalesOrder updateSalesOrder(String docEntry) {
-
+    public void updateSalesOrder(String docEntry) {
          salesOrderMapper.updateSalesOrder(docEntry);
-        return null;
     }
 }

@@ -10,11 +10,11 @@ import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
-public interface SalesOrderRepository{
+public interface SalesOrderRepository {
 
     SalesOrder saveSalesOrder(SalesOrder SalesOrder);
 
     List<SalesOrder> fetchSalesOrders();
 
-    SalesOrder  updateSalesOrder(String docEntry) ;
+    void updateSalesOrder(String docEntry);
 }
