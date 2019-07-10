@@ -30,7 +30,7 @@ public class FDIService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://192.168.21.196/WebServiceForSAP/FDIService.asmx?wsdl");
+            url = new URL("http://192.168.15.118/BFM.WebService/FDIService.asmx?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

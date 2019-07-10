@@ -93,7 +93,7 @@
                  ,T0."OcrCode3"
                  ,T0."OcrCode4"
                  ,T0."OcrCode5"
-                 ,'' as "Udf1"
+                 ,T2."DocEntry" as "Udf1"
                  ,'' as "Udf2"
                  ,'' as "Udf3"
                  ,'' as "Udf4"
