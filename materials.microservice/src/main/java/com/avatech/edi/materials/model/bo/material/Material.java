@@ -40,7 +40,7 @@ public class Material {
     /**
      * 物料组（中文描述）
      */
-    @JsonIgnore
+@JsonIgnore
     private String itmsGrpName;
 
 
@@ -88,7 +88,7 @@ public class Material {
     /**
      * 采购计量单位
      */
-    @JsonIgnore
+@JsonIgnore
     private String buyUnitMsr;
 
 

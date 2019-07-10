@@ -34,7 +34,7 @@ public class SalesDeliveryController {
         Result<SalesDelivery> result = new Result<>();
         try{
 
-          salesDeliveryRepository.fetchSalesDeliverys();
+        salesDeliveryRepository.fetchSalesDeliverys();
 
             return result.ok();
         }catch (Exception e){

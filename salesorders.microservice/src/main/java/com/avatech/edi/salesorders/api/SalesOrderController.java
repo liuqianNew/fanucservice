@@ -52,7 +52,7 @@ public class SalesOrderController {
 
             return result.ok(salesOrder);
         }catch (Exception e){
-            logger.error("保存销售订单信息异常：",e);
+            logger.error("更新销售订单信息异常：",e);
             return new Result().error("1","内部错误");
         }
     }

@@ -1,6 +1,6 @@
 # EDI
 server:
-  port: 9102
+  port: 9101
 spring:
   datasource:
     url: "jdbc:sqlserver://vmwarevic;DatabaseName=SBODemoCN"
