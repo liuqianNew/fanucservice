@@ -16,5 +16,7 @@ public interface SalesOrderRepository {
 
     List<SalesOrder> fetchSalesOrders();
 
-    void updateSalesOrder(String docEntry);
+    SalesOrder fetchSalesOrder(String billNo);
+
+    SalesOrder updateSalesOrder(String billNo);
 }

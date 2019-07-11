@@ -12,11 +12,6 @@ import java.util.List;
 
 public interface SalesDeliveryRepository{
 
-    SalesDelivery saveSalesDelivery(SalesDelivery SalesDelivery);
-
     List<SalesDelivery> fetchSalesDeliverys();
 
-    void saveSalesDeliveryLine(SalesDeliveryLine SalesDeliveryLine);
-
-    List<SalesDeliveryLine> fetchSalesDeliveryLines();
 }

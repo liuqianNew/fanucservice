@@ -30,11 +30,11 @@ public class SalesOrderController {
     private SalesOrderRepository salesOrderRepository;
 
 
-    @PatchMapping("salesorder/{docentry}")
-    public Result cancelSalesOrder(@PathVariable("docentry") String docEntry) {
+    @PatchMapping("salesorder/{billno}")
+    public @ResponseBody Result cancelSalesOrder(@PathVariable("billno") String billno) {
         Result<SalesOrder> result = new Result<>();
         try {
-            SalesOrder salesOrder = salesOrderRepository.updateSalesOrder(docEntry);
+            SalesOrder salesOrder = salesOrderRepository.updateSalesOrder(billno);
             return result.ok(salesOrder);
         } catch (Exception e) {
             logger.error("撤销销售订单信息异常：", e);
@@ -43,8 +43,7 @@ public class SalesOrderController {
     }
 
     @PostMapping("salesorder")
-    public @ResponseBody
-    Result addSalesOrder(@RequestBody SalesOrder salesOrder) {
+    public @ResponseBody Result addSalesOrder(@RequestBody SalesOrder salesOrder) {
         Result<SalesOrder> result = new Result<>();
         try {
             salesOrder.check();

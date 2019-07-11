@@ -31,7 +31,7 @@ public class MaterialController {
 
 
     @GetMapping("material")
-    public Result getMaterial() {
+    public @ResponseBody Result getMaterial() {
         Result<List<Material>> result = new Result<>();
         try {
             List<Material> materialList = materialRepository.fetchMaterialItems();

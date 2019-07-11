@@ -6,12 +6,11 @@
 package com.avatech.edi.materials.repository;
 
 import com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory;
+import com.avatech.edi.materials.model.dto.MaterialParam;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 public interface MaterialInventoryRepository{
 
-    void saveMaterialInventory(MaterialInventory MaterialInventory);
-
-    List<MaterialInventory> fetchMaterialInventorys();
+    List<MaterialInventory> fetchMaterialInventorys(MaterialParam materialParam);
 }

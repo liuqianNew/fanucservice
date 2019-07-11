@@ -6,6 +6,7 @@
 package com.avatech.edi.materials.api;
 
 import com.avatech.edi.materials.model.bo.material.Material;
+import com.avatech.edi.materials.model.dto.MaterialParam;
 import com.avatech.edi.materials.service.MaterialInventoryService;
 import com.avatech.edi.materials.repository.MaterialInventoryRepository;
 import com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory;
@@ -32,10 +33,15 @@ public class MaterialInventoryController {
 
 
     @GetMapping("materialinventory")
-    public Result getMaterialInventory(){
+    public @ResponseBody Result fetchMaterialInventory(@RequestParam String itemCode,
+                                                       @RequestParam String whsCode,
+                                                       @RequestParam String groupCode,
+                                                       @RequestParam Integer pageIndex,
+                                                       @RequestParam Integer pageSize){
         Result<List<MaterialInventory>> result = new Result<>();
         try{
-            List<MaterialInventory> materialInventories = materialInventoryRepository.fetchMaterialInventorys();
+            MaterialParam materialParam = new MaterialParam(itemCode,whsCode,groupCode,pageIndex,pageSize);
+            List<MaterialInventory> materialInventories = materialInventoryRepository.fetchMaterialInventorys(materialParam);
             return result.ok(materialInventories);
         }catch (Exception e){
             logger.error("查询物料信息异常：",e);

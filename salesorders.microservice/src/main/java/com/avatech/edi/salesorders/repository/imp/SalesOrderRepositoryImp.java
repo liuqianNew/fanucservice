@@ -21,7 +21,6 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
     @Autowired
     private SalesOrderMapper salesOrderMapper;
 
-
     /**
      * 保存销售订单
      * @param salesOrder
@@ -45,18 +44,34 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
      * 查询销售订单
      * @return
      */
+    @Override
     public List<SalesOrder> fetchSalesOrders(){
         List<SalesOrder> salesOrders = new ArrayList();
-
         salesOrders = salesOrderMapper.searchSalesOrders();
+        List<SalesOrderLine> salesOrderLines ;
+        for (SalesOrder salesOrder:salesOrders){
+            salesOrderLines = salesOrderMapper.searchSalesOrderLines(salesOrder.getDocEntry());
+            salesOrder.getsalesOrderLines().addAll(salesOrderLines);
+        }
         return salesOrders;
     }
+
+    @Override
+    public SalesOrder fetchSalesOrder(String billNo) {
+        SalesOrder salesOrder = salesOrderMapper.searchSalesOrder(billNo);
+        List<SalesOrderLine> salesOrderLines = salesOrderMapper.searchSalesOrderLines(salesOrder.getDocEntry());
+        salesOrder.getsalesOrderLines().addAll(salesOrderLines);
+        return salesOrder;
+    }
+
     /**
      * 修改销售订单
      *
      */
     @Override
-    public void updateSalesOrder(String docEntry) {
-         salesOrderMapper.updateSalesOrder(docEntry);
+    public SalesOrder updateSalesOrder(String billNo) {
+         salesOrderMapper.updateSalesOrder(billNo);
+         // TODO 执行查询接口
+         return this.fetchSalesOrder(billNo);
     }
 }

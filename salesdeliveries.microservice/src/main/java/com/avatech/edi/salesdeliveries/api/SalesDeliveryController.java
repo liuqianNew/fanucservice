@@ -31,7 +31,11 @@ public class SalesDeliveryController {
 
 
     @GetMapping("salesdelivery")
-    public Result getSalesDelivery() {
+    public @ResponseBody Result fetchSalesDelivery(@RequestParam String cardCode,
+                                                   @RequestParam String docDate,
+                                                   @RequestParam String billNo,
+                                                   @RequestParam Integer pageIndex,
+                                                   @RequestParam Integer pageSize) {
         Result<List<SalesDelivery>> result = new Result<>();
         try {
             List<SalesDelivery> salesDeliveryList = salesDeliveryRepository.fetchSalesDeliverys();

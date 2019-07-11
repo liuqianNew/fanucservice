@@ -12,38 +12,31 @@
                     <result column="Price" property="price" jdbcType="INTEGER"/>
          </resultMap>
 
-
-         <insert id="insertMaterialInventory" parameterType="com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory">
-             INSERT INTO "AVA_IM_OITW" (
-                     "ItemCode",
-                     "ItemName",
-                     "GroupCode",
-                     "GroupName",
-                     "PackUnit",
-                     "OnHand",
-                     "Price"
-              )
-             values(
-                      #{itemCode},
-                      #{itemName},
-                      #{groupCode},
-                      #{groupName},
-                      #{packUnit},
-                      #{onHand},
-                      #{price}
-             )
-         </insert>
-
-         <select id="searchMaterialInventory" resultMap="MaterialInventoryMap">
-             SELECT
-                     T0."ItemCode",
-                     T0."ItemName",
-                     T0."GroupCode",
-                     T0."GroupName",
-                     T0."PackUnit",
-                     T0."OnHand",
-                     T0."Price"
-             from "AVA_IM_OITW" T0
+         <select id="searchMaterialInventory" resultMap="MaterialInventoryMap" parameterType="com.avatech.edi.materials.model.dto.MaterialParam">
+             SELECT		 T0."ItemCode",
+                         T0."WhsCode",
+                         T0."ItemName",
+                         T0."GroupCode",
+                         T0."GroupName",
+                         T0."PackUnit",
+                         T0."OnHand",
+                         T0."Price"
+             from AVA_IM_VIEW_OITW T0 ,(
+                 SELECT ROW_NUMBER() over(order by "ItemCode" asc) as "RowId","ItemCode","WhsCode"
+                          FROM AVA_IM_VIEW_OITW
+                          WHERE 1= 1
+                         <if test="itemCode != null and itemCode != ''">
+                             and T0."ItemCode" = #{itemCode}
+                         </if>
+                         <if test="whsCode != null and whsCode != ''">
+                             and T0."WhsCode" = #{whsCode}
+                         </if>
+                         <if test="groupCode != null and groupCode != ''">
+                             and T0."GroupCode" = #{groupCode}
+                         </if>
+             ) T1
+             where T0."ItemCode" = T1."ItemCode" and T0."WhsCode" = T1."WhsCode"
+             and T1."RowId" between #{beginIndex} and #{endIndex};
          </select>
 
 </mapper>

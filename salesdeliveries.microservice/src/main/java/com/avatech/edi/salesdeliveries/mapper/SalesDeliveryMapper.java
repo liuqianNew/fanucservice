@@ -20,5 +20,5 @@ public interface SalesDeliveryMapper{
 
     void insertSalesDeliveryLine(SalesDeliveryLine SalesDeliveryLine);
 
-    List<SalesDeliveryLine> searchSalesDeliveryLines();
+    List<SalesDeliveryLine> searchSalesDeliveryLines(Integer docEntry);
 }

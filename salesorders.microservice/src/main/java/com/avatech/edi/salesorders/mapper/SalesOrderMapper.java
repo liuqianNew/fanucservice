@@ -20,7 +20,9 @@ public interface SalesOrderMapper{
 
     void insertSalesOrderLine(SalesOrderLine SalesOrderLine);
 
-    void updateSalesOrder(String docEntry);
+    void updateSalesOrder( String billNo);
 
-    List<SalesOrderLine> searchSalesOrderLines();
+    SalesOrder searchSalesOrder(String billNo);
+
+    List<SalesOrderLine> searchSalesOrderLines(Long docEntry);
 }
