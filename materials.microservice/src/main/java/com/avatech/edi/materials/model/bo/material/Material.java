@@ -42,8 +42,13 @@ public class Material {
     /**
      * 物料组（中文描述）
      */
+<<<<<<< HEAD
     @JsonProperty("groupnam")
     private String itmsGrpNam;
+=======
+@JsonIgnore
+    private String itmsGrpName;
+>>>>>>> ce203390017a27df23cee7f142e8b1cf562dc463
 
 
     /**
@@ -91,7 +96,7 @@ public class Material {
     /**
      * 采购计量单位
      */
-    @JsonIgnore
+@JsonIgnore
     private String buyUnitMsr;
 
 

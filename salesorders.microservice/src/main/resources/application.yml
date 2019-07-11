@@ -1,5 +1,9 @@
 spring:
   profiles:
+<<<<<<< HEAD
     active: dev
 #  jmx:
 #    enabled: false
+=======
+    active: dev
+>>>>>>> ce203390017a27df23cee7f142e8b1cf562dc463
