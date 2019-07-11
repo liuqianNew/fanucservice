@@ -3,11 +3,11 @@
 <mapper namespace="com.avatech.edi.materials.mapper.MaterialInventoryMapper">
 
          <resultMap id="MaterialInventoryMap" type="com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory">
-                    <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
-                    <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
+                    <result column="ItemCode" property="itemCode" jdbcType="VARCHAR"/>
+                    <result column="ItemName" property="itemName" jdbcType="VARCHAR"/>
                     <result column="GroupCode" property="groupCode" jdbcType="DECIMAL"/>
-                    <result column="GroupName" property="groupName" jdbcType="NVARCHAR"/>
-                    <result column="PackUnit" property="packUnit" jdbcType="NVARCHAR"/>
+                    <result column="GroupName" property="groupName" jdbcType="VARCHAR"/>
+                    <result column="PackUnit" property="packUnit" jdbcType="VARCHAR"/>
                     <result column="OnHand" property="onHand" jdbcType="INTEGER"/>
                     <result column="Price" property="price" jdbcType="INTEGER"/>
          </resultMap>
@@ -34,16 +34,16 @@
              )
          </insert>
 
-         <select id="searchMaterialInventory" resultMap="MaterialInventoryMap">
+         <select id="searchMaterialInventorys" resultMap="MaterialInventoryMap">
              SELECT
-                     T0."ItemCode",
-                     T0."ItemName",
-                     T0."GroupCode",
-                     T0."GroupName",
-                     T0."PackUnit",
-                     T0."OnHand",
-                     T0."Price"
-             from "AVA_IM_OITW" T0
+                     '' "ItemCode",
+                     '' "ItemName",
+                     '' "GroupCode",
+                     '' "GroupName",
+                     '' "PackUnit",
+                     '' "OnHand,jdbcType=INTEGER",
+                     '' "Price,jdbcType=INTEGER"
+             from "OITW" T0
          </select>
 
 </mapper>
