@@ -7,7 +7,7 @@
                     <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
                     <result column="FrgnName" property="frgnName" jdbcType="NVARCHAR"/>
                     <result column="Spec" property="spec" jdbcType="NVARCHAR"/>
-                    <result column="ItmsGrpName" property="itmsGrpName" jdbcType="NVARCHAR"/>
+                    <result column="ItmsGrpNam" property="itmsGrpNam" jdbcType="NVARCHAR"/>
                     <result column="ItmsGrpCod" property="itmsGrpCod" jdbcType="INTEGER"/>
                     <result column="PrchseItem" property="prchseItem" jdbcType="INTEGER"/>
                     <result column="SellItem" property="sellItem" jdbcType="INTEGER"/>
@@ -19,7 +19,7 @@
                     <result column="ManSerNum" property="manSerNum" jdbcType="CHAR"/>
                     <result column="ManBtchNum" property="manBtchNum" jdbcType="CHAR"/>
                     <result column="validFor" property="validFor" jdbcType="CHAR"/>
-                    <result column="INUoMEntry" property="iNUoMEntry" jdbcType="INTEGER"/>
+                    <result column="inuoMEntry" property="inuoMEntry" jdbcType="INTEGER"/>
                     <result column="PrcrmntMtd" property="prcrmntMtd" jdbcType="VARCHAR"/>
                     <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
                     <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
@@ -83,9 +83,9 @@
          </insert>
 
          <select id="searchMaterialItems" resultMap="MaterialItemMap">
-             select top 100  "ItemCode"  ,
-                        "ItemName"  ,
-                        "FrgnName"  ,
+             select top 100  "ItemCode",
+                        "ItemName",
+                        "FrgnName",
                         "Spec",
                         "ItmsGrpNam",
                         T0."ItmsGrpCod" as "ItmsGrpCod",
@@ -99,14 +99,12 @@
                         "ManSerNum" ,
                         "ManBtchNum" ,
                         "validFor" ,
-                        "INUoMEntry"  ,
+                        "inuoMEntry",
                         '' "PrcrmntMtd"  from OITM T0 INNER JOIN OITB T1
-                        ON T0.ItmsGrpCod = T1.ItmsGrpCod WHERE T0."U_IsSync" = 'N'
+                        ON T0.ItmsGrpCod = T1.ItmsGrpCod    WHERE T0."U_IsSync" = 'N'
          </select>
 
-  <update id="updateMaterialItem"  parameterType="com.avatech.edi.materials.model.bo.material.Material"  >
-      UPDATE  "ItemCode"  SET "U_IsSync"='Y' WHERE  "ItemCode"=#{itemCode}
-  </update>
-
-
+      <update id="updateMaterialItem"  parameterType="com.avatech.edi.materials.model.bo.material.Material"  >
+          UPDATE  "OITM"  SET "U_IsSync"='Y' WHERE  "ItemCode"=#{itemCode}
+      </update>
 </mapper>

@@ -20,7 +20,7 @@ public interface SalesOrderMapper{
 
     void insertSalesOrderLine(SalesOrderLine SalesOrderLine);
 
-    void updateSalesOrder( String billNo);
+    void updateSalesOrder(String billNo);
 
     SalesOrder searchSalesOrder(String billNo);
 

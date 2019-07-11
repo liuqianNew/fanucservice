@@ -7,21 +7,21 @@
                     <result column="CardCode" property="cardCode" jdbcType="NVARCHAR"/>
                     <result column="DocDate" property="docDate" jdbcType="DATE"/>
                     <result column="Note" property="note" jdbcType="NVARCHAR"/>
-                    <result column="DocStatus" property="docStatus" jdbcType="NVARCHAR"/>
-                    <result column="Deleted" property="deleted" jdbcType="NVARCHAR"/>
-                    <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
+                    <result column="DocStatus" property="docStatus" jdbcType="CHAR"/><!---->
+                    <result column="Deleted" property="deleted" jdbcType="VARCHAR"/> <!---->
+                    <result column="IsSync" property="isSync" jdbcType="VARCHAR"/><!---->
                     <result column="SyncDate" property="createDate" jdbcType="DATE"/>
-                    <result column="SAPDocEntry" property="sAPDocEntry" jdbcType="NVARCHAR"/>
-                    <result column="BillNo" property="billNo" jdbcType="NVARCHAR"/>
-                    <result column="LogisticsNo" property="logisticsNo" jdbcType="NVARCHAR"/>
-                    <result column="BaseEntry" property="baseDocEntry" jdbcType="NVARCHAR"/>
-                    <result column="BaseType" property="baseDocType" jdbcType="NVARCHAR"/>
-                    <result column="Extend1" property="extend1" jdbcType="NVARCHAR"/>
-                    <result column="Extend2" property="extend2" jdbcType="NVARCHAR"/>
-                    <result column="Extend3" property="extend3" jdbcType="NVARCHAR"/>
-                    <result column="Extend4" property="extend4" jdbcType="NVARCHAR"/>
-                    <result column="Extend5" property="extend5" jdbcType="NVARCHAR"/>
-                    <result column="Creator" property="creator" jdbcType="NVARCHAR"/>
+                    <result column="SAPDocEntry" property="sAPDocEntry" jdbcType="VARCHAR"/>
+                    <result column="BillNo" property="billNo" jdbcType="VARCHAR"/>
+                    <result column="LogisticsNo" property="logisticsNo" jdbcType="VARCHAR"/>
+                    <result column="BaseEntry" property="baseDocEntry" jdbcType="VARCHAR"/>
+                    <result column="BaseType" property="baseDocType" jdbcType="VARCHAR"/>
+                    <result column="Extend1" property="extend1" jdbcType="VARCHAR"/>
+                    <result column="Extend2" property="extend2" jdbcType="VARCHAR"/>
+                    <result column="Extend3" property="extend3" jdbcType="VARCHAR"/>
+                    <result column="Extend4" property="extend4" jdbcType="VARCHAR"/>
+                    <result column="Extend5" property="extend5" jdbcType="VARCHAR"/>
+                    <result column="Creator" property="creator" jdbcType="VARCHAR"/>
                     <result column="CreateDate" property="createDate" jdbcType="DATE"/>
                     <result column="CreateTime" property="createTime" jdbcType="INTEGER"/>
          </resultMap>
@@ -93,7 +93,7 @@
              )
          </insert>
 
-         <select id="searchSalesDelivery" resultMap="SalesDeliveryMap">
+         <select id="searchSalesDeliverys" resultMap="SalesDeliveryMap">
               SELECT
                      T0."DocEntry",
                      T0."CardCode",
@@ -102,7 +102,7 @@
                      T0."DocStatus",
                      '' "Deleted",
                      '' "IsSync",
-                     '' "SyncDate",
+                     '' "SyncDate ,jdbcType=DATE",
                      '' "SAPDocEntry",
                      '' "BillNo",
                      T0."U_LogisticsNo",
@@ -114,9 +114,11 @@
                      '' "Extend4",
                      '' "Extend5",
                      '' "Creator",
-                     '' "CreateDate",
-                     '' "CreateTime"
-             from "ODLN" T0  where "U_IsSync"='N'
+                     '' "CreateDate,jdbcType=DATE",
+                     '' "CreateTime,jdbcType=DATE"
+             from "ODLN" T0
+--               where  "DocStatus"='c'
+--               where "U_IsSync"='N'
          </select>
 
          <insert id="insertSalesDeliveryLine" parameterType="com.avatech.edi.salesdeliveries.model.bo.salesdelivery.SalesDeliveryLine">

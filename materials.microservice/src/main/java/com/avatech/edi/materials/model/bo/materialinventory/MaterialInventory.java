@@ -5,6 +5,9 @@
  */
 package com.avatech.edi.materials.model.bo.materialinventory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class MaterialInventory{
@@ -37,18 +40,21 @@ public class MaterialInventory{
     /**
      * 销售计量单位
      */
+    @JsonProperty
     private String packUnit;
 
 
     /**
      * 库存数量
      */
+    @JsonIgnore
     private BigDecimal onHand;
 
 
     /**
      * 单价
      */
+    @JsonIgnore
     private BigDecimal price;
 
 

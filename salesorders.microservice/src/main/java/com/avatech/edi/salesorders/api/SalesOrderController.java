@@ -9,6 +9,7 @@ import com.avatech.edi.model.dto.Result;
 import com.avatech.edi.salesorders.service.SalesOrderService;
 import com.avatech.edi.salesorders.repository.SalesOrderRepository;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,11 @@ public class SalesOrderController {
 
 
     @PatchMapping("salesorder/{billno}")
-    public @ResponseBody Result cancelSalesOrder(@PathVariable("billno") String billno) {
+    public Result cancelSalesOrder(@Param("docentry") String billno) {
         Result<SalesOrder> result = new Result<>();
         try {
-            SalesOrder salesOrder = salesOrderRepository.updateSalesOrder(billno);
-            return result.ok(salesOrder);
+            salesOrderRepository.updateSalesOrder(billno);
+            return result.ok();
         } catch (Exception e) {
             logger.error("撤销销售订单信息异常：", e);
             return new Result().error("1", "内部错误");

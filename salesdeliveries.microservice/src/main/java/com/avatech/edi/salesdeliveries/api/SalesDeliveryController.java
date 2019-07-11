@@ -39,7 +39,8 @@ public class SalesDeliveryController {
         Result<List<SalesDelivery>> result = new Result<>();
         try {
             List<SalesDelivery> salesDeliveryList = salesDeliveryRepository.fetchSalesDeliverys();
-            return result.ok();
+            System.out.print(salesDeliveryList);
+            return result.ok(salesDeliveryList);
         } catch (Exception e) {
             logger.error("获取销售交货信息异常：", e);
             return new Result().error("1", "内部错误");
