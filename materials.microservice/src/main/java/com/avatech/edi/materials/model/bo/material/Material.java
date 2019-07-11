@@ -14,12 +14,14 @@ public class Material {
     /**
      * 物料编号
      */
+    @JsonProperty("itemcode")
     private String itemCode;
 
 
     /**
      * 物料描述
      */
+    @JsonProperty("itemname")
     private String itemName;
 
 
@@ -40,13 +42,14 @@ public class Material {
     /**
      * 物料组（中文描述）
      */
-    @JsonIgnore
+    @JsonProperty("groupname")
     private String itmsGrpName;
 
 
     /**
      * 物料组
      */
+    @JsonProperty("groupcode")
     private String itmsGrpCod;
 
 
@@ -95,7 +98,7 @@ public class Material {
     /**
      * 销售计量单位
      */
-    @JsonIgnore
+    @JsonProperty("packunit")
     private String salUnitMsr;
 
 
@@ -124,7 +127,6 @@ public class Material {
      * 库存计量单位条目
      */
 
-    //@JsonProperty("inuoMEntry")iNUoMEntry
     @JsonIgnore
     private String iNUoMEntry;
 

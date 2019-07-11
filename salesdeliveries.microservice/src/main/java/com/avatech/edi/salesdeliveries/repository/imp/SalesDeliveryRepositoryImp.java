@@ -23,42 +23,20 @@ import java.util.List;
 public class SalesDeliveryRepositoryImp implements SalesDeliveryRepository{
     @Autowired
     private SalesDeliveryMapper salesDeliveryMapper;
+
     /**
-     * 保存订单
+     * 查询销售交货订单
      * @param
      */
-
-    public SalesDelivery saveSalesDelivery(SalesDelivery salesDelivery){
-       SnowflakeIdWorker worker = new SnowflakeIdWorker(0,0);
-       long docEntry = worker.nextId();
-        salesDelivery.setDocEntry(docEntry);
-
-        int index = 0;
-        for (SalesDeliveryLine salesOrderLine:salesDelivery.getsalesDeliveryLines()) {
-            salesOrderLine.setDocEntry(docEntry);
-            salesOrderLine.setLineId(index);
-            index ++;
-            salesDeliveryMapper.insertSalesDelivery(salesDelivery);
-        }
-        return salesDelivery;
-
-
-    }
-
     public List<SalesDelivery> fetchSalesDeliverys(){
         List<SalesDelivery> salesDeliverys = new ArrayList();
         salesDeliverys = salesDeliveryMapper.searchSalesDeliverys();
+        List<SalesDeliveryLine> salesDeliveryLines = null;
+        for (SalesDelivery salesDelivery:salesDeliverys) {
+            salesDeliveryLines = salesDeliveryMapper.searchSalesDeliveryLines(salesDelivery.getDocEntry());
+            salesDelivery.getsalesDeliveryLines().addAll(salesDeliveryLines);
+        }
         return salesDeliverys;
     }
 
-    public void saveSalesDeliveryLine(SalesDeliveryLine salesDeliveryLine){
-        salesDeliveryMapper.insertSalesDeliveryLine(salesDeliveryLine);
-
-    }
-
-    public List<SalesDeliveryLine> fetchSalesDeliveryLines(){
-        List<SalesDeliveryLine> salesDeliveryLines = new ArrayList();
-        salesDeliveryLines = salesDeliveryMapper.searchSalesDeliveryLines();
-        return salesDeliveryLines;
-    }
 }

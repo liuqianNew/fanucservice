@@ -15,7 +15,7 @@ public class SalesDelivery{
     /**
      * 单据编码
      */
-    private Long docEntry;
+    private Integer docEntry;
 
 
     /**
@@ -157,14 +157,14 @@ public class SalesDelivery{
      /**
      * 获取单据编码
      */
-    public Long getDocEntry() {
+    public Integer getDocEntry() {
         return docEntry;
     }
 
     /**
      * 设置单据编码
      */
-    public void setDocEntry(Long docEntry) {
+    public void setDocEntry(Integer docEntry) {
         this.docEntry = docEntry;
     }
      /**
