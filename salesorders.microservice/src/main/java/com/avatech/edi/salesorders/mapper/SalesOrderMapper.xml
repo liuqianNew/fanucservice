@@ -196,8 +196,8 @@
                      T0."Extend5"
              from "AVA_SM_RDR1" T0 WHERE T0."DocEntry" = #{docEntry}
          </select>
-    <update id="updateSalesOrder" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder"  >
-          UPDATE "AVA_SM_ORDR"  SET  "Deleted" ='Y'  WHERE "DocEntry"=#{docEntry,jdbcType=INTEGER}
+    <update id="updateSalesOrder" parameterType="String"  >
+          UPDATE "AVA_SM_ORDR"  SET  "Deleted" ='Y'  WHERE "BillNo"=#{billno}
     </update>
 
 

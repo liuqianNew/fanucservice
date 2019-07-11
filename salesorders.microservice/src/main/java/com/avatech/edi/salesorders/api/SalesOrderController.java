@@ -31,11 +31,11 @@ public class SalesOrderController {
     private SalesOrderRepository salesOrderRepository;
 
 
-    @PatchMapping("salesorder/{docentry}")
-    public Result cancelSalesOrder(@Param("docentry") String docEntry) {
+    @PatchMapping("salesorder/{billno}")
+    public Result cancelSalesOrder(@Param("docentry") String billno) {
         Result<SalesOrder> result = new Result<>();
         try {
-            salesOrderRepository.updateSalesOrder(docEntry);
+            salesOrderRepository.updateSalesOrder(billno);
             return result.ok();
         } catch (Exception e) {
             logger.error("撤销销售订单信息异常：", e);
