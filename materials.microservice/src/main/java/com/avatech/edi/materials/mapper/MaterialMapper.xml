@@ -101,24 +101,10 @@
                         "validFor" ,
                         "inuoMEntry",
                         '' "PrcrmntMtd"  from OITM T0 INNER JOIN OITB T1
-<<<<<<< HEAD
                         ON T0.ItmsGrpCod = T1.ItmsGrpCod    WHERE T0."U_IsSync" = 'N'
          </select>
 
       <update id="updateMaterialItem"  parameterType="com.avatech.edi.materials.model.bo.material.Material"  >
           UPDATE  "OITM"  SET "U_IsSync"='Y' WHERE  "ItemCode"=#{itemCode}
       </update>
-=======
-                        ON T0.ItmsGrpCod = T1.ItmsGrpCod WHERE T0."U_IsSync" = 'Y'
-         </select>
-
-  <update id="updateMaterialItem"  parameterType="com.avatech.edi.materials.model.bo.material.Material"  >
-
-      UPDATE  "OITM"  SET "U_IsSync"='Y' WHERE  "ItemCode"=#{itemCode}
-
-
-  </update>
-
-
->>>>>>> ce203390017a27df23cee7f142e8b1cf562dc463
 </mapper>

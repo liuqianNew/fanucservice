@@ -1,10 +1,6 @@
 spring:
   datasource:
-<<<<<<< HEAD
     url: "jdbc:sqlserver://vmwarevic;DatabaseName=testFornet"
-=======
-    url: "jdbc:sqlserver://vmwarevic;DatabaseName=SBODemoCN"
->>>>>>> ce203390017a27df23cee7f142e8b1cf562dc463
     username: dev
     password: 123456
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

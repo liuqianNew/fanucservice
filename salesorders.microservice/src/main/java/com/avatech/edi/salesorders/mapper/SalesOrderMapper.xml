@@ -194,17 +194,10 @@
                      T0."Extend3",
                      T0."Extend4",
                      T0."Extend5"
-<<<<<<< HEAD
              from "AVA_SM_RDR1" T0 WHERE T0."DocEntry" = #{docEntry}
          </select>
     <update id="updateSalesOrder" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder"  >
           UPDATE "AVA_SM_ORDR"  SET  "Deleted" ='Y'  WHERE "DocEntry"=#{docEntry,jdbcType=INTEGER}
-=======
-                 from "AVA_SM_RDR1" T0
-         </select>
-    <update id="updateSalesOrder" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder"  >
-              UPDATE  "AVA_SM_ORDR"  SET  "Deleted" = 'Y'  WHERE  "DocEntry" = #{docEntry,jdbcType = INTEGER}
->>>>>>> ce203390017a27df23cee7f142e8b1cf562dc463
     </update>
 
 

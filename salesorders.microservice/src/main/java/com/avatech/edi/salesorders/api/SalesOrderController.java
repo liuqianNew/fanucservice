@@ -34,22 +34,12 @@ public class SalesOrderController {
     @PatchMapping("salesorder/{docentry}")
     public Result cancelSalesOrder(@Param("docentry") String docEntry) {
         Result<SalesOrder> result = new Result<>();
-<<<<<<< HEAD
         try {
             salesOrderRepository.updateSalesOrder(docEntry);
             return result.ok();
         } catch (Exception e) {
             logger.error("撤销销售订单信息异常：", e);
             return new Result().error("1", "内部错误");
-=======
-        try{
-            SalesOrder  salesOrder=   salesOrderRepository.updateSalesOrder(docEntry);
-
-            return result.ok(salesOrder);
-        }catch (Exception e){
-            logger.error("更新销售订单信息异常：",e);
-            return new Result().error("1","内部错误");
->>>>>>> ce203390017a27df23cee7f142e8b1cf562dc463
         }
     }
 
