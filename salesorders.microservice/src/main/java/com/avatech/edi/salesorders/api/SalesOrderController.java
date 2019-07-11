@@ -31,21 +31,12 @@ public class SalesOrderController {
     private SalesOrderRepository salesOrderRepository;
 
 
-<<<<<<< HEAD
     @PatchMapping("salesorder/{docentry}")
     public Result cancelSalesOrder(@Param("docentry") String docEntry) {
         Result<SalesOrder> result = new Result<>();
         try {
             salesOrderRepository.updateSalesOrder(docEntry);
             return result.ok();
-=======
-    @PatchMapping("salesorder/{billno}")
-    public @ResponseBody Result cancelSalesOrder(@PathVariable("billno") String billno) {
-        Result<SalesOrder> result = new Result<>();
-        try {
-            SalesOrder salesOrder = salesOrderRepository.updateSalesOrder(billno);
-            return result.ok(salesOrder);
->>>>>>> 15b95efb94c566b9b3e75467c4b67a68f3f37a53
         } catch (Exception e) {
             logger.error("撤销销售订单信息异常：", e);
             return new Result().error("1", "内部错误");

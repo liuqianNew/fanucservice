@@ -12,7 +12,6 @@
                     <result column="Price" property="price" jdbcType="INTEGER"/>
          </resultMap>
 
-
          <insert id="insertMaterialInventory" parameterType="com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory">
              INSERT INTO "AVA_IM_OITW" (
                      "ItemCode",

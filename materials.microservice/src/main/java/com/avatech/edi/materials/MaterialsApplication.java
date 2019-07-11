@@ -13,8 +13,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
+@EnableWebMvc
 @MapperScan(basePackages = "com.avatech.edi.materials.mapper")
 public class MaterialsApplication extends SpringBootServletInitializer {
 

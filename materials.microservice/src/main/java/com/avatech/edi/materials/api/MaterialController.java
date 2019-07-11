@@ -36,11 +36,14 @@ public class MaterialController {
         try {
             List<Material> materialList = materialRepository.fetchMaterialItems();
             materialService.updateMaterialStatus(materialList);
-            return result.ok(materialList);
+            result = result.ok(materialList);
         } catch (Exception e) {
             logger.error("查询物料信息异常：", e);
-            return new Result("1", "内部错误");
+            result = new Result("1", "内部错误");
         }
+        logger.info("物料主数据返回：",result.toString());
+        return result;
     }
+
 
 }

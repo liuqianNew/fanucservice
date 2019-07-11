@@ -5,6 +5,8 @@ import com.avatech.edi.materials.repository.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import sun.applet.Main;
+
 import java.util.List;
 
 @Service
@@ -21,4 +23,5 @@ public class MaterialService{
             materialRepository.updateMaterialItem(material.getItemCode());
         }
     }
+
 }

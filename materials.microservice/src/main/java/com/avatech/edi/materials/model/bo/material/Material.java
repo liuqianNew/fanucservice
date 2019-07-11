@@ -42,8 +42,8 @@ public class Material {
     /**
      * 物料组（中文描述）
      */
-    @JsonProperty("groupname")
-    private String itmsGrpName;
+    @JsonProperty("groupnam")
+    private String itmsGrpNam;
 
 
     /**
@@ -128,7 +128,7 @@ public class Material {
      */
 
     @JsonIgnore
-    private String iNUoMEntry;
+    private String inuoMEntry;
 
 
     /**
@@ -229,15 +229,15 @@ public class Material {
      /**
      * 获取物料组（中文描述）
      */
-    public String getItmsGrpName() {
-        return itmsGrpName;
+    public String getItmsGrpNam() {
+        return itmsGrpNam;
     }
 
     /**
      * 设置物料组（中文描述）
      */
-    public void setItmsGrpName(String itmsGrpName) {
-        this.itmsGrpName = itmsGrpName;
+    public void setItmsGrpNam(String itmsGrpNam) {
+        this.itmsGrpNam = itmsGrpNam;
     }
      /**
      * 获取物料组
@@ -385,15 +385,15 @@ public class Material {
      /**
      * 获取库存计量单位条目
      */
-    public String getINUoMEntry() {
-        return iNUoMEntry;
+    public String getinuoMEntry() {
+        return inuoMEntry;
     }
 
     /**
      * 设置库存计量单位条目
      */
-    public void setINUoMEntry(String iNUoMEntry) {
-        this.iNUoMEntry = iNUoMEntry;
+    public void setinuoMEntry(String iNUoMEntry) {
+        this.inuoMEntry = inuoMEntry;
     }
      /**
      * 获取补给方式
