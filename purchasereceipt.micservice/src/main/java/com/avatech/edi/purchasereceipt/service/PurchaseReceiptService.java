@@ -1,13 +1,11 @@
 package com.avatech.edi.purchasereceipt.service;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -15,7 +13,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
@@ -46,20 +43,33 @@ public class PurchaseReceiptService{
         purchaseReceiptRepository.savePurchaseReceipt(order);
     }
 
-    public RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-        TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
-            @Override
-            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-                return true;
-            }
-        };
-        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
-        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
-        CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+//    public RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+//        TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
+//            @Override
+//            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+//                return true;
+//            }
+//        };
+//        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
+//        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+//        CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
+//        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+//        requestFactory.setHttpClient(httpClient);
+//        RestTemplate restTemplate = new RestTemplate(requestFactory);
+//        return restTemplate;
+//    }
+    public HttpComponentsClientHttpRequestFactory getHttpClient() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
+                .loadTrustMaterial(null, acceptingTrustStrategy)
+                .build();
+        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setSSLSocketFactory(csf).build();
+        HttpComponentsClientHttpRequestFactory requestFactory =
+                new HttpComponentsClientHttpRequestFactory();
         requestFactory.setHttpClient(httpClient);
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        return restTemplate;
+        return requestFactory;
     }
 
     public void createPurchaseReceipt(HttpHeaders headers,String postUrl,PurchaseReceipt purchaseReceipt) throws Exception {
@@ -67,8 +77,10 @@ public class PurchaseReceiptService{
         try {
            //3、添加采购收货表
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(purchaseReceipt), headers);
-            ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
-            HttpMethod.POST, orderEntry, String.class);
+//            ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
+//            HttpMethod.POST, orderEntry, String.class);
+            RestTemplate restTemplate = new RestTemplate(getHttpClient());
+            ResponseEntity<String> response = restTemplate.exchange(postUrl,HttpMethod.POST, orderEntry, String.class);
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
@@ -90,7 +102,9 @@ public class PurchaseReceiptService{
     public void deleteDraft(HttpHeaders headers,String postUrl,Integer docEntry) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         try{
             HttpEntity<String> entity = new HttpEntity<String>("", headers);
-            ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
+            RestTemplate restTemplate = new RestTemplate(getHttpClient());
+            ResponseEntity<String> resp = restTemplate.exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
+//            ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
         }catch (Exception e){
             logger.error("删除采购收货草稿异常：",e);
         }

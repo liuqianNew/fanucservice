@@ -60,6 +60,19 @@ public class ServiceLayerSessionService{
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         return restTemplate;
     }
+//    public HttpComponentsClientHttpRequestFactory getHttpClient() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+//        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+//        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
+//                .loadTrustMaterial(null, acceptingTrustStrategy)
+//                .build();
+//        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+//        CloseableHttpClient httpClient = HttpClients.custom()
+//                .setSSLSocketFactory(csf).build();
+//        HttpComponentsClientHttpRequestFactory requestFactory =
+//                new HttpComponentsClientHttpRequestFactory();
+//        requestFactory.setHttpClient(httpClient);
+//        return requestFactory;
+//    }
 
     public String ServiceLayerLogin(String companyDB,String userName) throws Exception {
         try {
@@ -69,7 +82,6 @@ public class ServiceLayerSessionService{
             headers.setContentType(type);
             ObjectMapper mapper = new ObjectMapper();
             HttpEntity<String> entity = new HttpEntity<String>(mapper.writeValueAsString(companyInfo), headers);
-
             ResponseEntity<String> response = restTemplate.exchange(companyInfo.getUrl(),
                      HttpMethod.POST, entity, String.class);
             logger.info("登录结果：{},返回内容:{}", response.getStatusCode(), response.getBody());
