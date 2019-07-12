@@ -54,7 +54,7 @@
                      ,T0."validFor"
                      ,T0."INUoMEntry"
                      ,T0."PrcrmntMtd"
-                     ,T0."BVolume"
+                     ,T0."Volume" as BVolume
 --                      ,'' as "Length"
 --                      ,'' as "Width"
 --                      ,'' as "Thickness"

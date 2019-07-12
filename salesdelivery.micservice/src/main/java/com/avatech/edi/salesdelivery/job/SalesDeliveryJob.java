@@ -86,12 +86,6 @@ public class SalesDeliveryJob {
                     Integer docEntry = Integer.valueOf(order.getDocEntry());
                     salesDeliveryService2.createSalesDelivery(headers,serviceLayerAPI + SALEDELIVERY_NOTES_URL,order);
                     salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
-<<<<<<< HEAD
-                    order.setIsSync("Y");
-                    order.setSyncDate(new Date());
-                    order.setSyncMessage("Sync successful");
-=======
->>>>>>> edi/dev
                 } catch (Exception e) {
                     logger.error("销售发货单删除草稿发生异常", e);
                     //销售发货单中间表
@@ -100,7 +94,6 @@ public class SalesDeliveryJob {
                 }
                 salesDeliveryRepository.updateSalesDelivery(order);
             }
-            //--------------------------------------------------------------
         } catch (Exception e) {
             logger.error("同步生产发货发生异常", e);
         }

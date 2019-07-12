@@ -8,10 +8,7 @@ import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
-<<<<<<< HEAD
-=======
 import com.fasterxml.jackson.databind.ObjectMapper;
->>>>>>> edi/dev
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
@@ -89,11 +86,6 @@ public class PurchaseReceiptService{
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(purchaseReceipt), headers);
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
             HttpMethod.POST, orderEntry, String.class);
-<<<<<<< HEAD
-//            RestTemplate restTemplate = new RestTemplate(getHttpClient());
-//            ResponseEntity<String> response = restTemplate.exchange(postUrl,HttpMethod.POST, orderEntry, String.class);
-=======
->>>>>>> edi/dev
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
@@ -123,19 +115,12 @@ public class PurchaseReceiptService{
 
     public void deleteDraft(HttpHeaders headers,String postUrl,Integer docEntry) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         try{
-<<<<<<< HEAD
-            HttpEntity<String> entity = new HttpEntity<String>("", headers);
-//            RestTemplate restTemplate = new RestTemplate(getHttpClient());
-//            ResponseEntity<String> resp = restTemplate.exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
-            ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
-=======
             HttpEntity<String> entity = new HttpEntity<String>("",headers);
             ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
         }catch (HttpClientErrorException e){
             logger.error("删除采购收货草稿异常：",e);
         }catch (HttpServerErrorException e){
             logger.error("删除采购收货草稿异常：",e);
->>>>>>> edi/dev
         }catch (Exception e){
             logger.error("删除采购收货草稿异常：",e);
         }
