@@ -84,8 +84,8 @@ public class SalesDeliveryJob {
                 //处理删除草稿表
                 try {
                     Integer docEntry = Integer.valueOf(order.getDocEntry());
-                    salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
                     salesDeliveryService2.createSalesDelivery(headers,serviceLayerAPI + SALEDELIVERY_NOTES_URL,order);
+                    salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
                     order.setIsSync("Y");
                     order.setSyncDate(new Date());
                     order.setSyncMessage("Sync successful");

@@ -62,11 +62,11 @@
                      ,T0."U_Weight" as "Weight"
                      ,T0."U_Material" as "Material"
                      ,T0."U_Diameter" as "Diameter"
-                     ,T0."U_Udf1" as "Udf1"
-                     ,T0."U_Udf2" as "Udf2"
-                     ,T0."U_Udf3" as "Udf3"
-                     ,T0."U_Udf4" as "Udf4"
-                     ,T0."U_Udf5" as "Udf5"
+                     ,'' as "Udf1"
+                     ,'' as "Udf2"
+                     ,'' as "Udf3"
+                     ,'' as "Udf4"
+                     ,'' as "Udf5"
              FROM "OITM" T0 INNER JOIN "OITB" T1 on T0."ItmsGrpCod" = T1."ItmsGrpCod" where Ifnull("U_IsSync",'N') = 'N'
          </select>
         <update id="updateMaterialUserField" parameterType="com.avatech.edi.material.model.vo.SyncResult">

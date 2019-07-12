@@ -38,14 +38,16 @@ public class ServiceLayerSessionController {
             return new Result().error("无效的数据库名称或用户名");
         }
         try{
-            List<ServiceLayerSession> serviceLayerSessions = serviceLayerSessionRepository.fetchServiceLayerSessions(companyDB,userName);
-            if(serviceLayerSessions == null || serviceLayerSessions.size() == 0 ||
-                    (serviceLayerSessions.get(0).getSessionTimeOut() != 0 &&
-                            DateUtil.getLongTime() >= serviceLayerSessions.get(0).getSessionTimeOut())){
-               String session =  serviceLayerSessionService.ServiceLayerLogin(companyDB,userName);
-               return new Result().ok(session);
-            }
-            return new Result().ok(serviceLayerSessions.get(0).getSessionId());
+//            List<ServiceLayerSession> serviceLayerSessions = serviceLayerSessionRepository.fetchServiceLayerSessions(companyDB,userName);
+//            if(serviceLayerSessions == null || serviceLayerSessions.size() == 0 ||
+//                    (serviceLayerSessions.get(0).getSessionTimeOut() != 0 &&
+//                            DateUtil.getLongTime() >= serviceLayerSessions.get(0).getSessionTimeOut())){
+//               String session =  serviceLayerSessionService.ServiceLayerLogin(companyDB,userName);
+//               return new Result().ok(session);
+//            }
+//            return new Result().ok(serviceLayerSessions.get(0).getSessionId());
+            String session =  serviceLayerSessionService.ServiceLayerLogin(companyDB,userName);
+            return new Result().ok(session);
         }catch (Exception e){
             logger.error("获取公司sessionid异常",e);
             return new Result().error("内部异常");

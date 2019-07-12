@@ -65,7 +65,7 @@ public class SalesDeliveryService2{
     }
 
     public void createSalesDelivery(HttpHeaders headers,String postUrl,SalesDelivery salesDelivery) throws Exception {
-        logger.info("同步銷售發貨信息:%s", salesDelivery.toString());
+        logger.info("同步销售发货信息:%s", salesDelivery.toString());
         try {
             //3、添加销售发货表
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(salesDelivery), headers);
@@ -74,7 +74,7 @@ public class SalesDeliveryService2{
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
-                logger.info("銷售外向交貨单 据同步成功");
+                logger.info("销售外向交货单同步成功");
                 salesDelivery.setIsSync("Y");
                 salesDelivery.setSyncDate(new Date());
                 salesDelivery.setSyncMessage("Sync successful");
@@ -89,7 +89,7 @@ public class SalesDeliveryService2{
             logger.error(e.getResponseBodyAsString());
         }catch (Exception e) {
             logger.info("单据同步失败",e);
-            throw new Exception("同步銷售發貨异常");
+            throw new Exception("同步销售发货异常");
         }
     }
 
@@ -105,7 +105,7 @@ public class SalesDeliveryService2{
     private String getOrderString(SalesDelivery salesDelivery){
         JSONArray DocumentLines = new JSONArray();
         JSONObject requestJson = new JSONObject();
-        JSONArray BatchNumbers = new JSONArray();
+        JSONArray BatchNumbers = null;
         JSONObject objLine = null;
         JSONObject BatchNumber ;
         requestJson.put("CardCode",salesDelivery.getCardCode());//供应商编号
@@ -113,6 +113,7 @@ public class SalesDeliveryService2{
         requestJson.put("Comments",salesDelivery.getComments());//备份
         //明细
         for(SalesDeliveryItem item:salesDelivery.getsalesDeliveryItems()){
+            BatchNumbers = new JSONArray();
             objLine = new JSONObject();
             objLine.put("ItemCode",item.getItemCode());//物料编号
             objLine.put("Quantity",item.getQuantity());//数量
