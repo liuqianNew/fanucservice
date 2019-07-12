@@ -84,11 +84,8 @@ public class SalesDeliveryJob {
                 //处理删除草稿表
                 try {
                     Integer docEntry = Integer.valueOf(order.getDocEntry());
-                    salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
                     salesDeliveryService2.createSalesDelivery(headers,serviceLayerAPI + SALEDELIVERY_NOTES_URL,order);
-                    order.setIsSync("Y");
-                    order.setSyncDate(new Date());
-                    order.setSyncMessage("Sync successful");
+                    salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
                 } catch (Exception e) {
                     logger.error("销售发货单删除草稿发生异常", e);
                     //销售发货单中间表
@@ -98,28 +95,6 @@ public class SalesDeliveryJob {
                 salesDeliveryRepository.updateSalesDelivery(order);
             }
             //--------------------------------------------------------------
-
-
-            // 3.call service layer to create production order
-//            for (SalesDelivery order : salesDeliveries) {
-//                logger.info("同步销售交货信息:%s", order.toString());
-//                HttpEntity<String> orderEntry = new HttpEntity<String>(order.toString(), headers);
-//                ResponseEntity<String> response = restTemplate.exchange(sessionUrl + PRODUCTION_URL,
-//                        HttpMethod.POST, orderEntry, String.class);
-//                // 4.update status of mid database order
-//                if (response.getStatusCode().equals(HttpStatus.OK) ||
-//                        response.getStatusCode().equals(HttpStatus.CREATED)) {
-//                    logger.info("销售交货单据同步成功");
-//                    order.setIsSync("Y");
-//                    order.setSyncDate(new Date());
-//                    order.setSyncMessage("Sync successful");
-//                } else {
-//                    logger.info("单据同步失败");
-//                    order.setIsSync("E");
-//                    order.setErrorTime(order.getErrorTime() + 1);
-//                }
-//                salesDeliveryRepository.updateSalesDelivery(order);
-//            }
         } catch (Exception e) {
             logger.error("同步生产发货发生异常", e);
         }

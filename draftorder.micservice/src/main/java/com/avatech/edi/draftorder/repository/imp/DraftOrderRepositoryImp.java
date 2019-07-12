@@ -13,11 +13,7 @@ import com.avatech.edi.draftorder.model.vo.SyncResult;
 import com.avatech.edi.draftorder.repository.DraftOrderRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,8 +31,6 @@ public class DraftOrderRepositoryImp implements DraftOrderRepository{
         for (DraftOrder draftOrder:draftOrders) {
             draftOrderItems = draftOrderMapper.searchDraftOrderItems(draftOrder.getDocEntry().toString());
             draftOrder.getdraftOrderItems().addAll(draftOrderItems);
-            draftOrder.setDocDate(new SimpleDateFormat("YYYY-MM-dd").format(new Date()));
-            draftOrder.setDocTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
 //            for (DraftOrderItem draftOrderItem:draftOrderItems) {
 //                hashMap = new HashMap();
 //                hashMap.put("docEntry",draftOrderItem.getDocEntry());

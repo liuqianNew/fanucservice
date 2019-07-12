@@ -92,7 +92,7 @@
                  T0."Comments",
                  T0."UserSign",
                  T0."DocTime",
-                 T0."ErrorTime",
+                 ifnull(T0."ErrorTime",0) "ErrorTime",
                  T0."Udf1",
                  T0."Udf2",
                  T0."Udf3",
