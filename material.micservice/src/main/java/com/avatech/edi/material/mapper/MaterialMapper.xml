@@ -7,7 +7,7 @@
                     <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
                     <result column="FrgnName" property="frgnName" jdbcType="NVARCHAR"/>
                     <result column="Spec" property="spec" jdbcType="NVARCHAR"/>
-                    <result column="ItmsGrpNam" property="itmsGrpName" jdbcType="NVARCHAR"/>
+                    <result column="ItmsGrpName" property="itmsGrpName" jdbcType="NVARCHAR"/>
                     <result column="ItmsGrpCod" property="itmsGrpCod" jdbcType="NVARCHAR"/>
                     <result column="PrchseItem" property="prchseItem" jdbcType="NVARCHAR"/>
                     <result column="SellItem" property="sellItem" jdbcType="NVARCHAR"/>
@@ -28,7 +28,6 @@
                     <result column="Weight" property="weight" jdbcType="NVARCHAR"/>
                     <result column="Material" property="material" jdbcType="NVARCHAR"/>
                     <result column="Diameter" property="diameter" jdbcType="NVARCHAR"/>
-                    <result column="INUoMEntry" property="iNUoMEntry" jdbcType="NVARCHAR"/>
                     <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
                     <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
                     <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
@@ -53,9 +52,15 @@
                      ,T0."ManSerNum"
                      ,T0."ManBtchNum"
                      ,T0."validFor"
-                     ,T0."InvntryUom" as INUoMEntry
+                     ,T0."INUoMEntry"
                      ,T0."PrcrmntMtd"
-                     ,T0."U_Volume" as "BVolume"
+                     ,T0."BVolume"
+--                      ,'' as "Length"
+--                      ,'' as "Width"
+--                      ,'' as "Thickness"
+--                      ,'' as "Weight"
+--                      ,'' as "Material"
+--                      ,'' as "Diameter"
                      ,T0."U_Length" as "Length"
                      ,T0."U_Width" as "Width"
                      ,T0."U_Thickness" as "Thickness"

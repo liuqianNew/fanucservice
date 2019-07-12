@@ -3,10 +3,12 @@ package com.avatech.edi.salesdelivery.service;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.avatech.edi.salesdelivery.common.BusinessException;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDelivery;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryBatchItem;
 import com.avatech.edi.salesdelivery.model.bo.salesdelivery.SalesDeliveryItem;
 import com.avatech.edi.salesdelivery.repository.SalesDeliveryRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -33,6 +35,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -78,6 +81,8 @@ public class SalesDeliveryService2{
                 salesDelivery.setIsSync("Y");
                 salesDelivery.setSyncDate(new Date());
                 salesDelivery.setSyncMessage("Sync successful");
+                Map node = new ObjectMapper().readValue(response.getBody(), Map.class);
+                salesDelivery.setSapDocEntry(node.get("DocEntry").toString());
             } else {
                 logger.info("单据同步失败");
                 salesDelivery.setIsSync("E");
@@ -85,8 +90,10 @@ public class SalesDeliveryService2{
             }
         }catch (HttpClientErrorException e){
             logger.error(e.getResponseBodyAsString());
+            throw new BusinessException( "单据信息错误：",e.getResponseBodyAsString());
         }catch (HttpServerErrorException e){
             logger.error(e.getResponseBodyAsString());
+            throw new BusinessException( "单据信息错误：",e.getResponseBodyAsString());
         }catch (Exception e) {
             logger.info("单据同步失败",e);
             throw new Exception("同步销售发货异常");
@@ -123,6 +130,7 @@ public class SalesDeliveryService2{
             objLine.put("BaseLine",item.getBaseLine());//销售订单行号
             objLine.put("unitMsr",item.getUnitMsr());//单位
             //批次
+            BatchNumbers = new JSONArray();
             for(SalesDeliveryBatchItem purItem:item.getSalesDeliveryBatchItems()){
                 BatchNumber = new JSONObject();
                 BatchNumber.put("BatchNumber",purItem.getBatchNum());

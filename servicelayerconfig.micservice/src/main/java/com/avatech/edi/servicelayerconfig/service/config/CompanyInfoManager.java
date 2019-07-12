@@ -18,8 +18,8 @@ import java.util.List;
 public class CompanyInfoManager {
     private final Logger log = LoggerFactory.getLogger(CompanyInfoManager.class);
 
-//    @Value("${path.company-file-path}")
-    private String companyInfoPath = "C:\\Users\\wangpenghui\\fanuc\\Companyinfo.json";
+    @Value("${path.company-file-path}")
+    private String companyInfoPath;
 
     private static List<CompanyInfo> companInfos;
 

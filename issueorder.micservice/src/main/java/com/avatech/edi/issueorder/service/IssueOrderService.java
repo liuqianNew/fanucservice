@@ -6,6 +6,7 @@ import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrder;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderBatchItem;
 import com.avatech.edi.issueorder.model.bo.issueorder.IssueOrderItem;
 import com.avatech.edi.issueorder.repository.IssueOrderRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
@@ -29,6 +30,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class IssueOrderService{
@@ -78,19 +80,21 @@ public class IssueOrderService{
                 issueOrder.setIsSync("Y");
                 issueOrder.setSyncDate(new Date());
                 issueOrder.setSyncMessage("Sync successful");
+                Map node = new ObjectMapper().readValue(response.getBody(), Map.class);
+                issueOrder.setSapDocEntry(node.get("DocEntry").toString());
             } else {
                 logger.info("单据同步失败");
                 issueOrder.error("E", response.getBody(), issueOrder.getErrorTime() + 1);
             }
         }catch (HttpClientErrorException e){
             logger.error(e.getResponseBodyAsString());
-            issueOrder.error("E", e.getResponseBodyAsString(), issueOrder.getErrorTime() + 1);
+            issueOrder.error("E", e.getResponseBodyAsString().substring(0,e.getResponseBodyAsString().length() > 199?199:e.getResponseBodyAsString().length()), issueOrder.getErrorTime() + 1);
         }catch (HttpServerErrorException e){
             logger.error(e.getResponseBodyAsString());
-            issueOrder.error("E", e.getResponseBodyAsString(), issueOrder.getErrorTime() + 1);
+            issueOrder.error("E", e.getResponseBodyAsString().substring(0,e.getResponseBodyAsString().length() > 199?199:e.getResponseBodyAsString().length()), issueOrder.getErrorTime() + 1);
         }catch (Exception e) {
             logger.info("单据同步失败",e);
-            issueOrder.error("E", e.getMessage(), issueOrder.getErrorTime() + 1);
+            issueOrder.error("E", e.getMessage().substring(0,e.getMessage().length()<199?199:e.getMessage().length()), issueOrder.getErrorTime() + 1);
         }
     }
 
@@ -98,7 +102,7 @@ public class IssueOrderService{
     private String getOrderString(IssueOrder issueOrder){
         JSONArray DocumentLines = new JSONArray();
         JSONObject requestJson = new JSONObject();
-        JSONArray BatchNumbers = new JSONArray();
+        JSONArray BatchNumbers = null;
         JSONObject objLine = null;
         JSONObject BatchNumber ;
 
@@ -107,14 +111,16 @@ public class IssueOrderService{
         //明细
         for(IssueOrderItem item:issueOrder.getIssueOrderItems()){
             objLine = new JSONObject();
-            objLine.put("ItemCode",item.getItemCode());//物料编号
+            //objLine.put("ItemCode",item.getItemCode());//物料编号
             objLine.put("Quantity",item.getQuantity());//数量
+            objLine.put("InventoryQuantity",item.getQuantity());
             objLine.put("WhsCode",item.getWhsCode());//仓库
-            objLine.put("BaseType","202");//基于类型
+            objLine.put("BaseType","0");//基于类型
             objLine.put("BaseEntry",item.getBaseEntry());//
             objLine.put("BaseLine",item.getBaseLine());//销售订单行号
             objLine.put("unitMsr",item.getUnitMsr());//单位
             //批次
+            BatchNumbers = new JSONArray();
             for(IssueOrderBatchItem purItem:item.getIssueOrderBatchItems()){
                 BatchNumber = new JSONObject();
                 BatchNumber.put("BatchNumber",purItem.getBatchNum());
@@ -124,8 +130,8 @@ public class IssueOrderService{
             if(BatchNumbers.size() > 0) {
                 objLine.put("BatchNumbers", BatchNumbers);//销售订单行号
             }
+            DocumentLines.add(objLine);
         }
-        DocumentLines.add(objLine);
         requestJson.put("DocumentLines",DocumentLines);
         return requestJson.toString();
     }

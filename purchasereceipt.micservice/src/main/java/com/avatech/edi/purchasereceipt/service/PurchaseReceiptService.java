@@ -1,11 +1,17 @@
 package com.avatech.edi.purchasereceipt.service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.avatech.edi.purchasereceipt.common.BusinessException;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.databind.ObjectMapper;
+>>>>>>> edi/dev
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
@@ -14,11 +20,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,6 +37,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -80,8 +89,11 @@ public class PurchaseReceiptService{
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(purchaseReceipt), headers);
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
             HttpMethod.POST, orderEntry, String.class);
+<<<<<<< HEAD
 //            RestTemplate restTemplate = new RestTemplate(getHttpClient());
 //            ResponseEntity<String> response = restTemplate.exchange(postUrl,HttpMethod.POST, orderEntry, String.class);
+=======
+>>>>>>> edi/dev
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
@@ -89,12 +101,21 @@ public class PurchaseReceiptService{
                 purchaseReceipt.setIsSync("Y");
                 purchaseReceipt.setSyncDate(new Date());
                 purchaseReceipt.setSyncMessage("Sync successful");
+                Map node = new ObjectMapper().readValue(response.getBody(), Map.class);
+                purchaseReceipt.setSapDocEntry(node.get("DocEntry").toString());
             } else {
                 logger.info("单据同步失败");
                 purchaseReceipt.setIsSync("E");
                 purchaseReceipt.setErrorTime(purchaseReceipt.getErrorTime() + 1);
             }
-        }catch (Exception e) {
+        }catch (HttpClientErrorException e){
+            logger.error(e.getResponseBodyAsString());
+            throw new BusinessException( "单据信息错误：",e.getResponseBodyAsString());
+        }catch (HttpServerErrorException e){
+            logger.error(e.getResponseBodyAsString());
+            throw new BusinessException( "服务器错误：",e.getResponseBodyAsString());
+        }
+        catch (Exception e) {
             logger.info("单据同步失败",e);
             throw new Exception("同步采购收货异常");
         }
@@ -102,10 +123,19 @@ public class PurchaseReceiptService{
 
     public void deleteDraft(HttpHeaders headers,String postUrl,Integer docEntry) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         try{
+<<<<<<< HEAD
             HttpEntity<String> entity = new HttpEntity<String>("", headers);
 //            RestTemplate restTemplate = new RestTemplate(getHttpClient());
 //            ResponseEntity<String> resp = restTemplate.exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
             ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
+=======
+            HttpEntity<String> entity = new HttpEntity<String>("",headers);
+            ResponseEntity<String> resp = getRestTemplate().exchange(postUrl + "("+docEntry+")", HttpMethod.DELETE,entity, String.class);
+        }catch (HttpClientErrorException e){
+            logger.error("删除采购收货草稿异常：",e);
+        }catch (HttpServerErrorException e){
+            logger.error("删除采购收货草稿异常：",e);
+>>>>>>> edi/dev
         }catch (Exception e){
             logger.error("删除采购收货草稿异常：",e);
         }
@@ -114,7 +144,7 @@ public class PurchaseReceiptService{
     private String getOrderString(PurchaseReceipt purchaseReceipt){
         JSONArray DocumentLines = new JSONArray();
         JSONObject requestJson = new JSONObject();
-        JSONArray BatchNumbers = new JSONArray();
+        JSONArray BatchNumbers = null;
         JSONObject objLine = null;
         JSONObject BatchNumber ;
         requestJson.put("CardCode",purchaseReceipt.getCardCode());//供应商编号
@@ -131,15 +161,19 @@ public class PurchaseReceiptService{
             objLine.put("BaseLine",item.getBaseLine());//采购订单行号
             objLine.put("unitMsr",item.getUnitMsr());//计量单位
             //批次
+            BatchNumbers = new JSONArray();
             for(PurchaseReceiptBatchItem purItem:item.getpurchaseReceiptBatchItems()){
                 BatchNumber = new JSONObject();
                 BatchNumber.put("BatchNumber",purItem.getBatchNum());
                 BatchNumber.put("Quantity",purItem.getQuantity());
                 BatchNumbers.add(BatchNumber);
             }
-            objLine.put("BatchNumbers",BatchNumbers);//采购订单行号
+            if(BatchNumbers.size() > 0) {
+                objLine.put("BatchNumbers", BatchNumbers);//销售订单行号
+            }
+            DocumentLines.add(objLine);
         }
-        DocumentLines.add(objLine);
+
         requestJson.put("DocumentLines",DocumentLines);
         return requestJson.toString();
     }

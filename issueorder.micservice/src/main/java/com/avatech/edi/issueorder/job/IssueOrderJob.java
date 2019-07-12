@@ -35,7 +35,7 @@ public class IssueOrderJob {
 
     private final Logger logger = LoggerFactory.getLogger(IssueOrderJob.class);
 
-    private static final String PRODUCTION_URL  = "/InventoryGenEntries";
+    private static final String PRODUCTION_URL  = "/InventoryGenExits";
 
     @Autowired
     private IssueOrderRepository issueOrderRepository;

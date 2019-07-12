@@ -78,14 +78,13 @@ public class PurchaseReceiptJob {
                     Integer docEntry = Integer.valueOf(order.getDocEntry());
                     purchaseReceiptService.createPurchaseReceipt(headers,serviceLayerAPI + PURCHASE_NOTES_URL,order);
                     purchaseReceiptService.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
-                    order.setIsSync("Y");
-                    order.setSyncDate(new Date());
-                    order.setSyncMessage("Sync successful");
+
                 } catch (Exception e) {
                     logger.error("采购收货删除草稿发生异常", e);
                     //采购收货中间表
                     order.setIsSync("E");
-//                    order.setErrorTime(order.getErrorTime() + 1);
+                    order.setErrorTime(order.getErrorTime() + 1);
+                    order.setSyncMessage(e.getMessage().substring(0,200));
                 }
                 purchaseReceiptRepository.updatePurchaseReceipt(order);
             }

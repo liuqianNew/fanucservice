@@ -12,7 +12,6 @@
         <result column="CntctCode" property="cntctCode" jdbcType="NVARCHAR"/>
         <result column="DocType" property="docType" jdbcType="NVARCHAR"/>
         <result column="DocDate" property="docDate" jdbcType="DATE"/>
-        <result column="DocTime" property="docTime" jdbcType="INTEGER"/>
         <result column="DocStatus" property="docStatus" jdbcType="NVARCHAR"/>
         <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
         <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>

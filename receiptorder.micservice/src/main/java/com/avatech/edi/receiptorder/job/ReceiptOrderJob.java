@@ -1,6 +1,7 @@
 package com.avatech.edi.receiptorder.job;
 
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
+import com.avatech.edi.receiptorder.model.dto.Result;
 import com.avatech.edi.receiptorder.repository.ReceiptOrderRepository;
 import com.avatech.edi.receiptorder.service.ReceiptOrderService;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class ReceiptOrderJob {
 
     private final Logger logger = LoggerFactory.getLogger(ReceiptOrderJob.class);
 
-    private static final String PRODUCTION_URL  = "/InventoryGenExits";
+    private static final String PRODUCTION_URL  = "/InventoryGenEntries";
 
     @Autowired
     private ReceiptOrderRepository receiptOrderRepository;
@@ -79,7 +80,7 @@ public class ReceiptOrderJob {
     }
 
     private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser"+companyUser, String.class);
-        return response;
+        ResponseEntity<Result> response = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
+        return response.getBody().getData();
     }
 }
