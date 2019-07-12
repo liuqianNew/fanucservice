@@ -34,7 +34,7 @@ public class ServiceLayerSessionController {
 
     @GetMapping("servicelayersession")
     public Result getServiceLayerSession(@RequestParam("comanydb") String companyDB,@RequestParam("companyuser") String userName){
-        if(StringUtils.isEmpty(companyDB) || StringUtils.isEmpty(userName)){
+         if(StringUtils.isEmpty(companyDB) || StringUtils.isEmpty(userName)){
             return new Result().error("无效的数据库名称或用户名");
         }
         try{

@@ -61,7 +61,7 @@ public class DraftOrder{
     /**
      * 过账日期(YYYY-MM-DD)
      */
-    private Date docDate;
+    private String docDate;
 
 
     /**
@@ -97,7 +97,7 @@ public class DraftOrder{
     /**
      * 生成时间(hhMMss)
      */
-    private Integer docTime;
+    private String docTime;
 
 
     /**
@@ -240,14 +240,14 @@ public class DraftOrder{
      /**
      * 获取过账日期(YYYY-MM-DD)
      */
-    public Date getDocDate() {
+    public String getDocDate() {
         return docDate;
     }
 
     /**
      * 设置过账日期(YYYY-MM-DD)
      */
-    public void setDocDate(Date docDate) {
+    public void setDocDate(String docDate) {
         this.docDate = docDate;
     }
      /**
@@ -318,14 +318,14 @@ public class DraftOrder{
      /**
      * 获取生成时间(hhMMss)
      */
-    public Integer getDocTime() {
+    public String getDocTime() {
         return docTime;
     }
 
     /**
      * 设置生成时间(hhMMss)
      */
-    public void setDocTime(Integer docTime) {
+    public void setDocTime(String docTime) {
         this.docTime = docTime;
     }
      /**
