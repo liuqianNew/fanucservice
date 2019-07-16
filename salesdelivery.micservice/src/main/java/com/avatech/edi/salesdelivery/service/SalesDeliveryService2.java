@@ -68,13 +68,15 @@ public class SalesDeliveryService2{
     }
 
     public void createSalesDelivery(HttpHeaders headers,String postUrl,SalesDelivery salesDelivery) throws Exception {
-        logger.info("同步销售发货信息:%s", salesDelivery.toString());
+        logger.info("同步销售发货信息:"+salesDelivery.toString());
         try {
             //3、添加销售发货表
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(salesDelivery), headers);
+            logger.info("生成到sap的销售订单"+getOrderString(salesDelivery));
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
                     HttpMethod.POST, orderEntry, String.class);
             // 4.update status of mid database order
+            logger.info("单据返回状态码："+response.getStatusCode().toString());
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
                 logger.info("销售外向交货单同步成功");
@@ -120,7 +122,6 @@ public class SalesDeliveryService2{
         requestJson.put("Comments",salesDelivery.getComments());//备份
         //明细
         for(SalesDeliveryItem item:salesDelivery.getsalesDeliveryItems()){
-            BatchNumbers = new JSONArray();
             objLine = new JSONObject();
             objLine.put("ItemCode",item.getItemCode());//物料编号
             objLine.put("Quantity",item.getQuantity());//数量
@@ -138,8 +139,8 @@ public class SalesDeliveryService2{
                 BatchNumbers.add(BatchNumber);
             }
             objLine.put("BatchNumbers",BatchNumbers);//销售订单行号
+            DocumentLines.add(objLine);
         }
-        DocumentLines.add(objLine);
         requestJson.put("DocumentLines",DocumentLines);
         return requestJson.toString();
         //return "1";

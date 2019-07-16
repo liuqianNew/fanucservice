@@ -9,15 +9,14 @@
         <result column="ShiptoCode" property="shiptoCode" jdbcType="NVARCHAR"/>
         <result column="Address3" property="address3" jdbcType="NVARCHAR"/>
         <result column="Phone1" property="phone1" jdbcType="NVARCHAR"/>
-        <result column="CntctCode" property="cntctCode" jdbcType="NVARCHAR"/>
+        <result column="Name" property="cntctCode" jdbcType="NVARCHAR"/>
         <result column="DocType" property="docType" jdbcType="NVARCHAR"/>
         <result column="DocDate" property="docDate" jdbcType="DATE"/>
-        <result column="DocTime" property="docTime" jdbcType="INTEGER"/>
         <result column="DocStatus" property="docStatus" jdbcType="NVARCHAR"/>
         <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
-        <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>
-        <result column="PayType" property="payType" jdbcType="NVARCHAR"/>
-        <result column="DeliveryNum" property="deliveryNum" jdbcType="NVARCHAR"/>
+        <result column="U_NAME" property="userSign" jdbcType="NVARCHAR"/>
+        <result column="U_PayType" property="payType" jdbcType="NVARCHAR"/>
+        <result column="U_DeliveryNum" property="deliveryNum" jdbcType="NVARCHAR"/>
         <result column="DocTime" property="docTime" jdbcType="DATE"/>
         <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
         <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
@@ -59,15 +58,15 @@
         SELECT TOP 10  T0."DocEntry"
                  ,T0."CardCode"
                  ,T0."CardName"
-                 ,'' as "ShiptoCode"
+                 ,T0."Address2" as "ShiptoCode"
                  ,T2."Address3"
                  ,T1."Phone1"
-                 ,T0."CntctCode"
+                 ,T3."Name"
                  ,T0."ObjType" as "DocType"
                  ,T0."DocDate"
                  ,T0."DocStatus"
                  ,T0."Comments"
-                 ,T0."UserSign"
+                 ,T4."U_NAME"
                  ,T0."U_PayType"
                  ,T0."U_DeliveryNum"
                  ,T0."DocTime"*100
@@ -78,6 +77,8 @@
                  ,'' as "Udf5"
          FROM "ODRF" T0  INNER JOIN "OCRD" T1 ON T0."CardCode" = T1."CardCode" AND (T0."ObjType" = 15 or T0."ObjType" = 20)
          				 LEFT JOIN "CRD1" T2 ON T1."CardCode" = T2."CardCode" AND T2."AdresType" = 'S'
+         				 LEFT JOIN "OCPR" T3 ON T0."CntctCode" = T3."CntctCode"
+         				 LEFT JOIN "OUSR" T4 ON T0."UserSign" = T4."USERID"
          				 WHERE  IFNULL("U_IsSync",'N') = 'N'
      </select>
 

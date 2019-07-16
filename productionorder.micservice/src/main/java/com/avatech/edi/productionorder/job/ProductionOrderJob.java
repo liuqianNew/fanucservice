@@ -45,7 +45,7 @@ public class ProductionOrderJob {
     private SyncResult pushProductionOrder(ProductionOrder productionOrder){
         FDIService service = MESService.getInstance();
         logger.info("推送MES[{}]号生产订单信息，表头信息：{}",productionOrder.getDocEntry(),productionOrder.toString());
-        logger.info("推送MES[{}]号生产订单信息，表头信息：{}",productionOrder.getDocEntry(),productionOrder.getproductionOrderItems().toString());
+        logger.info("推送MES[{}]号生产订单信息，行信息：{}",productionOrder.getDocEntry(),productionOrder.getproductionOrderItems().toString());
         String result = service.getFDIServiceSoap().getWorkOrder(productionOrder.toString(),productionOrder.getproductionOrderItems().toString());
         if(result.equals("OK")){
             return new SyncResult(productionOrder.getDocEntry().toString()).ok();

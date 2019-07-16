@@ -158,7 +158,6 @@ public class PurchaseReceiptService{
             }
             DocumentLines.add(objLine);
         }
-
         requestJson.put("DocumentLines",DocumentLines);
         return requestJson.toString();
     }

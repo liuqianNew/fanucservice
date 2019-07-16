@@ -92,6 +92,7 @@ public class SalesDeliveryJob {
                     order.setIsSync("E");
                     order.setErrorTime(order.getErrorTime() + 1);
                 }
+                logger.info("更新订单状态"+order.getIsSync());
                 salesDeliveryRepository.updateSalesDelivery(order);
             }
         } catch (Exception e) {
