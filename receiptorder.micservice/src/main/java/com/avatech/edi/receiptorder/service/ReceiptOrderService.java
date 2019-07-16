@@ -69,7 +69,7 @@ public class ReceiptOrderService{
     }
 
     public void createReceiptOrder(HttpHeaders headers, String postUrl, ReceiptOrder receiptOrder) throws Exception {
-        logger.info("同步发货信息:{}", receiptOrder.toString());
+        logger.info("同步生产收货信息:{}", receiptOrder.toString());
         try {
             //3、添加发货单表
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(receiptOrder), headers);
