@@ -78,7 +78,7 @@ public class ReceiptOrderService{
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
-                logger.info("收货据同步成功");
+                logger.info("生产收货同步成功");
                 receiptOrder.setIsSync("Y");
                 receiptOrder.setSyncDate(new Date());
                 receiptOrder.setSyncMessage("Sync successful");
