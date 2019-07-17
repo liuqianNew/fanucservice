@@ -74,4 +74,16 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
          // TODO 执行查询接口
          return this.fetchSalesOrder(billNo);
     }
+
+    @Override
+    public List<SalesOrder> fetchIsSyncSalesOrder() {
+        List<SalesOrder> salesOrders = new ArrayList();
+        salesOrders = salesOrderMapper.searchSyncSalesOrder();
+        List<SalesOrderLine> salesOrderLines ;
+        for (SalesOrder salesOrder:salesOrders){
+            salesOrderLines = salesOrderMapper.searchSalesOrderLines(salesOrder.getDocEntry());
+            salesOrder.getsalesOrderLines().addAll(salesOrderLines);
+        }
+        return salesOrders;
+    }
 }

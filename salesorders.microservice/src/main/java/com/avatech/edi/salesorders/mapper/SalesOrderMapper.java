@@ -25,4 +25,6 @@ public interface SalesOrderMapper{
     SalesOrder searchSalesOrder(String billNo);
 
     List<SalesOrderLine> searchSalesOrderLines(Long docEntry);
+
+    List<SalesOrder> searchSyncSalesOrder();
 }

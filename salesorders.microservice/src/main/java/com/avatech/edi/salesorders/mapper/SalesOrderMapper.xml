@@ -196,6 +196,34 @@
                      T0."Extend5"
              from "AVA_SM_RDR1" T0 WHERE T0."DocEntry" = #{docEntry}
          </select>
+
+
+    <select id="syncSalesOrder"   resultMap="SalesOrderMap">
+        SELECT
+        T0."DocEntry",
+        T0."CardCode",
+        T0."DocDate",
+        T0."Note",
+        T0."DocStatus",
+        T0."Deleted",
+        T0."IsSync",
+        T0."SyncDate",
+        T0."BaseEntry",
+        T0."BaseType",
+        T0."SAPDocEntry" as "sapDocEntry",
+        T0."BillNo",
+        T0."Extend1",
+        T0."Extend2",
+        T0."Extend3",
+        T0."Extend4",
+        T0."Extend5",
+        T0."Creator",
+        T0."CreateDate",
+        T0."CreateTime"
+        from "AVA_SM_ORDR" T0 WHERE T0."IsSync" = 'N'
+    </select>
+
+
     <update id="updateSalesOrder" parameterType="String"  >
           UPDATE "AVA_SM_ORDR"  SET  "Deleted" ='Y'  WHERE "BillNo"=#{billno}
     </update>

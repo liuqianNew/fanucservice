@@ -19,4 +19,6 @@ public interface SalesOrderRepository {
     SalesOrder fetchSalesOrder(String billNo);
 
     SalesOrder updateSalesOrder(String billNo);
+
+    List<SalesOrder> fetchIsSyncSalesOrder();
 }
