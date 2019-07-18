@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 public class MaterialStock{
 
-
     private Long eDIDocEntry;
 
     private String isSync;
@@ -23,127 +22,15 @@ public class MaterialStock{
 
     private Date syncDate;
 
-    private Integer syncTime;
-
-    private String sapDocEntry;
-
-    /**
-     * 物料编号
-     */
-    @JsonProperty("ItemCode")
-    private String itemCode;
-
-
-    /**
-     * 物料描述
-     */
-    @JsonProperty("ItemName")
-    private String itemName;
-
-
-    /**
-     * 数量
-     */
-    @JsonProperty("Quantity")
-    private BigDecimal quantity;
-
-
-    /**
-     * 仓库
-     */
-    @JsonProperty("WhsCode")
-    private String whsCode;
-
-
-    /**
-     * 批号
-     */
-    @JsonProperty("BatchNum")
-    private String batchNum;
-
-
-    /**
-     * 创建人
-     */
-    @JsonProperty("UserSign")
-    private String userSign;
-
-
-    /**
-     * 生成时间
-     */
-    @JsonProperty("DocTime")
-    private Integer docTime;
-
-
-    /**
-     * 过账日期(YY-MM-DD)
-     */
-    @JsonProperty("DocDate")
-    private String docDate;
-
-
     private Integer errorTime;
 
-    /**
-     * 自定义字段
-     */
-    @JsonProperty("Udf1")
-    private String udf1;
-
-
-    /**
-     * 自定义字段
-     */
-    @JsonProperty("Udf2")
-    private String udf2;
-
-
-    /**
-     * 自定义字段
-     */
-    @JsonProperty("Udf3")
-    private String udf3;
-
-
-    /**
-     * 自定义字段
-     */
-    @JsonProperty("Udf4")
-    private String udf4;
-
-
-    /**
-     * 自定义字段
-     */
-    @JsonProperty("Udf5")
-    private String udf5;
-
-
-    @JsonProperty("Batchs")
     private List<MaterialStockItem> materialStockItems;
 
-
-
-
-    public Integer getErrorTime() {
-        return errorTime;
-    }
-
-    public void setErrorTime(Integer errorTime) {
-        this.errorTime = errorTime;
-    }
-    /**
-     * 获取单据编号
-     */
-    public Long getEDIDocEntry() {
+    public Long geteDIDocEntry() {
         return eDIDocEntry;
     }
 
-    /**
-     * 设置单据编号
-     */
-    public void setEDIDocEntry(Long eDIDocEntry) {
+    public void seteDIDocEntry(Long eDIDocEntry) {
         this.eDIDocEntry = eDIDocEntry;
     }
 
@@ -171,197 +58,15 @@ public class MaterialStock{
         this.syncDate = syncDate;
     }
 
-    public Integer getSyncTime() {
-        return syncTime;
+    public Integer getErrorTime() {
+        return errorTime;
     }
 
-    public void setSyncTime(Integer syncTime) {
-        this.syncTime = syncTime;
+    public void setErrorTime(Integer errorTime) {
+        this.errorTime = errorTime;
     }
 
-    public String getSapDocEntry() {
-        return sapDocEntry;
-    }
-
-    public void setSapDocEntry(String sapDocEntry) {
-        this.sapDocEntry = sapDocEntry;
-    }
-
-
-    /**
-     * 获取物料编号
-     */
-    public String getItemCode() {
-        return itemCode;
-    }
-
-    /**
-     * 设置物料编号
-     */
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
-    }
-     /**
-     * 获取物料描述
-     */
-    public String getItemName() {
-        return itemName;
-    }
-
-    /**
-     * 设置物料描述
-     */
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-     /**
-     * 获取数量
-     */
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * 设置数量
-     */
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
-     /**
-     * 获取仓库
-     */
-    public String getWhsCode() {
-        return whsCode;
-    }
-
-    /**
-     * 设置仓库
-     */
-    public void setWhsCode(String whsCode) {
-        this.whsCode = whsCode;
-    }
-     /**
-     * 获取批号
-     */
-    public String getBatchNum() {
-        return batchNum;
-    }
-
-    /**
-     * 设置批号
-     */
-    public void setBatchNum(String batchNum) {
-        this.batchNum = batchNum;
-    }
-     /**
-     * 获取创建人
-     */
-    public String getUserSign() {
-        return userSign;
-    }
-
-    /**
-     * 设置创建人
-     */
-    public void setUserSign(String userSign) {
-        this.userSign = userSign;
-    }
-     /**
-     * 获取生成时间
-     */
-    public Integer getDocTime() {
-        return docTime;
-    }
-
-    /**
-     * 设置生成时间
-     */
-    public void setDocTime(Integer docTime) {
-        this.docTime = docTime;
-    }
-     /**
-     * 获取过账日期(YY-MM-DD)
-     */
-    public String getDocDate() {
-        return docDate;
-    }
-
-    /**
-     * 设置过账日期(YY-MM-DD)
-     */
-    public void setDocDate(String docDate) {
-        this.docDate = docDate;
-    }
-     /**
-     * 获取自定义字段
-     */
-    public String getUdf1() {
-        return udf1;
-    }
-
-    /**
-     * 设置自定义字段
-     */
-    public void setUdf1(String udf1) {
-        this.udf1 = udf1;
-    }
-     /**
-     * 获取自定义字段
-     */
-    public String getUdf2() {
-        return udf2;
-    }
-
-    /**
-     * 设置自定义字段
-     */
-    public void setUdf2(String udf2) {
-        this.udf2 = udf2;
-    }
-     /**
-     * 获取自定义字段
-     */
-    public String getUdf3() {
-        return udf3;
-    }
-
-    /**
-     * 设置自定义字段
-     */
-    public void setUdf3(String udf3) {
-        this.udf3 = udf3;
-    }
-     /**
-     * 获取自定义字段
-     */
-    public String getUdf4() {
-        return udf4;
-    }
-
-    /**
-     * 设置自定义字段
-     */
-    public void setUdf4(String udf4) {
-        this.udf4 = udf4;
-    }
-     /**
-     * 获取自定义字段
-     */
-    public String getUdf5() {
-        return udf5;
-    }
-
-    /**
-     * 设置自定义字段
-     */
-    public void setUdf5(String udf5) {
-        this.udf5 = udf5;
-    }
-
-    public List<MaterialStockItem> getmaterialStockItems() {
-        if(materialStockItems == null){
-            materialStockItems = new ArrayList<>();
-        }
+    public List<MaterialStockItem> getMaterialStockItems() {
         return materialStockItems;
     }
 
@@ -369,44 +74,15 @@ public class MaterialStock{
         this.materialStockItems = materialStockItems;
     }
 
-
     @Override
     public String toString() {
-        return "{" +
-                "\"itemCode\":\"" + itemCode +
-                "\",\"itemName\":\"" + itemName +
-                "\",\"quantity\":\"" + quantity +
-                "\",\"whsCode\":\"" + whsCode +
-                "\",\"batchNum\":\"" + batchNum +
-                "\",\"userSign\":\"" + userSign +
-                "\",\"docTime\":\"" + docTime +
-                "\",\"docDate\":\"" + docDate +
-                "\",\"udf1\":\"" + udf1 +
-                "\",\"udf2\":\"" + udf2 +
-                "\",\"udf3\":\"" + udf3 +
-                "\",\"udf4\":\"" + udf4 +
-                "\",\"udf5\":\"" + udf5 +
-                "\",\"materialStockItems\":[" + materialStockItems +
-                "]}";
-    }
-
-    public Result checkData() throws Exception {
-        Result result = new Result();
-        if(StringUtils.isEmpty(itemCode)){
-            return result.error( "itemCode为空");
-        }
-        if(StringUtils.isEmpty(itemName)){
-            return result.error( "itemName为空");
-        }
-        if(StringUtils.isEmpty(whsCode)){
-            return result.error( "whsCode为空");
-        }
-        for (MaterialStockItem item:materialStockItems) {
-            result = item.checkData();
-            if(!result.getCode().equals("0")){
-                return result;
-            }
-        }
-        return result.ok();
+        return "MaterialStock{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", isSync='" + isSync + '\'' +
+                ", syncMessage='" + syncMessage + '\'' +
+                ", syncDate=" + syncDate +
+                ", errorTime=" + errorTime +
+                ", materialStockItems=" + materialStockItems +
+                '}';
     }
 }

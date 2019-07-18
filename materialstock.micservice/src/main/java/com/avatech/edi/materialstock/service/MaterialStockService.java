@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -16,24 +17,19 @@ public class MaterialStockService{
     private MaterialStockRepository materialStockRepository;
 
     @Transactional
-    public void saveMaterialStocks(List<MaterialStock> materialStocks){
-        if(materialStocks == null || materialStocks.size() == 0){
+    public void saveMaterialStocks(MaterialStock materialStock){
+        if(materialStock == null || StringUtils.isEmpty(materialStock)){
             return;
         }
-        materialStockRepository.deleteAllMaterialStock();
-        for (MaterialStock materialStock:materialStocks) {
-            materialStockRepository.saveMaterialStock(materialStock);
-        }
-    }
-
-    public void saveMaterialStock(MaterialStock materialStock){
         materialStockRepository.saveMaterialStock(materialStock);
     }
 
-    public void updateMaterislStock(List<MaterialStock> materialStocks){
-        for (MaterialStock materialStock:materialStocks){
-            materialStockRepository.updateMaterialStock(materialStock);
-        }
+    public List<MaterialStock> fetchMaterialStocks(){
+        return materialStockRepository.fetchMaterialStocks();
+    }
+
+    public void updateMaterialStock(MaterialStock materialStock){
+        materialStockRepository.updateMaterialStock(materialStock);
     }
 }
 

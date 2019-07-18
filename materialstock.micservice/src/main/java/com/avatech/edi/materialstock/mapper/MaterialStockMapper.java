@@ -20,11 +20,7 @@ public interface MaterialStockMapper{
 
     void insertMaterialStockItem(MaterialStockItem MaterialStockItem);
 
-    List<MaterialStockItem> searchMaterialStockItems();
-
-    void deleteAllMaterialStock();
-
-    void deleteAllMaterialStockItem();
+    List<MaterialStockItem> searchMaterialStockItems(Long eDIDocEntry);
 
     void updateMaterialStock(MaterialStock materialStock);
 }

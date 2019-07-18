@@ -353,10 +353,21 @@ public class ReceiptOrder{
 
     @Override
     public String toString() {
-        return "{" +
-                "\"DocDate\":\"" + docDate +
-                "\"Comments\":\"" + comments +
-                "\"DocumentLines\":[" + receiptOrderItems +
-                "]}";
+        return "ReceiptOrder{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", isSync='" + isSync + '\'' +
+                ", syncMessage='" + syncMessage + '\'' +
+                ", syncDate=" + syncDate +
+                ", syncTime=" + syncTime +
+                ", sapDocEntry='" + sapDocEntry + '\'' +
+                ", docDate=" + docDate +
+                ", docEntry='" + docEntry + '\'' +
+                ", comments='" + comments + '\'' +
+                ", status='" + status + '\'' +
+                ", userSign='" + userSign + '\'' +
+                ", docTime=" + docTime +
+                ", receiptOrderItems=" + receiptOrderItems +
+                ", errorTime=" + errorTime +
+                '}';
     }
 }

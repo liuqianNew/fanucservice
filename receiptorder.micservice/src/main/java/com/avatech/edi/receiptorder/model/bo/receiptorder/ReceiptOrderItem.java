@@ -520,15 +520,27 @@ public class ReceiptOrderItem{
 
     @Override
     public String toString() {
-        return "{" +
-
-                "\"ItemCode\":\"" + itemCode + '\"' +
-                ",\"Quantity\":" + qty +
-                ",\"Warehouse\":\"" + wareHouse + '\"'+
-                ",\"BaseType\":" + baseEntry +
-                ",\"BaseEntry\":" + baseEntry +
-                ",\"BaseLine\":" + baseLine +
-                ",\"BatchNumberLines\":[" + receiptOrderBatchItems +
-                "]}";
+        return "ReceiptOrderItem{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", eDILineId=" + eDILineId +
+                ", docEntry='" + docEntry + '\'' +
+                ", lineNum=" + lineNum +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", qty=" + qty +
+                ", wareHouse='" + wareHouse + '\'' +
+                ", project='" + project + '\'' +
+                ", baseREF=" + baseREF +
+                ", baseEntry='" + baseEntry + '\'' +
+                ", baseLine=" + baseLine +
+                ", ocrCode='" + ocrCode + '\'' +
+                ", ocrCode2='" + ocrCode2 + '\'' +
+                ", ocrCode3='" + ocrCode3 + '\'' +
+                ", ocrCode4='" + ocrCode4 + '\'' +
+                ", ocrCode5='" + ocrCode5 + '\'' +
+                ", workTime=" + workTime +
+                ", batchNum='" + batchNum + '\'' +
+                ", receiptOrderBatchItems=" + receiptOrderBatchItems +
+                '}';
     }
 }

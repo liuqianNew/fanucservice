@@ -69,9 +69,10 @@ public class ReceiptOrderService{
     }
 
     public void createReceiptOrder(HttpHeaders headers, String postUrl, ReceiptOrder receiptOrder) throws Exception {
-        logger.info("同步生产收货信息:", receiptOrder.toString());
+        logger.info("同步生产收货信息:" + receiptOrder.toString());
         try {
             //3、添加发货单表
+            logger.info("同步到SAP的json数据"+getOrderString(receiptOrder));
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(receiptOrder), headers);
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
                     HttpMethod.POST, orderEntry, String.class);
@@ -115,6 +116,7 @@ public class ReceiptOrderService{
             objLine = new JSONObject();
             objLine.put("BaseType","202");//基于类型
             objLine.put("BaseEntry",item.getBaseEntry());//
+            objLine.put("Quantity",item.getQty());//
             //批次
             BatchNumbers = new JSONArray();
             for(ReceiptOrderBatchItem purItem:item.getreceiptOrderBatchItems()){

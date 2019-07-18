@@ -7,7 +7,6 @@ import com.avatech.edi.productionorder.model.bo.productionorder.ProductionOrder;
 import com.avatech.edi.productionorder.model.vo.SyncResult;
 import com.avatech.edi.productionorder.repository.ProductionOrderRepository;
 import com.avatech.edi.productionorder.service.ProductionOrderService;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

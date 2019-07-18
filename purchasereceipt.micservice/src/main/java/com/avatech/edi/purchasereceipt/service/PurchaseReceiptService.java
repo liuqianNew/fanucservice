@@ -65,19 +65,6 @@ public class PurchaseReceiptService{
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         return restTemplate;
     }
-//    public HttpComponentsClientHttpRequestFactory getHttpClient() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
-//        TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-//        SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
-//                .loadTrustMaterial(null, acceptingTrustStrategy)
-//                .build();
-//        SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
-//        CloseableHttpClient httpClient = HttpClients.custom()
-//                .setSSLSocketFactory(csf).build();
-//        HttpComponentsClientHttpRequestFactory requestFactory =
-//                new HttpComponentsClientHttpRequestFactory();
-//        requestFactory.setHttpClient(httpClient);
-//        return requestFactory;
-//    }
 
     public void createPurchaseReceipt(HttpHeaders headers,String postUrl,PurchaseReceipt purchaseReceipt) throws Exception {
         logger.info("同步采购收货信息:%s", purchaseReceipt.toString());

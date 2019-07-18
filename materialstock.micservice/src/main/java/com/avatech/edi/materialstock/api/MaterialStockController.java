@@ -29,26 +29,21 @@ public class MaterialStockController {
     private MaterialStockService materialStockService;
 
 
-    @GetMapping("materialstock")
-    public MaterialStock getMaterialStock(){
-        return  null;
-    }
-
-
     @PostMapping("materialstocks")
     public @ResponseBody
-    Result addMaterialStock(@RequestBody List<MaterialStock> materialStocks) {
-        logger.info("接收物料库存：{}", materialStocks.toString());
+    Result addMaterialStock(@RequestBody List<MaterialStockItem> materialStockItems) {
+        logger.info("接收物料库存：{}", materialStockItems.toString());
         Result result = new Result();
-
         try {
-            for (MaterialStock materialStock:materialStocks){
-                result = materialStock.checkData();
+            for (MaterialStockItem materialStockItem:materialStockItems){
+                result = materialStockItem.checkData();
                 if(!result.getCode().equals("0")){
                     return result;
                 }
             }
-            materialStockService.saveMaterialStocks(materialStocks);
+            MaterialStock materialStock = new MaterialStock();
+            materialStock.getMaterialStockItems().addAll(materialStockItems);
+            materialStockService.saveMaterialStocks(materialStock);
         } catch (Exception e) {
             logger.error("保存物料库存异常：{}", e);
         }

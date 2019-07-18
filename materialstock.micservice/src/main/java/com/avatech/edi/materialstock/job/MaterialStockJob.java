@@ -1,9 +1,12 @@
 package com.avatech.edi.materialstock.job;
 
 import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock;
+import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem;
+import com.avatech.edi.materialstock.model.bo.stocks.StockDelivery;
 import com.avatech.edi.materialstock.repository.MaterialStockRepository;
 import com.avatech.edi.materialstock.service.GoodsIssueService;
 import com.avatech.edi.materialstock.service.GoodsReceiptService;
+import com.avatech.edi.materialstock.service.MaterialStockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +25,14 @@ import java.util.List;
 public class MaterialStockJob {
     private final Logger logger = LoggerFactory.getLogger(MaterialStockJob.class);
 
-    private static final String GOODS_RECEIPT_URL  = "/";
+    //库存收货
+    private static final String GOODS_RECEIPT_URL  = "/InventoryGenEntries";
 
-    private static final String GOODS_ISSUE_URL  = "/";
+    //库存发货
+    private static final String GOODS_ISSUE_URL  = "/InventoryGenExits";
 
     @Autowired
-    private MaterialStockRepository materialStockRepository;
+    private MaterialStockService materialStockService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -56,7 +61,7 @@ public class MaterialStockJob {
     private void process() {
         try {
             // 1.get unsync order from mid database
-            List<MaterialStock> materialStocks = materialStockRepository.fetchMaterialStocks();
+            List<MaterialStock> materialStocks = materialStockService.fetchMaterialStocks();
             if (materialStocks == null || materialStocks.size() == 0) {
                 return;
             }
@@ -70,8 +75,22 @@ public class MaterialStockJob {
             headers.setContentType(type1);
             headers.add("Cookie", seesionId);
             // 3.call service layer to create production order
-            goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStocks);
-
+            StockDelivery stockDelivery = goodsIssueService.fetchMaterialStock();
+            if(stockDelivery == null || StringUtils.isEmpty(stockDelivery)){
+                for(MaterialStock materialStock : materialStocks){
+                    //库存收货
+                    goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStock);
+                    materialStockService.updateMaterialStock(materialStock);
+                }
+            }else{
+                //库存发货
+                goodsIssueService.createGoodsIssue(headers,sessionUrl+GOODS_ISSUE_URL,stockDelivery);
+                for(MaterialStock materialStock : materialStocks){
+                    //库存收货
+                    goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStock);
+                    materialStockService.updateMaterialStock(materialStock);
+                }
+            }
         } catch (Exception e) {
             logger.error("同步生产发货发生异常", e);
         }

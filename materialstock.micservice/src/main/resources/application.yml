@@ -4,6 +4,8 @@ spring:
     username: SYSTEM
     password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver
+#  main:
+#    allow-bean-definition-overriding: true
 server:
   port: 9107
 logging:

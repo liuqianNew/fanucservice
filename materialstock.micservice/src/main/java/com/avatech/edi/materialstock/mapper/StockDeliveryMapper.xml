@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.avatech.edi.materialstock.mapper.StockDeliveryMapper">
+
+    <resultMap id="StockDeliveryItemMap" type="com.avatech.edi.materialstock.model.bo.stocks.StockDeliveryItem">
+        <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
+        <result column="OnHand" property="quantity" jdbcType="DECIMAL"/>
+        <result column="WhsCode" property="whsCode" jdbcType="NVARCHAR"/>
+    </resultMap>
+
+    <resultMap id="StockDeliveryBatchItemMap" type="com.avatech.edi.materialstock.model.bo.stocks.StockDeliveryBatchItem">
+        <result column="BatchNumber" property="batchNumber" jdbcType="NVARCHAR"/>
+        <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
+        <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
+        <result column="WhsCode" property="whsCode" jdbcType="NVARCHAR"/>
+        <result column="OnHand" property="onHand" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="fetchMaterialStockItem" resultMap="StockDeliveryItemMap">
+        select "ItemCode","WhsCode","OnHand" from OITW where "OnHand" &gt; 0
+    </select>
+
+    <select id="fetchMaterialStockBatchItem" resultMap="StockDeliveryBatchItemMap" parameterType="String">
+        select T0."ItemCode",T0."WhsCode",T0."OnHand",T1."BatchNum",T1"Quantity" from OITW T0
+        INNER JOIN OIBT T1 ON T0."ItemCode" = T1."ItemCode" and T0."WhsCode" = T1."WhsCode"
+        where T0."OnHand" &gt; 0 and T1."Quantity" &gt; 0 and T0."ItemCode" = #{itemCode}
+    </select>
+</mapper>

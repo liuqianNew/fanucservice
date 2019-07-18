@@ -3,14 +3,11 @@
 <mapper namespace="com.avatech.edi.materialstock.mapper.MaterialStockMapper">
 
      <resultMap id="MaterialStockMap" type="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock">
-                <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
-                <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
-                <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
-                <result column="WhsCode" property="whsCode" jdbcType="NVARCHAR"/>
-                <result column="BatchNum" property="batchNum" jdbcType="NVARCHAR"/>
-                <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>
-                <result column="DocTime" property="docTime" jdbcType="DATE"/>
-                <result column="DocDate" property="docDate" jdbcType="DATE"/>
+                <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
+                <result column="ErrorTime" property="errorTime" jdbcType="INTEGER"/>
+                <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
+                <result column="SyncMessage" property="syncMessage" jdbcType="NVARCHAR"/>
+                <result column="SyncDate" property="syncDate" jdbcType="DATE"/>
                 <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
                 <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
                 <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
@@ -18,12 +15,15 @@
                 <result column="Udf5" property="udf5" jdbcType="NVARCHAR"/>
      </resultMap>
      <resultMap id="MaterialStockItemMap" type="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem">
-                <result column="DocEntry" property="itemCode" jdbcType="INTEGER"/>
-                <result column="ItemLineId" property="itemName" jdbcType="INTEGER"/>
-                <result column="LineNum" property="quantity" jdbcType="INTEGER"/>
-                <result column="ItemCode" property="whsCode" jdbcType="NVARCHAR"/>
-                <result column="Quantity" property="batchNum" jdbcType="DECIMAL"/>
-                <result column="BatchNum" property="userSign" jdbcType="NVARCHAR"/>
+                <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
+                <result column="DocTime" property="docTime" jdbcType="INTEGER"/>
+                <result column="DocDate" property="docDate" jdbcType="DATE"/>
+                <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
+                <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
+                <result column="WhsCode" property="whsCode" jdbcType="NVARCHAR"/>
+                <result column="Quantity" property="quantity" jdbcType="DECIMAL"/>
+                <result column="UserSign" property="userSign" jdbcType="NVARCHAR"/>
+                <result column="BatchNum" property="batchNum" jdbcType="NVARCHAR"/>
                 <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
                 <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
                 <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
@@ -31,103 +31,104 @@
                 <result column="Udf5" property="udf5" jdbcType="NVARCHAR"/>
      </resultMap>
 
-
      <insert id="insertMaterialStock" parameterType="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock">
          INSERT INTO "AVA_IM_OITW" (
-                 "ItemCode"
-                 ,"ItemName"
-                 ,"Quantity"
-                 ,"WhsCode"
-                 ,"BatchNum"
-                 ,"UserSign"
-                 ,"DocTime"
-                 ,"DocDate"
+                  "EDIDocEntry"
+                 ,"IsSync"
+                 ,"SyncMessage"
+                 ,"ErrorTime"
+                 ,"SyncDate"
                  ,"Udf1"
                  ,"Udf2"
                  ,"Udf3"
                  ,"Udf4"
                  ,"Udf5")
          values(
-                  #{ItemCode}
-                  ,#{ItemName}
-                  ,#{Quantity}
-                  ,#{WhsCode}
-                  ,#{BatchNum}
-                  ,#{UserSign}
-                  ,#{DocTime}
-                  ,#{DocDate}
-                  ,#{Udf1}
-                  ,#{Udf2}
-                  ,#{Udf3}
-                  ,#{Udf4}
-                  ,#{Udf5}
+                  #{eDIDocEntry}
+                  ,#{IsSync}
+                  ,#{SyncMessage}
+                  ,#{ErrorTime}
+                  ,#{SyncDate}
+                  ,#{udf1}
+                  ,#{udf2}
+                  ,#{udf3}
+                  ,#{udf4}
+                  ,#{udf5}
          )
      </insert>
 
      <select id="searchMaterialStock" resultMap="MaterialStockMap">
-         SELECT  T0."ItemCode"
-                 ,T0."ItemName"
-                 ,T0."Quantity"
-                 ,T0."WhsCode"
-                 ,T0."BatchNum"
-                 ,T0."UserSign"
-                 ,T0."DocTime"
-                 ,T0."DocDate"
+         SELECT  T0."EDIDocEntry"
+                 ,T0."IsSync"
+                 ,T0."SyncMessage"
+                 ,T0."SyncDate"
+                 ,ifnull(T0."ErrorTime",0) "ErrorTime"
                  ,T0."Udf1"
                  ,T0."Udf2"
                  ,T0."Udf3"
                  ,T0."Udf4"
                  ,T0."Udf5"
          from "AVA_IM_OITW" T0
+         where ifnull(T0."IsSync",'N') != 'Y' AND ifnull(T0."ErrorTime",0) &lt; 5
      </select>
 
      <insert id="insertMaterialStockItem" parameterType="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem">
          INSERT INTO "AVA_IM_ITW1" (
-                 ,"DocEntry"
-                 ,"ItemLineId"
-                 ,"LineNum"
+                 "EDIDocEntry"
                  ,"ItemCode"
-                 ,"Quantity"
+                 ,"ItemName"
                  ,"BatchNum"
+                 ,"WhsCode"
+                 ,"Quantity"
+                 ,"DocDate"
+                 ,"DocTime"
+                 ,"UserSign"
                  ,"Udf1"
                  ,"Udf2"
                  ,"Udf3"
                  ,"Udf4"
                  ,"Udf5")
          values(
-                  ,#{ItemCode}
-                  ,#{ItemName}
-                  ,#{Quantity}
-                  ,#{WhsCode}
-                  ,#{BatchNum}
-                  ,#{UserSign}
-                  ,#{Udf1}
-                  ,#{Udf2}
-                  ,#{Udf3}
-                  ,#{Udf4}
-                  ,#{Udf5}
+                  #{eDIDocEntry}
+                  ,#{itemCode}
+                  ,#{itemName}
+                  ,#{batchNum}
+                  ,#{whsCode}
+                  ,#{quantity}
+                  ,#{docDate}
+                  ,#{docTime}
+                  ,#{userSign}
+                  ,#{udf1}
+                  ,#{udf2}
+                  ,#{udf3}
+                  ,#{udf4}
+                  ,#{udf5}
          )
      </insert>
 
-     <select id="searchMaterialStockItem" resultMap="MaterialStockItemMap">
-         SELECT  T0."DocEntry"
-                 ,T0."ItemLineId"
-                 ,T0."LineNum"
+     <select id="searchMaterialStockItem" resultMap="MaterialStockItemMap" parameterType="Long">
+         SELECT  T0."EDIDocEntry"
                  ,T0."ItemCode"
-                 ,T0."Quantity"
+                 ,T0."ItemName"
                  ,T0."BatchNum"
+                 ,T0."WhsCode"
+                 ,T0."Quantity"
+                 ,T0."DocDate"
+                 ,T0."DocTime"
+                 ,T0."UserSign"
                  ,T0."Udf1"
                  ,T0."Udf2"
                  ,T0."Udf3"
                  ,T0."Udf4"
                  ,T0."Udf5"
-         from "AVA_IM_ITW1" T0
+         from "AVA_IM_ITW1" T0 where T0."EDIDocEntry" = #{eDIDocEntry}
     </select>
-    <delete id="deleteAllMaterialStock">
-        DELETE * FROM AVA_IM_OITW;
-    </delete>
 
-    <delete id="deleteAllMaterialStockItem">
-        DELETE * FROM AVA_IM_ITW1;
-    </delete>
+    <update id="updateMaterialStock" parameterType="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock">
+        update AVA_IM_OITW set "IsSync" = #{isSync}
+                                 ,"SyncMessage" = #{syncMessage}
+                                 ,"SyncDate" = #{syncDate}
+                                 ,"ErrorTime" = #{errorTime}
+                                 WHERE "EDIDocEntry" = #{eDIDocEntry}
+    </update>
 </mapper>

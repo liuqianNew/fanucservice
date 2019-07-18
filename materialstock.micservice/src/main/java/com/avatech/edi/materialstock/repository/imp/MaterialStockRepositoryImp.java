@@ -5,6 +5,7 @@
  */
 package com.avatech.edi.materialstock.repository.imp;
 
+import com.avatech.edi.materialstock.common.SnowflakeIdWorker;
 import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock;
 import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem;
 import com.avatech.edi.materialstock.mapper.MaterialStockMapper;
@@ -22,8 +23,12 @@ public class MaterialStockRepositoryImp implements MaterialStockRepository{
     private MaterialStockMapper materialStockMapper;
 
     public void saveMaterialStock(MaterialStock materialStock){
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0,0);
+        Long ediId = idWorker.nextId();
+        materialStock.seteDIDocEntry(ediId);
         materialStockMapper.insertMaterialStock(materialStock);
-        for (MaterialStockItem materialStockItem:materialStock.getmaterialStockItems()) {
+        for (MaterialStockItem materialStockItem:materialStock.getMaterialStockItems()) {
+            materialStockItem.seteDIDocEntry(ediId);
             materialStockMapper.insertMaterialStockItem(materialStockItem);
         }
     }
@@ -32,15 +37,9 @@ public class MaterialStockRepositoryImp implements MaterialStockRepository{
         List<MaterialStock> materialStocks = new ArrayList();
         materialStocks = materialStockMapper.searchMaterialStocks();
         for (MaterialStock materialStock:materialStocks) {
-            materialStock.getmaterialStockItems().addAll(materialStockMapper.searchMaterialStockItems());
+            materialStock.getMaterialStockItems().addAll(materialStockMapper.searchMaterialStockItems(materialStock.geteDIDocEntry()));
         }
         return materialStocks;
-    }
-
-    @Override
-    public void deleteAllMaterialStock() {
-        materialStockMapper.deleteAllMaterialStock();
-        materialStockMapper.deleteAllMaterialStockItem();
     }
 
     @Override
