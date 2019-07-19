@@ -360,17 +360,24 @@ public class IssueOrderItem{
 
     @Override
     public String toString() {
-        return "{" +
-                "\"ItemCode\":\"" + itemCode + '\"'+
-                ",\"Quantity\":" + quantity +
-                ",\"WhsCode\":\"" + whsCode +'\"'+
-                ",\"BaseType\":\"" + baseEntry +
-                ",\"BaseEntry\":" + baseEntry +
-                ",\"BaseLine\":" + baseLine +
-                ",\"UnitMsr\":\"" + unitMsr +
-                ",\"BatchNumberLines\":[" + issueOrderBatchItems +
-                "]}";
+        return "IssueOrderItem{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", eDILineId=" + eDILineId +
+                ", docEntry='" + docEntry + '\'' +
+                ", lineId=" + lineId +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", quantity=" + quantity +
+                ", whsCode='" + whsCode + '\'' +
+                ", baseEntry='" + baseEntry + '\'' +
+                ", baseLine=" + baseLine +
+                ", unitMsr='" + unitMsr + '\'' +
+                ", udf1='" + udf1 + '\'' +
+                ", udf2='" + udf2 + '\'' +
+                ", udf3='" + udf3 + '\'' +
+                ", udf4='" + udf4 + '\'' +
+                ", udf5='" + udf5 + '\'' +
+                ", issueOrderBatchItems=" + issueOrderBatchItems +
+                '}';
     }
-
-
 }

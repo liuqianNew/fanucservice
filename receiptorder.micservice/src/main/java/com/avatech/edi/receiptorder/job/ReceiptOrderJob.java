@@ -1,6 +1,9 @@
 package com.avatech.edi.receiptorder.job;
 
+import com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionItemOrder;
+import com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionOrder;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
+import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
 import com.avatech.edi.receiptorder.model.dto.Result;
 import com.avatech.edi.receiptorder.repository.ReceiptOrderRepository;
 import com.avatech.edi.receiptorder.service.ReceiptOrderService;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +27,11 @@ public class ReceiptOrderJob {
 
     private final Logger logger = LoggerFactory.getLogger(ReceiptOrderJob.class);
 
-    private static final String PRODUCTION_URL  = "/InventoryGenEntries";
+    //生产订单
+    private static final String PRODUCTIONORDER_URL  = "/ProductionOrders";
+
+    //生产收货
+    private static final String PRODUCTIONRECEIPT_URL  = "/InventoryGenEntries";
 
     @Autowired
     private ReceiptOrderRepository receiptOrderRepository;
@@ -68,11 +76,31 @@ public class ReceiptOrderJob {
             MediaType type1 = MediaType.parseMediaType("application/json; charset=UTF-8");
             headers.setContentType(type1);
             headers.add("Cookie", seesionId);
-
             // 3.call service layer to create production order
             for (ReceiptOrder order : receiptOrders) {
-                receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTION_URL,order);
-                receiptOrderRepository.updateReceipOrder(order);
+                BigDecimal workTime = order.getreceiptOrderItems().get(0).getWorkTime();
+                if(workTime != null){
+                    logger.info("MES回传的生产订单号DocEntry:"+order.getSapDocEntry());
+                    ProductionOrder productionOrder = receiptOrderService.fetchProductionOrder(order.getSapDocEntry());
+                    logger.info("DocEntry="+order.getSapDocEntry()+"的生产订单数据"+productionOrder.toString());
+                    logger.info("是否更新生产订单："+isVirtualMaterial(productionOrder));
+                    if(isVirtualMaterial(productionOrder)){
+                        Integer lineNumber = productionOrder.getProductionItemOrders().size();
+                        //更新生产订单
+                        receiptOrderService.createProductionOrder(headers,serviceLayerAPI + PRODUCTIONORDER_URL,order.getSapDocEntry(),order,lineNumber);
+                        //创建生产收货单
+                        receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTIONRECEIPT_URL,order);
+                        receiptOrderRepository.updateReceipOrder(order);
+                    }else {
+                        //创建生产收货单
+                        receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTIONRECEIPT_URL,order);
+                        receiptOrderRepository.updateReceipOrder(order);
+                    }
+                }else{
+                    //创建生产收货单
+                    receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTIONRECEIPT_URL,order);
+                    receiptOrderRepository.updateReceipOrder(order);
+                }
             }
         } catch (Exception e) {
             logger.error("同步生产收货发生异常", e);
@@ -82,5 +110,19 @@ public class ReceiptOrderJob {
     private String getSessionId(){
         ResponseEntity<Result> response = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
         return response.getBody().getData();
+    }
+
+    /**
+     * 是否第一次更新生产订单
+     * @param productionOrder
+     * @return
+     */
+    private Boolean isVirtualMaterial(ProductionOrder productionOrder){
+        for(ProductionItemOrder itemOrder : productionOrder.getProductionItemOrders()){
+            if(itemOrder.getItemNo().equals("T00000001")){
+                return false;
+            }
+        }
+        return true;
     }
 }

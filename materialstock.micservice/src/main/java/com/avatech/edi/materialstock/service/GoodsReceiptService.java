@@ -58,8 +58,9 @@ public class GoodsReceiptService {
     }
     //创建库存收货单
     public void createGoodsReceipt(HttpHeaders headers, String postUrl, MaterialStock materialStock) {
+        logger.info("同步库存信息:%s", materialStock.toString());
         try {
-            logger.info("同步库存信息:%s", materialStock.toString());
+            logger.info("同步到SAP的json数据"+getMaterialStock(materialStock));
             HttpEntity<String> orderEntry = new HttpEntity<String>(getMaterialStock(materialStock), headers);
             ResponseEntity<String> response = restTemplate.exchange(postUrl,
                     HttpMethod.POST, orderEntry, String.class);

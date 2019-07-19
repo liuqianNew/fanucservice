@@ -6,9 +6,7 @@
 package com.avatech.edi.receiptorder.repository.imp;
 
 import com.avatech.edi.receiptorder.common.SnowflakeIdWorker;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem;
+import com.avatech.edi.receiptorder.model.bo.receiptorder.*;
 import com.avatech.edi.receiptorder.mapper.ReceiptOrderMapper;
 import com.avatech.edi.receiptorder.repository.ReceiptOrderRepository;
 import org.springframework.stereotype.Component;
@@ -69,6 +67,13 @@ public class ReceiptOrderRepositoryImp implements ReceiptOrderRepository{
     @Override
     public void updateReceipOrder(ReceiptOrder receiptOrder) {
         receiptOrderMapper.updateReceiptOrder(receiptOrder);
+    }
+
+    @Override
+    public ProductionOrder fetchProductionOrder(Integer docEntry) {
+       ProductionOrder productionOrder = receiptOrderMapper.fetchProductionOrder(docEntry);
+       productionOrder.getProductionItemOrders().addAll(receiptOrderMapper.fetchProductionItemOrder(docEntry));
+       return productionOrder;
     }
 
 

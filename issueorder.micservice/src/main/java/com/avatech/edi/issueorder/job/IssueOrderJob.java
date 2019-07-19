@@ -81,7 +81,6 @@ public class IssueOrderJob {
             MediaType type1 = MediaType.parseMediaType("application/json; charset=UTF-8");
             headers.setContentType(type1);
             headers.add("Cookie", seesionId);
-
             // 3.call service layer to create production order
             for (IssueOrder order : issueOrders) {
                 issueOrderService.createIssueOrder(headers,serviceLayerAPI + PRODUCTION_URL,order);

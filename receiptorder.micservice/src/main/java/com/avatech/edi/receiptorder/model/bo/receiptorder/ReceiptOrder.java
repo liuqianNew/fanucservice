@@ -26,7 +26,7 @@ public class ReceiptOrder{
 
     private Integer syncTime;
 
-    private String sapDocEntry;
+    private Integer sapDocEntry;
 
 
     /**
@@ -168,11 +168,11 @@ public class ReceiptOrder{
         this.syncTime = syncTime;
     }
 
-    public String getSapDocEntry() {
+    public Integer getSapDocEntry() {
         return sapDocEntry;
     }
 
-    public void setSapDocEntry(String sapDocEntry) {
+    public void setSapDocEntry(Integer sapDocEntry) {
         this.sapDocEntry = sapDocEntry;
     }
 

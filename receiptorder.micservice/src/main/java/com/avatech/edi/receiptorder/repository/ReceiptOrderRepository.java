@@ -5,9 +5,7 @@
  */
 package com.avatech.edi.receiptorder.repository;
 
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem;
+import com.avatech.edi.receiptorder.model.bo.receiptorder.*;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -18,4 +16,7 @@ public interface ReceiptOrderRepository{
     List<ReceiptOrder> fetchReceiptOrders();
 
     void updateReceipOrder(ReceiptOrder receiptOrder);
+
+    ProductionOrder fetchProductionOrder(Integer docEntry);
+
 }

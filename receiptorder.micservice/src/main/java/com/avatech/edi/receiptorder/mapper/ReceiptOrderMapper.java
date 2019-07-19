@@ -6,9 +6,7 @@
 package com.avatech.edi.receiptorder.mapper;
 
 
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem;
+import com.avatech.edi.receiptorder.model.bo.receiptorder.*;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -30,4 +28,10 @@ public interface ReceiptOrderMapper{
     List<ReceiptOrderBatchItem> searchReceiptOrderBatchItems(HashMap hashMap);
 
     void updateReceiptOrder(ReceiptOrder receiptOrder);
+
+    //生产订单
+    ProductionOrder fetchProductionOrder(Integer docEntry);
+
+    //生产订单字表
+    List<ProductionItemOrder> fetchProductionItemOrder(Integer docEntry);
 }

@@ -329,21 +329,20 @@ public class IssueOrder{
 
     @Override
     public String toString() {
-        return "{" +
-                "\"docDate\":\"" +  docDate +
-                //"\",\"docEntry\":\"" + docEntry +
-                "\",\"comments\":\"" + comments +
-                "\",\"udf1\":\"" + udf1 +
-                "\",\"udf2\":\"" + udf2 +
-                "\",\"udf3\":\"" + udf3 +
-                "\",\"udf4\":\"" + udf4 +
-                "\",\"udf5\":\"" + udf5 +
-                "\",\"issueOrderItems\":[" + issueOrderItems +
-                "]}";
+        return "IssueOrder{" +
+                "eDIDocEntry=" + eDIDocEntry +
+                ", docDate='" + docDate + '\'' +
+                ", docEntry='" + docEntry + '\'' +
+                ", comments='" + comments + '\'' +
+                ", userSign='" + userSign + '\'' +
+                ", docTime=" + docTime +
+                ", udf1='" + udf1 + '\'' +
+                ", udf2='" + udf2 + '\'' +
+                ", udf3='" + udf3 + '\'' +
+                ", udf4='" + udf4 + '\'' +
+                ", udf5='" + udf5 + '\'' +
+                ", errorTime=" + errorTime +
+                ", issueOrderItems=" + issueOrderItems +
+                '}';
     }
-
-
-
-
-
 }

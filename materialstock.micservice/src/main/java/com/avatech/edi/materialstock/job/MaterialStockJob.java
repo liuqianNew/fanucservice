@@ -62,9 +62,9 @@ public class MaterialStockJob {
         try {
             // 1.get unsync order from mid database
             List<MaterialStock> materialStocks = materialStockService.fetchMaterialStocks();
-            if (materialStocks == null || materialStocks.size() == 0) {
-                return;
-            }
+//            if (materialStocks == null || materialStocks.size() == 0) {
+//                return;
+//            }
             // 2.get session
             String seesionId = getSessionId();
             if (StringUtils.isEmpty(seesionId)) {
@@ -85,6 +85,7 @@ public class MaterialStockJob {
             }else{
                 //库存发货
                 goodsIssueService.createGoodsIssue(headers,sessionUrl+GOODS_ISSUE_URL,stockDelivery);
+                logger.info("库存发货同步成功+++++++++");
                 for(MaterialStock materialStock : materialStocks){
                     //库存收货
                     goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStock);

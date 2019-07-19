@@ -4,6 +4,7 @@
 
     <resultMap id="ReceiptOrderMap" type="com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder">
         <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
+        <result column="SapDocEntry" property="sapDocEntry" jdbcType="INTEGER"/>
         <result column="DocDate" property="docDate" jdbcType="DATE"/>
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
         <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
@@ -102,6 +103,7 @@
     <select id="searchReceiptOrders" resultMap="ReceiptOrderMap">
          SELECT TOP 10
                  T0."EDIDocEntry",
+                 T1."DocEntry" as "SapDocEntry",
                  T0."DocDate",
                  T0."DocEntry",
                  T0."Comments",
@@ -114,7 +116,7 @@
                  T0."Udf3",
                  T0."Udf4",
                  T0."Udf5"
-         from "AVA_IM_OIGN" T0
+         from "AVA_IM_OIGN" T0 left join OWOR T1 ON T0."DocEntry" = T1."DocNum"
          WHERE ifnull(T0."IsSync",'N') <![CDATA[ <> ]]> 'Y' AND ifnull(T0."ErrorTime",0) &lt; 5
     </select>
 
@@ -266,4 +268,22 @@
                                  WHERE "EDIDocEntry" = #{eDIDocEntry}
     </update>
 
+    <resultMap id="ProductionOrderMap" type="com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionOrder">
+        <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="ProductionItemOrderMap" type="com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionItemOrder">
+        <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+        <result column="LineNum" property="lineNum" jdbcType="INTEGER"/>
+        <result column="ItemCode" property="itemNo" jdbcType="NVARCHAR"/>
+        <result column="Quantity" property="baseQuantity" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="fetchProductionOrder" resultMap="ProductionOrderMap" parameterType="Integer">
+        select "DocEntry" from OWOR where "DocEntry" = #{docEntry}
+    </select>
+
+    <select id="fetchProductionItemOrder" resultMap="ProductionItemOrderMap" parameterType="Integer">
+          select "DocEntry","LineNum","ItemCode","BaseQty" from WOR1 where "DocEntry" = #{docEntry}
+    </select>
 </mapper>

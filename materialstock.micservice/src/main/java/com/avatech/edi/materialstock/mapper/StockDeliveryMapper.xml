@@ -21,7 +21,7 @@
     </select>
 
     <select id="fetchMaterialStockBatchItem" resultMap="StockDeliveryBatchItemMap" parameterType="String">
-        select T0."ItemCode",T0."WhsCode",T0."OnHand",T1."BatchNum",T1"Quantity" from OITW T0
+        select T0."ItemCode",T0."WhsCode",T0."OnHand",T1."BatchNum",T1."Quantity" from OITW T0
         INNER JOIN OIBT T1 ON T0."ItemCode" = T1."ItemCode" and T0."WhsCode" = T1."WhsCode"
         where T0."OnHand" &gt; 0 and T1."Quantity" &gt; 0 and T0."ItemCode" = #{itemCode}
     </select>

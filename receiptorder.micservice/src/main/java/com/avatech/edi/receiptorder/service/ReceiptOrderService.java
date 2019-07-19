@@ -2,6 +2,7 @@ package com.avatech.edi.receiptorder.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionOrder;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderBatchItem;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
@@ -30,6 +31,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -68,15 +70,20 @@ public class ReceiptOrderService{
         return restTemplate;
     }
 
+    /**
+     * 创建生产收货
+     * @param headers
+     * @param postUrl
+     * @param receiptOrder
+     * @throws Exception
+     */
     public void createReceiptOrder(HttpHeaders headers, String postUrl, ReceiptOrder receiptOrder) throws Exception {
         logger.info("同步生产收货信息:" + receiptOrder.toString());
         try {
-            //3、添加发货单表
             logger.info("同步到SAP的json数据"+getOrderString(receiptOrder));
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(receiptOrder), headers);
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
                     HttpMethod.POST, orderEntry, String.class);
-            // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
                 logger.info("生产收货同步成功");
@@ -84,7 +91,7 @@ public class ReceiptOrderService{
                 receiptOrder.setSyncDate(new Date());
                 receiptOrder.setSyncMessage("Sync successful");
                 Map node = new ObjectMapper().readValue(response.getBody(), Map.class);
-                receiptOrder.setSapDocEntry(node.get("DocEntry").toString());
+                receiptOrder.setSapDocEntry(Integer.valueOf(node.get("DocEntry").toString()));
             } else {
                 logger.info("单据同步失败");
                 receiptOrder.error("E", response.getBody(), receiptOrder.getErrorTime() + 1);
@@ -102,6 +109,38 @@ public class ReceiptOrderService{
     }
 
 
+    /**
+     * 更新生产订单
+     * @param headers
+     * @param postUrl
+     * @param receiptOrder
+     * @throws Exception
+     */
+    public void createProductionOrder(HttpHeaders headers, String postUrl, Integer docEntry,ReceiptOrder receiptOrder,Integer lineNumber) throws Exception {
+        logger.info("更新生产订单信息:" + receiptOrder.toString());
+        try {
+            logger.info("同步到SAP的json数据"+getProductionOrderString(receiptOrder,lineNumber));
+            HttpEntity<String> orderEntry = new HttpEntity<String>(getProductionOrderString(receiptOrder,lineNumber), headers);
+            ResponseEntity<String> response = getRestTemplate().exchange(postUrl+"("+docEntry+")",
+                    HttpMethod.PATCH, orderEntry, String.class);
+            logger.info("生产订单更新成功");
+        } catch (HttpClientErrorException e) {
+            logger.error(e.getResponseBodyAsString());
+            receiptOrder.error("E", e.getResponseBodyAsString().substring(0, e.getResponseBodyAsString().length() > 199 ? 199 : e.getResponseBodyAsString().length()), receiptOrder.getErrorTime() + 1);
+        } catch (HttpServerErrorException e) {
+            logger.error(e.getResponseBodyAsString());
+            receiptOrder.error("E", e.getResponseBodyAsString().substring(0, e.getResponseBodyAsString().length() > 199 ? 199 : e.getResponseBodyAsString().length()), receiptOrder.getErrorTime() + 1);
+        } catch (Exception e) {
+            logger.info("单据同步失败", e);
+            receiptOrder.error("E", e.getMessage().substring(0, e.getMessage().length() < 199 ? 199 : e.getMessage().length()), receiptOrder.getErrorTime() + 1);
+        }
+    }
+
+    /**
+     * 生产收货单数据序列化json
+     * @param receiptOrder
+     * @return
+     */
     private String getOrderString(ReceiptOrder receiptOrder){
         JSONArray DocumentLines = new JSONArray();
         JSONObject requestJson = new JSONObject();
@@ -109,7 +148,7 @@ public class ReceiptOrderService{
         JSONObject objLine = null;
         JSONObject BatchNumber ;
 
-        requestJson.put("DocDate","2019-07-12");//过账日期(YYYY-MM-DD)
+        requestJson.put("DocDate",new SimpleDateFormat("YYYY-MM-dd").format(new Date()));//过账日期(YYYY-MM-DD)
         requestJson.put("Comments",receiptOrder.getComments());//备份
         //明细
         for(ReceiptOrderItem item:receiptOrder.getreceiptOrderItems()){
@@ -130,9 +169,29 @@ public class ReceiptOrderService{
             }
             DocumentLines.add(objLine);
         }
-
         requestJson.put("DocumentLines",DocumentLines);
         return requestJson.toString();
     }
 
+    /**
+     * 生产订单数据序列化json
+     * @param receiptOrder
+     * @return
+     */
+    private String getProductionOrderString(ReceiptOrder receiptOrder,Integer lineNumber){
+        JSONArray documentLines = new JSONArray();
+        JSONObject requestJson = new JSONObject();
+        JSONObject objLine = new JSONObject();
+        objLine.put("LineNumber",lineNumber);
+        objLine.put("ItemNo","T00000001");
+        objLine.put("ProductionOrderIssueType","im_Backflush");
+        objLine.put("BaseQuantity",receiptOrder.getreceiptOrderItems().get(0).getWorkTime());
+        documentLines.add(objLine);
+        requestJson.put("ProductionOrderLines",documentLines);
+        return requestJson.toString();
+    }
+
+    public ProductionOrder fetchProductionOrder(Integer docEntry){
+        return receiptOrderRepository.fetchProductionOrder(docEntry);
+    }
 }

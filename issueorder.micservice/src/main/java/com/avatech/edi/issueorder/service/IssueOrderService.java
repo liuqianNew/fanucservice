@@ -76,7 +76,7 @@ public class IssueOrderService{
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
                     response.getStatusCode().equals(HttpStatus.CREATED)) {
-                logger.info("发货据同步成功");
+                logger.info("发货单据同步成功");
                 issueOrder.setIsSync("Y");
                 issueOrder.setSyncDate(new Date());
                 issueOrder.setSyncMessage("Sync successful");
