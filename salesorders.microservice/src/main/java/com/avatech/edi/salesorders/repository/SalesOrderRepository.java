@@ -6,8 +6,7 @@
 package com.avatech.edi.salesorders.repository;
 
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
-import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
-import org.springframework.stereotype.Component;
+import com.avatech.edi.salesorders.model.bo.salesorder.SyncResult;
 import java.util.List;
 
 public interface SalesOrderRepository {
@@ -21,4 +20,11 @@ public interface SalesOrderRepository {
     SalesOrder updateSalesOrder(String billNo);
 
     List<SalesOrder> fetchIsSyncSalesOrder();
+
+    void updateIsSync(SyncResult syncResult);
+
+    List<SalesOrder> fetchDeletedSalesOrder();
+
+    void updateDeteled(SyncResult syncResult);
+
 }

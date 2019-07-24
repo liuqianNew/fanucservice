@@ -177,7 +177,7 @@
              )
          </insert>
 
-    <select id="searchSalesOrderLine" resultMap="SalesOrderLineMap" parameterType="Long">
+    <select id="searchSalesOrderLines" resultMap="SalesOrderLineMap" parameterType="Long">
              SELECT
                      T0."DocEntry",
                      T0."LineId",
@@ -198,7 +198,7 @@
          </select>
 
 
-    <select id="syncSalesOrder"   resultMap="SalesOrderMap">
+    <select id="searchSyncSalesOrder"   resultMap="SalesOrderMap">
         SELECT
         T0."DocEntry",
         T0."CardCode",
@@ -223,10 +223,30 @@
         from "AVA_SM_ORDR" T0 WHERE T0."IsSync" = 'N'
     </select>
 
-
     <update id="updateSalesOrder" parameterType="String"  >
           UPDATE "AVA_SM_ORDR"  SET  "Deleted" ='Y'  WHERE "BillNo"=#{billno}
     </update>
 
+    <select id="searchDeletedSalesOrder"   resultMap="SalesOrderMap">
+    SELECT
+     T0."IsSync",
+     T0."SAPDocEntry" as "sapDocEntry",
+     T0."Deleted",
+     T0."DocEntry"
+     FROM "AVA_SM_ORDR" T0 WHERE T0."Deleted"='Y'
+    </select>
+    <update id="updateIsSyncByDocEntry" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SyncResult">
+         update  "AVA_SM_ORDR" set
+                 "IsSync"=#{isSync},
+                 "SyncDate"= #{syncDate,jdbcType=DATE},
+                 "sapDocEntry"=#{sapDocEntry}
+           where "DocEntry" = #{docEntry}
+     </update>
+
+    <update id="updateDeletedSalesOrder" parameterType="com.avatech.edi.salesorders.model.bo.salesorder.SyncResult">
+         update  "AVA_SM_ORDR" set
+                 "Deleted"=#{deleted}
+           where "DocEntry" = #{docEntry}
+     </update>
 
 </mapper>

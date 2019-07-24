@@ -9,6 +9,7 @@ import com.avatech.edi.common.data.ArrayList;
 import com.avatech.edi.salesorders.mapper.SalesOrderMapper;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
+import com.avatech.edi.salesorders.model.bo.salesorder.SyncResult;
 import com.avatech.edi.salesorders.repository.SalesOrderRepository;
 import com.avatech.edi.salesorders.utils.SnowflakeIdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,11 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
          return this.fetchSalesOrder(billNo);
     }
 
+    /**
+     * 查询未同步销售订单
+     * @return
+     */
+
     @Override
     public List<SalesOrder> fetchIsSyncSalesOrder() {
         List<SalesOrder> salesOrders = new ArrayList();
@@ -85,5 +91,34 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
             salesOrder.getsalesOrderLines().addAll(salesOrderLines);
         }
         return salesOrders;
+    }
+
+    /**
+     * 更新同步状态
+     * @param
+     * @return
+     */
+    @Override
+    public void updateIsSync(SyncResult syncResult) {
+            salesOrderMapper.updateIsSyncByDocEntry(syncResult);
+    }
+
+    /**
+     * 查询待取消订单
+     * @return
+     */
+    @Override
+    public List<SalesOrder> fetchDeletedSalesOrder() {
+        List<SalesOrder> salesOrders=salesOrderMapper.searchDeletedSalesOrder();
+        return  salesOrders;
+    }
+
+    /**
+     * 更新待取消订单
+     * @param syncResult
+     */
+    @Override
+    public void updateDeteled(SyncResult syncResult) {
+        salesOrderMapper.updateDeletedSalesOrder(syncResult);
     }
 }

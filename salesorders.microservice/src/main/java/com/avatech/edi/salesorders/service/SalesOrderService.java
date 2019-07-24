@@ -1,24 +1,48 @@
 package com.avatech.edi.salesorders.service;
 
-import com.avatech.edi.common.data.ArrayList;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
+import com.avatech.edi.salesorders.model.bo.salesorder.SyncResult;
 import com.avatech.edi.salesorders.repository.SalesOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SalesOrderService{
+public class SalesOrderService {
 
     @Autowired
     private SalesOrderRepository salesOrderRepository;
 
-     public List<SalesOrder> fetchSalesOrders(){
+    public List<SalesOrder> fetchSalesOrders() {
 
-         List<SalesOrder>  SalesOrder =  salesOrderRepository.fetchSalesOrders();
+        List<SalesOrder> SalesOrder = salesOrderRepository.fetchSalesOrders();
 
-         return SalesOrder;
-     }
+        return SalesOrder;
+    }
 
+    /**
+     * 同步状态 更新
+     *
+     * @param syncResult
+     */
+    public void updateIsSync(SyncResult syncResult) {
+        salesOrderRepository.updateIsSync(syncResult);
+    }
 
+    /**
+     * 查询待取消订单
+     */
+    public List<SalesOrder> fetchDeletedSalesOrder() {
+        List<SalesOrder> salesOrders = salesOrderRepository.fetchDeletedSalesOrder();
+        return salesOrders;
+    }
+
+    /**
+     * 更新待去订单状态
+     *
+     * @param syncResult
+     */
+    public void updateCancleSalesOrder(SyncResult syncResult) {
+        salesOrderRepository.updateDeteled(syncResult);
+    }
 }

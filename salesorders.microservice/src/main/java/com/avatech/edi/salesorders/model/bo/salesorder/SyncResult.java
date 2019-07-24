@@ -11,22 +11,15 @@ public class SyncResult {
 
     private String isSync;
 
-    //private String errorMsg;
-
     private String syncDate;
 
-    //private Integer syncTime;
-
-   // private Integer errorTimes;
+    private String deleted;
 
     public  SyncResult(Long docEntry, String sapDocEntry, String isSync,  String syncDate) {
         this.docEntry = docEntry;
         this.sapDocEntry = sapDocEntry;
         this.isSync = isSync;
-      //  this.errorMsg = errorMsg;
         this.syncDate = syncDate;
-       // this.syncTime = syncTime;
-      //  this.errorTimes = errorTimes;
     }
 
     public static SyncResult ok(Long docEntry, String sapDocEntry){
@@ -37,20 +30,13 @@ public class SyncResult {
         return new SyncResult(docEntry,"","E",DateUtils.newDate());
     }
 
-//    public static SyncResult error(String errorMsg,Long docEntry,Integer errorTimes){
-//        return new SyncResult(docEntry,"","N",errorMsg,DateUtils.newDate(),DateUtils.newTime(),errorTimes+1);
-//    }
-
-//    public SyncResult(Long docEntry,String sapDocEntry,String isSync,String errorMsg,String syncDate,Integer syncTime){
-//        this.docEntry = docEntry;
-//        this.sapDocEntry = sapDocEntry;
-//        this.isSync = isSync;
-//        this.errorMsg = errorMsg;
-//        this.syncDate = syncDate;
-//        this.syncTime = syncTime;
-//    }
-
-
+    public  SyncResult(Long docEntry,  String deleted) {
+        this.docEntry = docEntry;
+        this.deleted = deleted;
+    }
+    public static SyncResult cancle(Long docEntry){
+        return new SyncResult(docEntry,"SUCCESS");
+    }
 
     public Long getDocEntry() {
         return docEntry;
@@ -76,14 +62,6 @@ public class SyncResult {
         this.isSync = isSync;
     }
 
-//    public String getErrorMsg() {
-//        return errorMsg;
-//    }
-//
-//    public void setErrorMsg(String errorMsg) {
-//        this.errorMsg = errorMsg;
-//    }
-
     public String getSyncDate() {
         return syncDate;
     }
@@ -92,11 +70,11 @@ public class SyncResult {
         this.syncDate = syncDate;
     }
 
-//    public Integer getSyncTime() {
-//        return syncTime;
-//    }
-//
-//    public void setSyncTime(Integer syncTime) {
-//        this.syncTime = syncTime;
-//    }
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
 }

@@ -21,7 +21,7 @@ public class B1Manager {
     private String dbPassword = "123456";
 
     //@Value("${sap.dbServer}")
-    private String dbServer = "192.168.88.132:1433";
+    private String dbServer = "vmwarevic";
 
     // @Value("${sap.userName}")
     private String userName = "manager";
@@ -30,7 +30,7 @@ public class B1Manager {
     private String password = "avatech";
 
     //@Value("${sap.licenseServer}")
-    private String licenseServer = "192.168.88.132:30000";
+    private String licenseServer = "vmwarevic:30000";
 
     private volatile static ICompany company=null;
 

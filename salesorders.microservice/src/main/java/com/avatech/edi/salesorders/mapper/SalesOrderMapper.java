@@ -8,6 +8,7 @@ package com.avatech.edi.salesorders.mapper;
 
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
+import com.avatech.edi.salesorders.model.bo.salesorder.SyncResult;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -27,4 +28,12 @@ public interface SalesOrderMapper{
     List<SalesOrderLine> searchSalesOrderLines(Long docEntry);
 
     List<SalesOrder> searchSyncSalesOrder();
+
+    void updateIsSyncByDocEntry(SyncResult syncResult);
+
+    List<SalesOrder>searchDeletedSalesOrder();
+
+    void updateDeletedSalesOrder(SyncResult syncResult);
+
+
 }
