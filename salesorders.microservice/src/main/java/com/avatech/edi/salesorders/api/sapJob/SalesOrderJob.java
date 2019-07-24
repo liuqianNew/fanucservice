@@ -5,7 +5,6 @@ import com.avatech.edi.salesorders.model.bo.salesorder.B1Manager;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrder;
 import com.avatech.edi.salesorders.model.bo.salesorder.SalesOrderLine;
 import com.avatech.edi.salesorders.model.bo.salesorder.SyncResult;
-import com.avatech.edi.salesorders.repository.SalesOrderRepository;
 import com.avatech.edi.salesorders.service.SalesOrderService;
 import com.sap.smb.sbo.api.ICompany;
 import com.sap.smb.sbo.api.IDocuments;
@@ -14,7 +13,6 @@ import com.sap.smb.sbo.api.SBOCOMUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,8 +20,6 @@ import java.util.List;
 @Component
 public class SalesOrderJob {
     private Logger logger = LoggerFactory.getLogger(SalesOrderJob.class);
-    @Autowired
-    private SalesOrderRepository salesOrderRepository;
 
     @Autowired
     SalesOrderService salesOrderService;
@@ -31,7 +27,7 @@ public class SalesOrderJob {
    //@Scheduled(fixedRate = 30000)
     public void process() {
         try {
-            List<SalesOrder> salesOrders = salesOrderRepository.fetchIsSyncSalesOrder();
+            List<SalesOrder> salesOrders = salesOrderService.fetchIsSyncSalesOrder();
             if (salesOrders.size() <= 0) {
                 return;
             }
@@ -72,7 +68,7 @@ public class SalesOrderJob {
         }
         rtCode = documents.add();
         if (rtCode == 0) {
-            return company.getNewObjectKey().toString();
+            return company.getNewObjectKey();
         } else {
             throw new BusinessException(
                     company.getLastErrorCode() + ";", company.getLastErrorDescription()

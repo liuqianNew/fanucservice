@@ -21,6 +21,16 @@ public class SalesOrderService {
     }
 
     /**
+     * 查询未同步订单
+     *
+     * @return
+     */
+    public List<SalesOrder> fetchIsSyncSalesOrder() {
+        List<SalesOrder> salesOrders = salesOrderRepository.fetchIsSyncSalesOrder();
+        return salesOrders;
+    }
+
+    /**
      * 同步状态 更新
      *
      * @param syncResult
