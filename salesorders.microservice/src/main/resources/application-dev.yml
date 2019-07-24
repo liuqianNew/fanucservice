@@ -4,6 +4,6 @@ server:
 spring:
   datasource:
     url: "jdbc:sqlserver://vmwarevic;DatabaseName=SBODemoCN"
-    username: dev
+    username: wanghao
     password: 123456
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
