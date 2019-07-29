@@ -1,5 +1,6 @@
 package com.avatech.edi.receiptorder.model.bo.receiptorder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ public class ProductionOrder {
         super();
         this.productionItemOrders = new ArrayList<>();
     }
+
+    private BigDecimal planQuantity;
 
     private Integer docEntry;
 
@@ -33,10 +36,19 @@ public class ProductionOrder {
         this.productionItemOrders = productionItemOrders;
     }
 
+    public BigDecimal getPlanQuantity() {
+        return planQuantity;
+    }
+
+    public void setPlanQuantity(BigDecimal planQuantity) {
+        this.planQuantity = planQuantity;
+    }
+
     @Override
     public String toString() {
         return "ProductionOrder{" +
-                "docEntry=" + docEntry +
+                "planQuantity=" + planQuantity +
+                ", docEntry=" + docEntry +
                 ", productionItemOrders=" + productionItemOrders +
                 '}';
     }

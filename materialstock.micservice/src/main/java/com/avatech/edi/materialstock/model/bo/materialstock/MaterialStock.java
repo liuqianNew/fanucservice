@@ -22,6 +22,8 @@ public class MaterialStock{
 
     private Date syncDate;
 
+    private Date syncTime;
+
     private Integer errorTime;
 
     private List<MaterialStockItem> materialStockItems;
@@ -58,6 +60,14 @@ public class MaterialStock{
         this.syncDate = syncDate;
     }
 
+    public Date getSyncTime() {
+        return syncTime;
+    }
+
+    public void setSyncTime(Date syncTime) {
+        this.syncTime = syncTime;
+    }
+
     public Integer getErrorTime() {
         return errorTime;
     }
@@ -67,11 +77,20 @@ public class MaterialStock{
     }
 
     public List<MaterialStockItem> getMaterialStockItems() {
+        if(materialStockItems==null){
+            materialStockItems = new ArrayList<>();
+        }
         return materialStockItems;
     }
 
     public void setMaterialStockItems(List<MaterialStockItem> materialStockItems) {
         this.materialStockItems = materialStockItems;
+    }
+
+    public void error(String syncResult,String syncMessage,Integer errorTime){
+        this.setIsSync(syncResult);
+        this.setErrorTime(errorTime);
+        this.setSyncMessage(syncMessage);
     }
 
     @Override
@@ -81,6 +100,7 @@ public class MaterialStock{
                 ", isSync='" + isSync + '\'' +
                 ", syncMessage='" + syncMessage + '\'' +
                 ", syncDate=" + syncDate +
+                ", syncTime=" + syncTime +
                 ", errorTime=" + errorTime +
                 ", materialStockItems=" + materialStockItems +
                 '}';

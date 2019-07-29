@@ -270,17 +270,18 @@
 
     <resultMap id="ProductionOrderMap" type="com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionOrder">
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
+        <result column="PlannedQty" property="planQuantity" jdbcType="DECIMAL"/>
     </resultMap>
 
     <resultMap id="ProductionItemOrderMap" type="com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionItemOrder">
         <result column="DocEntry" property="docEntry" jdbcType="INTEGER"/>
         <result column="LineNum" property="lineNum" jdbcType="INTEGER"/>
         <result column="ItemCode" property="itemNo" jdbcType="NVARCHAR"/>
-        <result column="Quantity" property="baseQuantity" jdbcType="DECIMAL"/>
+        <result column="BaseQty" property="baseQuantity" jdbcType="DECIMAL"/>
     </resultMap>
 
     <select id="fetchProductionOrder" resultMap="ProductionOrderMap" parameterType="Integer">
-        select "DocEntry" from OWOR where "DocEntry" = #{docEntry}
+        select "DocEntry","PlannedQty" from OWOR where "DocEntry" = #{docEntry}
     </select>
 
     <select id="fetchProductionItemOrder" resultMap="ProductionItemOrderMap" parameterType="Integer">

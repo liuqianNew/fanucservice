@@ -15,8 +15,8 @@
         <result column="DocStatus" property="docStatus" jdbcType="NVARCHAR"/>
         <result column="Comments" property="comments" jdbcType="NVARCHAR"/>
         <result column="U_NAME" property="userSign" jdbcType="NVARCHAR"/>
-        <result column="U_PayType" property="payType" jdbcType="NVARCHAR"/>
-        <result column="U_DeliveryNum" property="deliveryNum" jdbcType="NVARCHAR"/>
+        <result column="PayType" property="payType" jdbcType="NVARCHAR"/>
+        <result column="DeliveryNum" property="deliveryNum" jdbcType="NVARCHAR"/>
         <result column="DocTime" property="docTime" jdbcType="DATE"/>
         <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
         <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
@@ -67,8 +67,8 @@
                  ,T0."DocStatus"
                  ,T0."Comments"
                  ,T4."U_NAME"
-                 ,T0."U_PayType"
-                 ,T0."U_DeliveryNum"
+                 ,T0."U_PayType" as "PayType"
+                 ,T0."U_DeliveryNum" as "DeliveryNum"
                  ,T0."DocTime"*100
                  ,'' as "Udf1"
                  ,'' as "Udf2"

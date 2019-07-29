@@ -19,7 +19,7 @@
         <result column="OcrCode5" property="ocrCode5" jdbcType="VARCHAR"/>
         <result column="OriginNum" property="originNum" jdbcType="INTEGER"/>
         <result column="Cardcode" property="cardcode" jdbcType="VARCHAR"/>
-        <result column="UserSign" property="userSign" jdbcType="VARCHAR"/>
+        <result column="U_NAME" property="userSign" jdbcType="VARCHAR"/>
         <result column="StartDate" property="startDate" jdbcType="DATE"/>
         <result column="DueDate" property="dueDate" jdbcType="DATE"/>
         <result column="DocTime" property="docTime" jdbcType="INTEGER"/>
@@ -67,7 +67,7 @@
                  ,T0."OcrCode5"
                  ,ifnull(T0."OriginNum",-1)
                  ,T0."CardCode"
-                 ,T0."UserSign"
+                 ,T1."U_NAME"
                  ,T0."StartDate"
                  ,T0."DueDate"
                  ,hour(current_time)*10000+minute(current_time)*100+second(current_time) as "DocTime"
@@ -76,7 +76,8 @@
                  ,'' as "Udf3"
                  ,'' as "Udf4"
                  ,'' as "Udf5"
-         FROM "OWOR" T0  WHERE "Status" = 'R' and IFNULL(T0."U_IsSync",'N') = 'N'
+         FROM "OWOR" T0  LEFT JOIN "OUSR" T1 ON T0."UserSign" = T1."USERID"
+         WHERE "Status" = 'R' and IFNULL(T0."U_IsSync",'N') = 'N'
     </select>
 
     <select id="searchProductionOrderItems" resultMap="ProductionOrderItemMap" parameterType="Integer">

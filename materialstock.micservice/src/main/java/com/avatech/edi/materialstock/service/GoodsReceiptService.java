@@ -58,11 +58,10 @@ public class GoodsReceiptService {
     }
     //创建库存收货单
     public void createGoodsReceipt(HttpHeaders headers, String postUrl, MaterialStock materialStock) {
-        logger.info("同步库存信息:%s", materialStock.toString());
         try {
             logger.info("同步到SAP的json数据"+getMaterialStock(materialStock));
             HttpEntity<String> orderEntry = new HttpEntity<String>(getMaterialStock(materialStock), headers);
-            ResponseEntity<String> response = restTemplate.exchange(postUrl,
+            ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
                     HttpMethod.POST, orderEntry, String.class);
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
@@ -80,12 +79,15 @@ public class GoodsReceiptService {
             }
         } catch (HttpClientErrorException e){
             logger.error(e.getResponseBodyAsString());
+            materialStock.error("E", e.getResponseBodyAsString().substring(0,e.getResponseBodyAsString().length() > 199?199:e.getResponseBodyAsString().length()), materialStock.getErrorTime() + 1);
             throw new BusinessException( "单据信息错误：",e.getResponseBodyAsString());
         }catch (HttpServerErrorException e){
             logger.error(e.getResponseBodyAsString());
+            materialStock.error("E", e.getResponseBodyAsString().substring(0,e.getResponseBodyAsString().length() > 199?199:e.getResponseBodyAsString().length()), materialStock.getErrorTime() + 1);
             throw new BusinessException( "服务器错误：",e.getResponseBodyAsString());
         }catch (Exception e) {
-            logger.error("同步库存信息发生异常", e);
+            logger.error("同步库存收货信息异常", e);
+            materialStock.error("E", e.getMessage().substring(0,e.getMessage().length()<199?199:e.getMessage().length()), materialStock.getErrorTime() + 1);
         }
     }
 

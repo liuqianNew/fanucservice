@@ -3,6 +3,7 @@ package com.avatech.edi.materialstock.model.bo.stocks;
 import com.avatech.edi.materialstock.model.bo.stocks.StockDeliveryBatchItem;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StockDeliveryItem {
@@ -40,6 +41,9 @@ public class StockDeliveryItem {
     }
 
     public List<StockDeliveryBatchItem> getStockDeliveryBatchItem() {
+        if(stockDeliveryBatchItem==null){
+            stockDeliveryBatchItem = new ArrayList<>();
+        }
         return stockDeliveryBatchItem;
     }
 

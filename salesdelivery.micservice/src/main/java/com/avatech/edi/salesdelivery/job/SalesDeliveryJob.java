@@ -96,7 +96,7 @@ public class SalesDeliveryJob {
                 salesDeliveryRepository.updateSalesDelivery(order);
             }
         } catch (Exception e) {
-            logger.error("同步生产发货发生异常", e);
+            logger.error("同步销售发货发生异常", e);
         }
     }
 

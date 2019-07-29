@@ -1,9 +1,8 @@
 package com.avatech.edi.materialstock.job;
 
 import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock;
-import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem;
 import com.avatech.edi.materialstock.model.bo.stocks.StockDelivery;
-import com.avatech.edi.materialstock.repository.MaterialStockRepository;
+import com.avatech.edi.materialstock.model.dto.Result;
 import com.avatech.edi.materialstock.service.GoodsIssueService;
 import com.avatech.edi.materialstock.service.GoodsReceiptService;
 import com.avatech.edi.materialstock.service.MaterialStockService;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -52,6 +50,9 @@ public class MaterialStockJob {
     @Value("${company.companyuser}")
     private String companyUser;
 
+    @Value("${company.servicelayerurl}")
+    private String serviceLayerAPI;
+
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
@@ -62,9 +63,9 @@ public class MaterialStockJob {
         try {
             // 1.get unsync order from mid database
             List<MaterialStock> materialStocks = materialStockService.fetchMaterialStocks();
-//            if (materialStocks == null || materialStocks.size() == 0) {
-//                return;
-//            }
+            if (materialStocks == null || materialStocks.size() == 0) {
+                return;
+            }
             // 2.get session
             String seesionId = getSessionId();
             if (StringUtils.isEmpty(seesionId)) {
@@ -76,29 +77,29 @@ public class MaterialStockJob {
             headers.add("Cookie", seesionId);
             // 3.call service layer to create production order
             StockDelivery stockDelivery = goodsIssueService.fetchMaterialStock();
-            if(stockDelivery == null || StringUtils.isEmpty(stockDelivery)){
+            logger.info("需要同步的库存发货数据"+stockDelivery.toString());
+            if(stockDelivery.getStockDeliveryItem() == null || stockDelivery.getStockDeliveryItem().size()==0){
                 for(MaterialStock materialStock : materialStocks){
                     //库存收货
-                    goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStock);
+                    goodsReceiptService.createGoodsReceipt(headers,serviceLayerAPI+GOODS_RECEIPT_URL,materialStock);
                     materialStockService.updateMaterialStock(materialStock);
                 }
             }else{
                 //库存发货
-                goodsIssueService.createGoodsIssue(headers,sessionUrl+GOODS_ISSUE_URL,stockDelivery);
-                logger.info("库存发货同步成功+++++++++");
+                goodsIssueService.createGoodsIssue(headers,serviceLayerAPI+GOODS_ISSUE_URL,stockDelivery);
                 for(MaterialStock materialStock : materialStocks){
                     //库存收货
-                    goodsReceiptService.createGoodsReceipt(headers,sessionUrl+GOODS_RECEIPT_URL,materialStock);
+                    goodsReceiptService.createGoodsReceipt(headers,serviceLayerAPI+GOODS_RECEIPT_URL,materialStock);
                     materialStockService.updateMaterialStock(materialStock);
                 }
             }
         } catch (Exception e) {
-            logger.error("同步生产发货发生异常", e);
+            logger.error("同步库存收发货异常", e);
         }
     }
 
     private String getSessionId(){
-        String response = restTemplate.getForObject(sessionUrl+"?comanydb="+companyDB+"&companyuser"+companyUser, String.class);
-        return response;
+        ResponseEntity<Result> response = restTemplate.getForEntity(sessionUrl + "?comanydb=" + companyDB + "&companyuser=" + companyUser, Result.class);
+        return response.getBody().getData();
     }
 }

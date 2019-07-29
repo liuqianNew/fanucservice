@@ -3,7 +3,6 @@ package com.avatech.edi.receiptorder.job;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionItemOrder;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ProductionOrder;
 import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrder;
-import com.avatech.edi.receiptorder.model.bo.receiptorder.ReceiptOrderItem;
 import com.avatech.edi.receiptorder.model.dto.Result;
 import com.avatech.edi.receiptorder.repository.ReceiptOrderRepository;
 import com.avatech.edi.receiptorder.service.ReceiptOrderService;
@@ -19,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -77,28 +75,29 @@ public class ReceiptOrderJob {
             headers.setContentType(type1);
             headers.add("Cookie", seesionId);
             // 3.call service layer to create production order
-            for (ReceiptOrder order : receiptOrders) {
+            for (ReceiptOrder order: receiptOrders) {
                 BigDecimal workTime = order.getreceiptOrderItems().get(0).getWorkTime();
-                if(workTime != null){
-                    logger.info("MES回传的生产订单号DocEntry:"+order.getSapDocEntry());
+                if (workTime != null) {
+                    logger.info("MES回传的生产订单号DocEntry:" + order.getSapDocEntry());
                     ProductionOrder productionOrder = receiptOrderService.fetchProductionOrder(order.getSapDocEntry());
-                    logger.info("DocEntry="+order.getSapDocEntry()+"的生产订单数据"+productionOrder.toString());
-                    logger.info("是否更新生产订单："+isVirtualMaterial(productionOrder));
-                    if(isVirtualMaterial(productionOrder)){
+                    order.getreceiptOrderItems().get(0).setWorkTime(workTime.divide(productionOrder.getPlanQuantity(),2,BigDecimal.ROUND_HALF_UP));
+                    logger.info("DocEntry=" + order.getSapDocEntry() + "的生产订单数据" + productionOrder.toString());
+                    logger.info("是否更新生产订单：" + isVirtualMaterial(productionOrder));
+                    if (isVirtualMaterial(productionOrder)) {
                         Integer lineNumber = productionOrder.getProductionItemOrders().size();
                         //更新生产订单
-                        receiptOrderService.createProductionOrder(headers,serviceLayerAPI + PRODUCTIONORDER_URL,order.getSapDocEntry(),order,lineNumber);
+                        receiptOrderService.updateProductionOrder(headers, serviceLayerAPI + PRODUCTIONORDER_URL, order.getSapDocEntry(), order, lineNumber);
                         //创建生产收货单
-                        receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTIONRECEIPT_URL,order);
+                        receiptOrderService.createReceiptOrder(headers, serviceLayerAPI + PRODUCTIONRECEIPT_URL, order);
                         receiptOrderRepository.updateReceipOrder(order);
-                    }else {
+                    } else {
                         //创建生产收货单
-                        receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTIONRECEIPT_URL,order);
+                        receiptOrderService.createReceiptOrder(headers, serviceLayerAPI + PRODUCTIONRECEIPT_URL, order);
                         receiptOrderRepository.updateReceipOrder(order);
                     }
-                }else{
+                } else {
                     //创建生产收货单
-                    receiptOrderService.createReceiptOrder(headers,serviceLayerAPI + PRODUCTIONRECEIPT_URL,order);
+                    receiptOrderService.createReceiptOrder(headers, serviceLayerAPI + PRODUCTIONRECEIPT_URL, order);
                     receiptOrderRepository.updateReceipOrder(order);
                 }
             }
@@ -113,7 +112,7 @@ public class ReceiptOrderJob {
     }
 
     /**
-     * 是否第一次更新生产订单
+     * 是否更新生产订单
      * @param productionOrder
      * @return
      */

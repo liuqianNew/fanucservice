@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.xml.ws.Response;
-import java.util.Date;
 import java.util.List;
 
 @Component

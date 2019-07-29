@@ -24,6 +24,7 @@ public class StockDeliveryRepositoryImp implements StockDeliveryRepository {
         stockDelivery.setDocDate(new Date());
         stockDelivery.setDocDueDate(new Date());
         stockDelivery.getStockDeliveryItem().addAll(stockDeliveryMapper.fetchMaterialStockItem());
+
         for(StockDeliveryItem item : stockDelivery.getStockDeliveryItem()){
             item.getStockDeliveryBatchItem().addAll(stockDeliveryMapper.fetchMaterialStockBatchItem(item.getItemCode()));
         }

@@ -1,5 +1,6 @@
 package com.avatech.edi.materialstock.model.bo.stocks;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class StockDelivery {
     }
 
     public List<StockDeliveryItem> getStockDeliveryItem() {
+        if(stockDeliveryItem==null){
+            stockDeliveryItem = new ArrayList<>();
+        }
         return stockDeliveryItem;
     }
 

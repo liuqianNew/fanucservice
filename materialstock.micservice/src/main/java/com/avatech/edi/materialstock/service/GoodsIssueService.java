@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -29,8 +28,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class GoodsIssueService {
@@ -64,11 +61,10 @@ public class GoodsIssueService {
 
     //创建库存发货单
     public void createGoodsIssue(HttpHeaders headers, String postUrl, StockDelivery stockDelivery) {
-        logger.info("同步库存发货信息:%s", stockDelivery.toString());
         try {
             logger.info("同步到SAP的json数据"+getStock(stockDelivery));
             HttpEntity<String> orderEntry = new HttpEntity<String>(getStock(stockDelivery), headers);
-            ResponseEntity<String> response = restTemplate.exchange(postUrl,
+            ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
                     HttpMethod.POST, orderEntry, String.class);
             // 4.update status of mid database order
             if (response.getStatusCode().equals(HttpStatus.OK) ||
@@ -84,7 +80,7 @@ public class GoodsIssueService {
             logger.error(e.getResponseBodyAsString());
             throw new BusinessException( "服务器错误：",e.getResponseBodyAsString());
         }catch (Exception e) {
-            logger.error("同步库存信息发生异常", e);
+            logger.error("同步库存发货信息异常", e);
         }
     }
 

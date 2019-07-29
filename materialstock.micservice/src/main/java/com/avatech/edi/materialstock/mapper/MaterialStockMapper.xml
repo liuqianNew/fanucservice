@@ -8,11 +8,7 @@
                 <result column="IsSync" property="isSync" jdbcType="NVARCHAR"/>
                 <result column="SyncMessage" property="syncMessage" jdbcType="NVARCHAR"/>
                 <result column="SyncDate" property="syncDate" jdbcType="DATE"/>
-                <result column="Udf1" property="udf1" jdbcType="NVARCHAR"/>
-                <result column="Udf2" property="udf2" jdbcType="NVARCHAR"/>
-                <result column="Udf3" property="udf3" jdbcType="NVARCHAR"/>
-                <result column="Udf4" property="udf4" jdbcType="NVARCHAR"/>
-                <result column="Udf5" property="udf5" jdbcType="NVARCHAR"/>
+                <result column="SyncTime" property="syncTime" jdbcType="DATE"/>
      </resultMap>
      <resultMap id="MaterialStockItemMap" type="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem">
                 <result column="EDIDocEntry" property="eDIDocEntry" jdbcType="BIGINT"/>
@@ -34,40 +30,22 @@
      <insert id="insertMaterialStock" parameterType="com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock">
          INSERT INTO "AVA_IM_OITW" (
                   "EDIDocEntry"
-                 ,"IsSync"
                  ,"SyncMessage"
-                 ,"ErrorTime"
-                 ,"SyncDate"
-                 ,"Udf1"
-                 ,"Udf2"
-                 ,"Udf3"
-                 ,"Udf4"
-                 ,"Udf5")
+                 ,"SyncDate")
          values(
                   #{eDIDocEntry}
-                  ,#{IsSync}
-                  ,#{SyncMessage}
-                  ,#{ErrorTime}
-                  ,#{SyncDate}
-                  ,#{udf1}
-                  ,#{udf2}
-                  ,#{udf3}
-                  ,#{udf4}
-                  ,#{udf5}
+                  ,#{syncMessage}
+                  ,#{syncDate}
          )
      </insert>
 
-     <select id="searchMaterialStock" resultMap="MaterialStockMap">
+     <select id="searchMaterialStocks" resultMap="MaterialStockMap">
          SELECT  T0."EDIDocEntry"
                  ,T0."IsSync"
                  ,T0."SyncMessage"
                  ,T0."SyncDate"
+                 ,T0."ErrorTime"
                  ,ifnull(T0."ErrorTime",0) "ErrorTime"
-                 ,T0."Udf1"
-                 ,T0."Udf2"
-                 ,T0."Udf3"
-                 ,T0."Udf4"
-                 ,T0."Udf5"
          from "AVA_IM_OITW" T0
          where ifnull(T0."IsSync",'N') != 'Y' AND ifnull(T0."ErrorTime",0) &lt; 5
      </select>
@@ -106,7 +84,7 @@
          )
      </insert>
 
-     <select id="searchMaterialStockItem" resultMap="MaterialStockItemMap" parameterType="Long">
+     <select id="searchMaterialStockItems" resultMap="MaterialStockItemMap" parameterType="Long">
          SELECT  T0."EDIDocEntry"
                  ,T0."ItemCode"
                  ,T0."ItemName"

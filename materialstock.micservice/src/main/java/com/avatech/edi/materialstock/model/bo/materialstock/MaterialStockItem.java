@@ -93,7 +93,7 @@ public class MaterialStockItem{
     private String udf5;
 
     @JsonProperty("Batchs")
-    private List materialStockItems;
+    private List MaterialStockBatchItem;
 
     public Long geteDIDocEntry() {
         return eDIDocEntry;
@@ -207,12 +207,12 @@ public class MaterialStockItem{
         this.udf5 = udf5;
     }
 
-    public List getMaterialStockItems() {
-        return materialStockItems;
+    public List getMaterialStockBatchItem() {
+        return MaterialStockBatchItem;
     }
 
-    public void setMaterialStockItems(List materialStockItems) {
-        this.materialStockItems = materialStockItems;
+    public void setMaterialStockBatchItem(List materialStockBatchItem) {
+        MaterialStockBatchItem = materialStockBatchItem;
     }
 
     public Result checkData() throws Exception{
@@ -245,7 +245,7 @@ public class MaterialStockItem{
                 ", udf3='" + udf3 + '\'' +
                 ", udf4='" + udf4 + '\'' +
                 ", udf5='" + udf5 + '\'' +
-                ", materialStockItems=" + materialStockItems +
+                ", MaterialStockBatchItem=" + MaterialStockBatchItem +
                 '}';
     }
 }
