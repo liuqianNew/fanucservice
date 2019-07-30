@@ -94,9 +94,8 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
     }
 
     /**
-     * 更新同步状态
-     * @param
-     * @return
+     *更新未同步订单状态
+     * @param syncResult
      */
     @Override
     public void updateIsSync(SyncResult syncResult) {
@@ -105,7 +104,7 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
 
     /**
      * 查询待取消订单
-     * @return
+     * @return  salesOrders;
      */
     @Override
     public List<SalesOrder> fetchDeletedSalesOrder() {

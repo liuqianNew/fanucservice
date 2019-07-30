@@ -26,8 +26,7 @@ public class SalesOrderService {
      * @return
      */
     public List<SalesOrder> fetchIsSyncSalesOrder() {
-        List<SalesOrder> salesOrders = salesOrderRepository.fetchIsSyncSalesOrder();
-        return salesOrders;
+        return salesOrderRepository.fetchIsSyncSalesOrder();
     }
 
     /**
@@ -43,8 +42,7 @@ public class SalesOrderService {
      * 查询待取消订单
      */
     public List<SalesOrder> fetchDeletedSalesOrder() {
-        List<SalesOrder> salesOrders = salesOrderRepository.fetchDeletedSalesOrder();
-        return salesOrders;
+        return salesOrderRepository.fetchDeletedSalesOrder();
     }
 
     /**
