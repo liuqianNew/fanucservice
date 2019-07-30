@@ -20,6 +20,7 @@ public class SyncResult {
         this.sapDocEntry = sapDocEntry;
         this.isSync = isSync;
         this.syncDate = syncDate;
+        
     }
 
     public static SyncResult ok(Long docEntry, String sapDocEntry){
