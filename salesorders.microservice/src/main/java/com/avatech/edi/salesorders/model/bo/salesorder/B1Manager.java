@@ -11,25 +11,25 @@ import org.slf4j.LoggerFactory;
 public class B1Manager {
     private Logger logger = LoggerFactory.getLogger(B1Manager.class);
 
-    //@Value("${sap.companyDB}")
+    //数据库名称
     private String comapnyDB = "SBODemoCN";
 
-    //@Value("${sap.dbUserName}")
+    //数据库用户名
     private String dbUserName = "wanghao";
 
-    //@Value("${sap.dbPassword}")
+    //数据库密码
     private String dbPassword = "123456";
 
-    //@Value("${sap.dbServer}")
+    //数据库服务
     private String dbServer = "vmwarevic";
 
-    // @Value("${sap.userName}")
+    //SAP用户名
     private String userName = "manager";
 
-    //@Value("${sap.password}")
+   //SAP密码
     private String password = "avatech";
 
-    //@Value("${sap.licenseServer}")
+   
     private String licenseServer = "vmwarevic:30000";
 
     private volatile static ICompany company=null;
