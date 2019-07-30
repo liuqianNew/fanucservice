@@ -24,7 +24,7 @@ public class SalesOrderJob {
     @Autowired
     SalesOrderService salesOrderService;
 
-   //@Scheduled(fixedRate = 30000)
+   @Scheduled(fixedRate = 300000)
     public void process() {
         try {
             List<SalesOrder> salesOrders = salesOrderService.fetchIsSyncSalesOrder();
