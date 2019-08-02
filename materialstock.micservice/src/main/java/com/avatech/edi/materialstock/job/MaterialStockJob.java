@@ -6,6 +6,7 @@ import com.avatech.edi.materialstock.model.dto.Result;
 import com.avatech.edi.materialstock.service.GoodsIssueService;
 import com.avatech.edi.materialstock.service.GoodsReceiptService;
 import com.avatech.edi.materialstock.service.MaterialStockService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

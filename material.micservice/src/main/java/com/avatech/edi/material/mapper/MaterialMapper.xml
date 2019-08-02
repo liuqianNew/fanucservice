@@ -55,12 +55,6 @@
                      ,T0."INUoMEntry"
                      ,T0."PrcrmntMtd"
                      ,T0."Volume" as BVolume
---                      ,'' as "Length"
---                      ,'' as "Width"
---                      ,'' as "Thickness"
---                      ,'' as "Weight"
---                      ,'' as "Material"
---                      ,'' as "Diameter"
                      ,T0."U_Length" as "Length"
                      ,T0."U_Width" as "Width"
                      ,T0."U_Thickness" as "Thickness"

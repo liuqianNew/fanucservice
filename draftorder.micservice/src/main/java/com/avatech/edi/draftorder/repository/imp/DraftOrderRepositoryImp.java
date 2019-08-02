@@ -32,8 +32,13 @@ public class DraftOrderRepositoryImp implements DraftOrderRepository{
         List<BatchItem> batchItems;
         HashMap<String,Integer> hashMap;
         for (DraftOrder draftOrder:draftOrders) {
-            draftOrder.setDocDate(new SimpleDateFormat("YYYY-MM-dd").format(draftOrder.getDocDate()));
-            draftOrder.setDocTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            draftOrder.setDocDate(draftOrder.getDocDate().substring(0,11));
+            String docTime = draftOrder.getDocTime();
+            if(docTime.length()==3){
+                draftOrder.setDocTime(docTime.substring(0,1)+":"+docTime.substring(1)+":00");
+            }else{
+                draftOrder.setDocTime(docTime.substring(0,2)+":"+docTime.substring(2)+":00");
+            }
             draftOrderItems = draftOrderMapper.searchDraftOrderItems(draftOrder.getDocEntry().toString());
             draftOrder.getdraftOrderItems().addAll(draftOrderItems);
 //            for (DraftOrderItem draftOrderItem:draftOrderItems) {
