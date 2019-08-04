@@ -9,8 +9,6 @@ import com.avatech.edi.purchasereceipt.model.dto.Result;
 import com.avatech.edi.purchasereceipt.service.PurchaseReceiptService;
 import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
-import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptItem;
-import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceiptBatchItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

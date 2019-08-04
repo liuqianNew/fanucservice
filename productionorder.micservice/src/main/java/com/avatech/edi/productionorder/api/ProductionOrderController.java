@@ -8,7 +8,6 @@ package com.avatech.edi.productionorder.api;
 import com.avatech.edi.productionorder.service.ProductionOrderService;
 import com.avatech.edi.productionorder.repository.ProductionOrderRepository;
 import com.avatech.edi.productionorder.model.bo.productionorder.ProductionOrder;
-import com.avatech.edi.productionorder.model.bo.productionorder.ProductionOrderItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("mes/v1/*")
 public class ProductionOrderController {
-
-    private final Logger logger = LoggerFactory.getLogger(ProductionOrderController.class);
 
     @Autowired
     private ProductionOrderService productionOrderService;
