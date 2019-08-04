@@ -72,19 +72,15 @@ public class GoodsReceiptService {
                 materialStock.setSyncMessage("Sync successful");
             } else {
                 logger.info("单据同步失败");
-                materialStock.setIsSync("E");
                 materialStock.setSyncDate(new Date());
-                materialStock.setSyncMessage(response.getBody());
-                materialStock.setErrorTime(materialStock.getErrorTime()+1);
+                materialStock.error("E", response.getBody(), materialStock.getErrorTime() + 1);
             }
         } catch (HttpClientErrorException e){
             logger.error(e.getResponseBodyAsString());
             materialStock.error("E", e.getResponseBodyAsString().substring(0,e.getResponseBodyAsString().length() > 199?199:e.getResponseBodyAsString().length()), materialStock.getErrorTime() + 1);
-            throw new BusinessException( "单据信息错误：",e.getResponseBodyAsString());
         }catch (HttpServerErrorException e){
             logger.error(e.getResponseBodyAsString());
             materialStock.error("E", e.getResponseBodyAsString().substring(0,e.getResponseBodyAsString().length() > 199?199:e.getResponseBodyAsString().length()), materialStock.getErrorTime() + 1);
-            throw new BusinessException( "服务器错误：",e.getResponseBodyAsString());
         }catch (Exception e) {
             logger.error("同步库存收货信息异常", e);
             materialStock.error("E", e.getMessage().substring(0,e.getMessage().length()<199?199:e.getMessage().length()), materialStock.getErrorTime() + 1);

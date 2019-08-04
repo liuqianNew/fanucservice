@@ -87,7 +87,7 @@ public class SalesDeliveryJob {
                     salesDeliveryService2.createSalesDelivery(headers,serviceLayerAPI + SALEDELIVERY_NOTES_URL,order);
                     salesDeliveryService2.deleteDraft(headers,serviceLayerAPI+ DRAFT,docEntry);
                 } catch (Exception e) {
-                    logger.error("销售发货单删除草稿发生异常", e);
+                    logger.error("创建销售订单异常", e);
                     //销售发货单中间表
                     order.setIsSync("E");
                     order.setErrorTime(order.getErrorTime() + 1);

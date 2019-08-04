@@ -28,8 +28,10 @@ public class MaterialStockRepositoryImp implements MaterialStockRepository{
         materialStock.seteDIDocEntry(ediId);
         materialStockMapper.insertMaterialStock(materialStock);
         for (MaterialStockItem materialStockItem:materialStock.getMaterialStockItems()) {
-            materialStockItem.seteDIDocEntry(ediId);
-            materialStockMapper.insertMaterialStockItem(materialStockItem);
+            if(materialStockItem.getQuantity()!=0){
+                materialStockItem.seteDIDocEntry(ediId);
+                materialStockMapper.insertMaterialStockItem(materialStockItem);
+            }
         }
     }
 
