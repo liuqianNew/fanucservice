@@ -7,7 +7,6 @@ package com.avatech.edi.materialstock.api;
 
 import com.avatech.edi.materialstock.model.dto.Result;
 import com.avatech.edi.materialstock.service.MaterialStockService;
-import com.avatech.edi.materialstock.repository.MaterialStockRepository;
 import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStock;
 import com.avatech.edi.materialstock.model.bo.materialstock.MaterialStockItem;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

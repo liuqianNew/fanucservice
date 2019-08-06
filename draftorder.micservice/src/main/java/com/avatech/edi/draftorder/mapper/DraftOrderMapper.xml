@@ -69,7 +69,7 @@
                  ,T4."U_NAME"
                  ,T0."U_PayType" as "PayType"
                  ,T0."U_DeliveryNum" as "DeliveryNum"
-                 ,T0."DocTime"*100
+                 ,T0."DocTime"
                  ,'' as "Udf1"
                  ,'' as "Udf2"
                  ,'' as "Udf3"

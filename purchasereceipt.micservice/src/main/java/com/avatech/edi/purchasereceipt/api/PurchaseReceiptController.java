@@ -7,8 +7,8 @@ package com.avatech.edi.purchasereceipt.api;
 
 import com.avatech.edi.purchasereceipt.model.dto.Result;
 import com.avatech.edi.purchasereceipt.service.PurchaseReceiptService;
-import com.avatech.edi.purchasereceipt.repository.PurchaseReceiptRepository;
 import com.avatech.edi.purchasereceipt.model.bo.purchasereceipt.PurchaseReceipt;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,6 @@ public class PurchaseReceiptController {
     
     @Autowired
     private PurchaseReceiptService purchaseReceiptService;
-
-    @Autowired
-    private PurchaseReceiptRepository purchaseReceiptRepository;
-
 
     @GetMapping("purchasereceipt")
     public PurchaseReceipt getPurchaseReceipt(){
