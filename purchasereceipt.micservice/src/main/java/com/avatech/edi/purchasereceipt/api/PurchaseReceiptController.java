@@ -36,6 +36,7 @@ public class PurchaseReceiptController {
     @PostMapping("purchasereceipts")
     public @ResponseBody List<Result> addPurchaseReceipt(@RequestBody List<PurchaseReceipt> purchaseReceipts){
         logger.info("接收采购收货信息：{}",purchaseReceipts.toString());
+
         List<Result> results = new ArrayList<>();
         Result result;
         for (PurchaseReceipt purchaseReceipt:purchaseReceipts){
