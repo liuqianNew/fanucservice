@@ -66,8 +66,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <version>1.2.9</version>
         </dependency>
     </dependencies>
 

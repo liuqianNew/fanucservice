@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:sap://172.18.19.127:30015?currentschema=*
-    username: *
-    password: *
+    url: jdbc:sap://172.18.19.127:30015?currentschema=ERP001_TEST
+    username: SYSTEM
+    password: Fanuc2019
     driver-class-name: com.sap.db.jdbc.Driver
 server:
   port: 9108
@@ -12,7 +12,7 @@ logging:
       hibernate:
         SQL: DEBUG
 company:
-  companydb: *
-  companyuser: BJ-FANUC\*
+  companydb: ERP001_TEST
+  companyuser: BJ-FANUC\ntc014
   sessionurl: http://172.18.19.131:9111/v1/servicelayersession
   servicelayerurl: https://172.18.19.127:50000/b1s/v1
