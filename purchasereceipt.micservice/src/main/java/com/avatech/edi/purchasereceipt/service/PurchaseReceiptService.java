@@ -67,9 +67,9 @@ public class PurchaseReceiptService{
     }
 
     public void createPurchaseReceipt(HttpHeaders headers,String postUrl,PurchaseReceipt purchaseReceipt) throws Exception {
-        logger.info("同步采购收货信息:%s", purchaseReceipt.toString());
         try {
            //3、添加采购收货表
+            logger.info("同步到sap的采购收货信息"+getOrderString(purchaseReceipt));
             HttpEntity<String> orderEntry = new HttpEntity<String>(getOrderString(purchaseReceipt), headers);
             ResponseEntity<String> response = getRestTemplate().exchange(postUrl,
             HttpMethod.POST, orderEntry, String.class);

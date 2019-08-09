@@ -104,7 +104,7 @@ public class ReceiptOrderService{
             receiptOrder.error("E", e.getResponseBodyAsString().substring(0, e.getResponseBodyAsString().length() > 199 ? 199 : e.getResponseBodyAsString().length()), receiptOrder.getErrorTime() + 1);
         } catch (Exception e) {
             logger.info("单据同步失败", e);
-            receiptOrder.error("E", e.getMessage().substring(0, e.getMessage().length() < 199 ? 199 : e.getMessage().length()), receiptOrder.getErrorTime() + 1);
+            receiptOrder.error("E", e.getMessage().substring(0, e.getMessage().length() > 199 ? 199 : e.getMessage().length()), receiptOrder.getErrorTime() + 1);
         }
     }
 

@@ -82,7 +82,7 @@ public class PurchaseReceiptJob {
                     //采购收货中间表
                     order.setIsSync("E");
                     order.setErrorTime(order.getErrorTime() + 1);
-                    order.setSyncMessage(e.getMessage().substring(0,200));
+                    order.setSyncMessage(e.getMessage().substring(0,e.getMessage().length()>199?199:e.getMessage().length()));
                 }
                 purchaseReceiptRepository.updatePurchaseReceipt(order);
             }
