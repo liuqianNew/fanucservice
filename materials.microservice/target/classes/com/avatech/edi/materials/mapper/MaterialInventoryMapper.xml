@@ -3,47 +3,35 @@
 <mapper namespace="com.avatech.edi.materials.mapper.MaterialInventoryMapper">
 
          <resultMap id="MaterialInventoryMap" type="com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory">
-                    <result column="ItemCode" property="itemCode" jdbcType="NVARCHAR"/>
-                    <result column="ItemName" property="itemName" jdbcType="NVARCHAR"/>
+                    <result column="ItemCode" property="itemCode" jdbcType="VARCHAR"/>
+                    <result column="ItemName" property="itemName" jdbcType="VARCHAR"/>
                     <result column="GroupCode" property="groupCode" jdbcType="DECIMAL"/>
-                    <result column="GroupName" property="groupName" jdbcType="NVARCHAR"/>
-                    <result column="PackUnit" property="packUnit" jdbcType="NVARCHAR"/>
+                    <result column="GroupName" property="groupName" jdbcType="VARCHAR"/>
+                    <result column="PackUnit" property="packUnit" jdbcType="VARCHAR"/>
                     <result column="OnHand" property="onHand" jdbcType="INTEGER"/>
                     <result column="Price" property="price" jdbcType="INTEGER"/>
          </resultMap>
 
-
-         <insert id="insertMaterialInventory" parameterType="com.avatech.edi.materials.model.bo.materialinventory.MaterialInventory">
-             INSERT INTO "AVA_IM_OITW" (
-                     "ItemCode",
-                     "ItemName",
-                     "GroupCode",
-                     "GroupName",
-                     "PackUnit",
-                     "OnHand",
-                     "Price"
-              )
-             values(
-                      #{itemCode},
-                      #{itemName},
-                      #{groupCode},
-                      #{groupName},
-                      #{packUnit},
-                      #{onHand},
-                      #{price}
-             )
-         </insert>
-
-         <select id="searchMaterialInventory" resultMap="MaterialInventoryMap">
-             SELECT
-                     T0."ItemCode",
-                     T0."ItemName",
-                     T0."GroupCode",
-                     T0."GroupName",
-                     T0."PackUnit",
-                     T0."OnHand",
-                     T0."Price"
-             from "AVA_IM_OITW" T0
+         <select id="searchMaterialInventory" resultMap="MaterialInventoryMap" parameterType="com.avatech.edi.materials.model.dto.MaterialParam">
+             select  T0."ItemCode",
+                 T0."ItemName",
+                 T0."GroupCode",
+                 T0."GroupName",
+                 T0."PackUnit",
+                 T0."OnHand",
+                 T0."Price" from
+                 (select ROW_NUMBER() over(order by "ItemCode") as "RowId",* from AVA_IM_VIEW_OITW
+                 where  1 = 1
+                        <if test="itemCode != null and itemCode != ''">
+                             and T0."ItemCode" = #{itemCode}
+                         </if>
+                         <if test="whsCode != null and whsCode != ''">
+                             and T0."WhsCode" = #{whsCode}
+                         </if>
+                         <if test="groupCode != null and groupCode != ''">
+                             and T0."GroupCode" = #{groupCode}
+                         </if>
+                 ) T0   where
+                 T0.RowId between #{beginIndex} and #{endIndex}
          </select>
-
 </mapper>

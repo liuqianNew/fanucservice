@@ -158,7 +158,7 @@
              )
          </insert>
 
-         <select id="searchSalesDeliveryLine" resultMap="SalesDeliveryLineMap">
+         <select id="searchSalesDeliveryLine" resultMap="SalesDeliveryLineMap" parameterType="Integer">
              SELECT
                      T0."DocEntry",
                      T0."LineId",
@@ -175,7 +175,7 @@
                      T0."Extend3",
                      T0."Extend4",
                      T0."Extend5"
-             from "AVA_SM_DLN1" T0
+             from "AVA_SM_DLN1" T0 where T0."DocEntry" = #{docEntry}
          </select>
 
 </mapper>

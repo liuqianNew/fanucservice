@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DomainModel Name="AccountDetail" ShortName="PM">
+    <Table Name="AVA_SM_ACCOUNT" Description="欠款明细" Type="bott_NoObject" State="bots_System" PropertyName="AccountDetail">
+        <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="DocEntry" FixedDataType="Long" />
+        <Field Name="SalesOrderNum" Description="销售订单号" DataType="db_Alpha" SubType="st_None" EditSize="16" PropertyName="SalesOrderNum" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="CardCode" Description="客户代码" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="CardCode" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="CardName" Description="客户名称" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="CardName" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="DocDate" Description="创建日期" DataType="db_Date" SubType="st_None" EditSize="15" PropertyName="DocDate" IsSystem="Yes" FixedDataType="Date" />
+        <Field Name="DocStatus" Description="单据状态" DataType="db_Numeric" SubType="st_None" EditSize="8" PropertyName="DocStatus" FixedDataType="Integer" />
+    </Table>
+    <Table Name="AVA_SM_ACCOUNTITEM" Description="欠款明细行" Type="bott_NoObject" State="bots_System" PropertyName="AccountDetailItem">
+        <Field Name="DocEntry" Description="单据编号" DataType="db_Numeric" SubType="st_None" EditSize="16" PropertyName="DocEntry" FixedDataType="Long" />
+        <Field Name="LineNum" Description="行号" DataType="db_Numeric" SubType="st_None" EditSize="10" PropertyName="LineNum" FixedDataType="Integer" />
+        <Field Name="ItemCode" Description="物料编号" DataType="db_Alpha" SubType="st_None" EditSize="30" PropertyName="ItemCode" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="ItemName" Description="物料描述" DataType="db_Alpha" SubType="st_None" EditSize="200" PropertyName="ItemName" IsSystem="Yes" FixedDataType="String" />
+        <Field Name="Quantity" Description="数量" DataType="db_Float" SubType="st_Quantity" EditSize="30" PropertyName="Quantity" IsSystem="Yes" FixedDataType="BigDecimal" />
+        <Field Name="Price" Description="单价" DataType="db_Float" SubType="st_Quantity" EditSize="10" PropertyName="Price" IsSystem="Yes" FixedDataType="BigDecimal" />
+		<Field Name="Amount" Description="总价" DataType="db_Float" SubType="st_Quantity" EditSize="10" PropertyName="Amount" IsSystem="Yes" FixedDataType="BigDecimal" />
+		<Field Name="WhsCode" Description="仓库代码" DataType="db_Alpha" SubType="st_None" EditSize="8" PropertyName="WhsCode" IsSystem="Yes" FixedDataType="String" />
+    </Table>
+    <BusinessObject Code="AVA_SM_ACCOUNT" Name="欠款明细" TableName="ORDR" ObjectType="bott_NoObject" CanCancel="Yes" CanClose="Yes" CanDelete="Yes" CanYearTransfer="Yes" ManageSeries="Yes" PropertyName="AccountDetail">
+        <ChildTables>
+            <ChildTable TableName="AVA_SM_ACCOUNTITEM"/>
+        </ChildTables>
+        <FindColumns />
+        <FormColumns />
+    </BusinessObject>
+</DomainModel>

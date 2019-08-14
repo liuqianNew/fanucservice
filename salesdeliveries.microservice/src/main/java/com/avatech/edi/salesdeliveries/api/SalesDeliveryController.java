@@ -5,6 +5,7 @@
  */
 package com.avatech.edi.salesdeliveries.api;
 
+
 import com.avatech.edi.model.dto.Result;
 import com.avatech.edi.salesdeliveries.service.SalesDeliveryService;
 import com.avatech.edi.salesdeliveries.repository.SalesDeliveryRepository;
@@ -31,11 +32,12 @@ public class SalesDeliveryController {
 
 
     @GetMapping("salesdelivery")
-    public @ResponseBody Result fetchSalesDelivery(@RequestParam String cardCode,
-                                                   @RequestParam String docDate,
-                                                   @RequestParam String billNo,
-                                                   @RequestParam Integer pageIndex,
-                                                   @RequestParam Integer pageSize) {
+    public @ResponseBody
+    Result fetchSalesDelivery(@RequestParam String cardCode,
+                              @RequestParam String docDate,
+                              @RequestParam String billNo,
+                              @RequestParam Integer pageIndex,
+                              @RequestParam Integer pageSize) {
         Result<List<SalesDelivery>> result = new Result<>();
         try {
             List<SalesDelivery> salesDeliveryList = salesDeliveryRepository.fetchSalesDeliverys();

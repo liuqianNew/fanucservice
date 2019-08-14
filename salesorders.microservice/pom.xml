@@ -18,26 +18,25 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>edi</id>-->
-<!--            <url>http://47.92.196.35:8081/repository/edi/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.avatech.edi</groupId>-->
-<!--            <artifactId>edi-freamwork-model</artifactId>-->
-<!--            <version>1.01.100_alpha</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.avatech.edi</groupId>
+            <artifactId>edi-freamwork-model</artifactId>
+            <version>1.01.100_alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>com.avatech.edi</groupId>
+            <artifactId>edi-freamwork-common</artifactId>
+            <version>1.01.100_alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>com.avatech.edi</groupId>
+            <artifactId>edi-freamwork-repository</artifactId>
+            <version>1.01.100_alpha</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sap.cloud.db.jdbc</groupId>
-            <artifactId>ngdbc</artifactId>
-            <version>2.3.48</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -81,16 +80,6 @@
             <version>5.1.8.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.avatech.edi</groupId>
-            <artifactId>edi-freamwork-model</artifactId>
-            <version>1.01.100_alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>com.avatech.edi</groupId>
-            <artifactId>edi-freamwork-common</artifactId>
-            <version>1.01.100_alpha</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -99,7 +88,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.avatech.edi.salesorders.SalesordersApplication</mainClass>
+                    <mainClass>com.avatech.edi.salesorders.SalesOrdersApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

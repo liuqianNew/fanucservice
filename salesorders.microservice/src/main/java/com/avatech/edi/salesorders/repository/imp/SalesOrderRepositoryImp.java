@@ -47,8 +47,8 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
      */
     @Override
     public List<SalesOrder> fetchSalesOrders(){
-        List<SalesOrder> salesOrders = new ArrayList();
-        salesOrders = salesOrderMapper.searchSalesOrders();
+        List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
+        salesOrders= salesOrderMapper.searchSalesOrders();
         List<SalesOrderLine> salesOrderLines ;
         for (SalesOrder salesOrder:salesOrders){
             salesOrderLines = salesOrderMapper.searchSalesOrderLines(salesOrder.getDocEntry());
@@ -83,7 +83,7 @@ public class SalesOrderRepositoryImp implements SalesOrderRepository{
 
     @Override
     public List<SalesOrder> fetchIsSyncSalesOrder() {
-        List<SalesOrder> salesOrders = new ArrayList();
+        List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
         salesOrders = salesOrderMapper.searchSyncSalesOrder();
         List<SalesOrderLine> salesOrderLines ;
         for (SalesOrder salesOrder:salesOrders){
